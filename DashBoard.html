@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li onclick="loadContent('field')">🌾 Field Management</li>
+            <li onclick="loadContent('crops')">🌱 Crops Management</li>
+            <li onclick="loadContent('staff')">👥 Staff Management</li>
+            <li onclick="loadContent('monitoring')">📊 Monitoring Log</li>
+            <li onclick="loadContent('vehicle')">🚜 Vehicle Management</li>
+            <li onclick="loadContent('equipment')">🔧 Equipment Service</li>
+        </ul>
+        <button class="logout-btn" onclick="logout()">🔓 Logout</button>
+    </aside>
+    <main class="content-area">
+        <div id="content">Select an option from the sidebar to display information here.</div>
+    </main>
+</div>
+<script src="JS/dashboard.js"></script>
+</body>
+</html>
