@@ -171,7 +171,164 @@ function loadContent(page) {
         }
 
     }
+
+
+    if (page === "crops") {
+        contentDiv.innerHTML = `
+        <div class="crop-management-container">
+            <h2>Crop Management</h2>
+            
+            <div class="search-panel">
+                <input type="text" id="cropSearchInput" placeholder="Search crops by code or name..." onkeyup="searchCrop()">
+            </div>
+
+            <form id="cropForm">
+                <input type="text" id="cropCode" placeholder="Crop Code" required>
+                <input type="text" id="scientificName" placeholder="Scientific Name" required>
+                <input type="text" id="category" placeholder="Category" required>
+                <input type="text" id="cropSeason" placeholder="Crop Season" required>
+                <input type="text" id="fieldId" placeholder="Field ID" required>
+                <input type="text" id="logId" placeholder="Log ID" required>
+                <input type="file" id="cropImage" accept="image/*">
+                <button type="submit">Add Crop</button>
+            </form>
+
+            <table id="cropsTable">
+                <thead>
+                    <tr>
+                        <th>Crop Code</th>
+                        <th>Scientific Name</th>
+                        <th>Category</th>
+                        <th>Season</th>
+                        <th>Field ID</th>
+                        <th>Log ID</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cropTableBody"></tbody>
+            </table>
+        </div>
+    `;
+
+        document.getElementById("cropForm").addEventListener("submit", addOrUpdateCrop);
+    }
+
+    let editingRow = null;
+
+    function addOrUpdateCrop(event) {
+        event.preventDefault();
+
+        const cropCode = document.getElementById("cropCode").value;
+        const scientificName = document.getElementById("scientificName").value;
+        const category = document.getElementById("category").value;
+        const cropSeason = document.getElementById("cropSeason").value;
+        const fieldId = document.getElementById("fieldId").value;
+        const logId = document.getElementById("logId").value;
+        const cropImage = document.getElementById("cropImage").files[0];
+
+        if (editingRow) {
+            updateCropRow(editingRow, cropCode, scientificName, category, cropSeason, fieldId, logId, cropImage);
+        } else {
+            addCropRow(cropCode, scientificName, category, cropSeason, fieldId, logId, cropImage);
+        }
+
+        document.getElementById("cropForm").reset();
+        editingRow = null;
+    }
+
+// Function to add a new crop row
+    function addCropRow(code, name, category, season, fieldId, logId, imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageUrl = e.target.result;
+
+            const tableBody = document.getElementById("cropTableBody");
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+            <td>${code}</td>
+            <td>${name}</td>
+            <td>${category}</td>
+            <td>${season}</td>
+            <td>${fieldId}</td>
+            <td>${logId}</td>
+            <td><img src="${imageUrl}" alt="Crop Image" class="crop-image"></td>
+            <td>
+                <button onclick="editCropRow(this)">Edit</button>
+                <button onclick="deleteCropRow(this)">Delete</button>
+            </td>
+        `;
+
+            tableBody.appendChild(row);
+        };
+
+        if (imageFile) {
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert("Please upload an image.");
+        }
+    }
+
+// Function to update an existing crop row
+    function updateCropRow(row, code, name, category, season, fieldId, logId, imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageUrl = e.target.result;
+
+            row.cells[0].innerText = code;
+            row.cells[1].innerText = name;
+            row.cells[2].innerText = category;
+            row.cells[3].innerText = season;
+            row.cells[4].innerText = fieldId;
+            row.cells[5].innerText = logId;
+            row.cells[6].innerHTML = `<img src="${imageUrl}" alt="Crop Image" class="crop-image">`;
+
+            editingRow = null;
+        };
+
+        if (imageFile) {
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert("Please upload an image.");
+        }
+    }
+
+// Function to edit a crop row
+    window.editCropRow = function(button) {
+        const row = button.closest("tr");
+
+        document.getElementById("cropCode").value = row.cells[0].innerText;
+        document.getElementById("scientificName").value = row.cells[1].innerText;
+        document.getElementById("category").value = row.cells[2].innerText;
+        document.getElementById("cropSeason").value = row.cells[3].innerText;
+        document.getElementById("fieldId").value = row.cells[4].innerText;
+        document.getElementById("logId").value = row.cells[5].innerText;
+
+        editingRow = row;
+    }
+
+// Function to delete a crop row
+    window.deleteCropRow = function(button) {
+        const row = button.closest("tr");
+        row.remove();
+    }
+
+// Function to search crops in the table by code or scientific name
+    window.searchCrop = function() {
+        const searchInput = document.getElementById("cropSearchInput").value.toLowerCase();
+        const rows = document.querySelectorAll("#cropsTable tbody tr");
+
+        rows.forEach(row => {
+            const code = row.cells[0].innerText.toLowerCase();
+            const name = row.cells[1].innerText.toLowerCase();
+
+            row.style.display = code.includes(searchInput) || name.includes(searchInput) ? "" : "none";
+        });
+    }
+
 }
+
 
 // Load the relevant JavaScript for field CRUD operations after loading the content
 document.head.appendChild(document.createElement("script")).src = "../JS/fieldCrud.js";
