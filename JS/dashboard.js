@@ -48,7 +48,7 @@ function loadContent(page) {
 
         // Re-initialize event listeners after injecting new content
         document.getElementById("fieldForm").addEventListener("submit", addOrUpdateField);
-        document.getElementById("fieldForm").addEventListener("submit", addOrUpdateField);
+       // document.getElementById("fieldForm").addEventListener("submit", addOrUpdateField);
 
         let editingRow = null; // Variable to track if a row is being edited
 
