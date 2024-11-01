@@ -530,4 +530,3 @@ function loadContent(page) {
 
 
 // Load the relevant JavaScript for field CRUD operations after loading the content
-document.head.appendChild(document.createElement("script")).src = "../JS/fieldCrud.js";
