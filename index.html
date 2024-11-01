@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="CSS/dashboard.css">
+  <link rel="stylesheet" href="CSS/field.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li onclick="loadContent('field')">🌾 Field Management</li>
+      <li onclick="loadContent('crops')">🌱 Crops Management</li>
+      <li onclick="loadContent('staff')">👥 Staff Management</li>
+      <li onclick="loadContent('monitoring')">📊 Monitoring Log</li>
+      <li onclick="loadContent('vehicle')">🚜 Vehicle Management</li>
+      <li onclick="loadContent('equipment')">🔧 Equipment Service</li>
+    </ul>
+    <a href="loginPage.html" class="logout-btn" onclick="logout()">🔓 Logout</a>
+  </aside>
+  <main class="content-area">
+    <div id="content">Select an option from the sidebar to display information here.</div>
+  </main>
+</div>
+
+<section id="fieldForm">
+  <div class="field-management-container">
+    <h2>Field Management</h2>
+
+    <!-- Search Panel -->
+    <div class="search-panel">
+      <input type="text" id="searchInput" placeholder="Search fields by code or name..." onkeyup="searchField()">
+    </div>
+
+    <!-- Add Field Form -->
+    <form id="field">
+      <input type="text" id="fieldCode" placeholder="Field Code" required>
+      <input type="text" id="fieldName" placeholder="Field Name" required>
+      <input type="text" id="fieldLocation" placeholder="Location" required>
+      <input type="number" id="extentSize" placeholder="Extent Size (in acres)" required>
+      <input type="text" id="crop" placeholder="Crop Type" required>
+      <input type="text" id="staff" placeholder="Assigned Staff" required>
+      <textarea id="log" placeholder="Field Log"></textarea>
+      <button type="submit">Add Field</button>
+    </form>
+
+    <!-- Fields Table -->
+    <table id="fieldsTable">
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Extent Size</th>
+        <th>Crop</th>
+        <th>Staff</th>
+        <th>Log</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<script src="../JS/dashboard.js"></script>
+<script src="../JS/fieldCrud.js"></script>
+<script>
+  const sections = {
+    field:,
+    crops: "<h2>Crops</h2><p>Monitor crop types, growth stages, fertilization schedules, and pest management.</p>",
+    staff: "<h2>Staff Management</h2><p>Track staff duties, assign roles, and maintain daily schedules.</p>",
+    monitoring: "<h2>Monitoring</h2><p>Real-time monitoring of field conditions, weather, and crop health using IoT sensors.</p>",
+    vehicle: "<h2>Vehicle Management</h2><p>Oversee the maintenance, scheduling, and usage of vehicles.</p>",
+    equipment: "<h2>Equipment Management</h2><p>Track equipment status, service schedules, and allocate tools.</p>"
+  };
+</script>
+</body>
+</html>
+
+
+</body>
+</html>
