@@ -20,22 +20,103 @@ function loadPage(page) {
 
         case "field":
             contentDiv.innerHTML = `
-                <h2>Staff Management</h2>
-                <form id="staffForm">
-                    <input type="text" placeholder="Staff Name" required>
-                    <input type="text" placeholder="Designation" required>
-                    <button type="submit">Add Staff</button>
-                </form>
-                <table>
-                    <thead>
-                        <tr><th>Name</th><th>Designation</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody id="staffTableBody"></tbody>
-                </table>`;
+               <div class="main-container">
+        <h2>Field Management</h2>
+        
+        <!-- Field Form -->
+        <form id="fieldForm" class="field-form">
+            <input type="text" id="fieldCode" placeholder="Field Code" required>
+            <input type="text" id="fieldName" placeholder="Field Name" required>
+            <input type="text" id="fieldLocation" placeholder="Field Location (Coordinate)" required>
+            <input type="text" id="fieldSize" placeholder="Extent Size of the Field" required>
+                <select name="crop" id="crop">
+                    <option value="">Select Crop ID</option>
+                </select>
+                <select name="staff" id="staff">
+                    <option value="">Select Staff ID</option>
+                </select>
+            <label for="fieldImage1">Field Image 1:</label>
+            <input type="file" id="fieldImage1" required>
+            <label for="fieldImage2">Field Image 2:</label>
+            <input type="file" id="fieldImage2" required>
+            <button type="submit" class="add-btn">Add Field</button>
+        </form>
+
+        <!-- Field Table -->
+        <table id="fieldTable" class="field-table">
+            <thead>
+                <tr>
+                    <th>Field Code</th>
+                    <th>Field Name</th>
+                    <th>Location</th>
+                    <th>Size</th>
+                    <th>Crops</th>
+                    <th>Staff</th>
+                    <th>Image 1</th>
+                    <th>Image 2</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="fieldTableBody"></tbody>
+        </table>
+    </div>
+`;
             break;
 
         case "crop":
-            contentDiv.innerHTML = `<h2>CROPS</h2><p>Manage your Crops here.</p>`;
+            contentDiv.innerHTML = `<h2>CROPS</h2><p>Manage your Crops here.</p>
+    
+<div class="main-content">
+    <h2>Crop Management</h2>
+
+    <form id="cropForm">
+        <label for="cropCode">Crop Code:</label>
+        <input type="text" id="cropCode" name="cropCode" placeholder="Enter Crop Code" required>
+
+        <label for="commonName">Crop Common Name:</label>
+        <input type="text" id="commonName" name="commonName" placeholder="Enter Common Name" required>
+
+        <label for="scientificName">Crop Scientific Name:</label>
+        <input type="text" id="scientificName" name="scientificName" placeholder="Enter Scientific Name" required>
+
+        <label for="cropImage">Crop Image:</label>
+        <input type="file" id="cropImage" name="cropImage" accept="image/*" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" placeholder="Enter Category" required>
+
+        <label for="season">Crop Season:</label>
+        <input type="text" id="season" name="season" placeholder="Enter Season" required>
+
+        <label for="field">Field:</label>
+        <select id="field" name="field">
+            <option value="">Select Field</option>
+            <!-- Options for fields can be dynamically loaded here -->
+        </select>
+
+        <button type="submit" class="submit-btn">Add Crop</button>
+    </form>
+
+    <h3>Crop List</h3>
+    <table id="cropTable">
+        <thead>
+            <tr>
+                <th>Crop Code</th>
+                <th>Common Name</th>
+                <th>Scientific Name</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Season</th>
+                <th>Field</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="cropTableBody">
+            <!-- Crop rows will be added here -->
+        </tbody>
+    </table>
+</div>
+`;
             break;
 
         case "staff":
