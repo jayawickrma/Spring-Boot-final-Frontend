@@ -123,7 +123,97 @@ function loadPage(page) {
             // staff page starting
 
         case "staff":
-            contentDiv.innerHTML = `<h2>STAFF</h2><p>View Staff here.</p>`;
+            contentDiv.innerHTML = `<div class="main-container">
+    <h2>Staff Management</h2>
+
+    <form id="staffForm" class="field-form">
+        <label for="staffId">ID:</label>
+        <input type="text" id="staffId" name="staffId" placeholder="Enter Staff ID" required>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
+
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" placeholder="Enter Designation" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="joinedDate">Joined Date:</label>
+        <input type="date" id="joinedDate" name="joinedDate" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="address1">Address Line 01:</label>
+        <input type="text" id="address1" name="address1" placeholder="Enter Address Line 01" required>
+
+        <label for="address2">Address Line 02:</label>
+        <input type="text" id="address2" name="address2" placeholder="Enter Address Line 02">
+
+        <label for="address3">Address Line 03:</label>
+        <input type="text" id="address3" name="address3" placeholder="Enter Address Line 03">
+
+        <label for="address4">Address Line 04:</label>
+        <input type="text" id="address4" name="address4" placeholder="Enter Address Line 04">
+
+        <label for="address5">Address Line 05:</label>
+        <input type="text" id="address5" name="address5" placeholder="Enter Address Line 05">
+
+        <label for="contactNo">Contact No.:</label>
+        <input type="text" id="contactNo" name="contactNo" placeholder="Enter Contact No." required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email" required>
+
+        <label for="role">Role:</label>
+        <input type="text" id="role" name="role" placeholder="Enter Role" required>
+
+        <label for="field">Field:</label>
+        <select id="field" name="field">
+            <option value="">Select Field</option>
+            <!-- Add field options dynamically if needed -->
+        </select>
+
+        <label for="vehicle">Vehicle:</label>
+        <input type="text" id="vehicle" name="vehicle" placeholder="Enter Vehicle Information">
+
+        <button type="submit" class="add-btn">Add Staff</button>
+    </form>
+
+    <h3>Staff List</h3>
+    <table class="field-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Designation</th>
+                <th>Gender</th>
+                <th>Joined Date</th>
+                <th>DOB</th>
+                <th>Address</th>
+                <th>Contact No.</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Field</th>
+                <th>Vehicle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="staffTableBody">
+            <!-- Rows will be added dynamically -->
+        </tbody>
+    </table>
+</div>`;
             break;
 
             // logs page starting
