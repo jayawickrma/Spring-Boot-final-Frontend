@@ -123,7 +123,8 @@ function loadPage(page) {
             // staff page starting
 
         case "staff":
-            contentDiv.innerHTML = `<div class="main-container">
+            contentDiv.innerHTML = `
+<div class="main-container">
     <h2>Staff Management</h2>
 
     <form id="staffForm" class="field-form">
@@ -140,7 +141,7 @@ function loadPage(page) {
         <input type="text" id="designation" name="designation" placeholder="Enter Designation" required>
 
         <label for="gender">Gender:</label>
-        <select id="gender" name="gender">
+        <select id="gender" name="gender" required>
             <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -178,7 +179,7 @@ function loadPage(page) {
         <input type="text" id="role" name="role" placeholder="Enter Role" required>
 
         <label for="field">Field:</label>
-        <select id="field" name="field">
+        <select id="field" name="field" required>
             <option value="">Select Field</option>
             <!-- Add field options dynamically if needed -->
         </select>
