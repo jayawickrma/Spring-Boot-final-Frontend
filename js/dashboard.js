@@ -220,7 +220,51 @@ function loadPage(page) {
             // logs page starting
 
         case "logs":
-            contentDiv.innerHTML = `<h2>LOG SERVICE</h2><p>View Log Services here.</p>`;
+            contentDiv.innerHTML = `<div class="main-container">
+    <h2>Log Management</h2>
+
+    <form id="logForm" class="field-form">
+        <label for="logCode">Log Code:</label>
+        <input type="text" id="logCode" name="logCode" placeholder="Enter Log Code" required>
+
+        <label for="logDate">Log Date:</label>
+        <input type="date" id="logDate" name="logDate" required>
+
+        <label for="logDetails">Log Details / Observation:</label>
+        <textarea id="logDetails" name="logDetails" rows="4" placeholder="Enter Log Details" required></textarea>
+
+        <label for="observedImage">Observed Image Field:</label>
+        <input type="file" id="observedImage" name="observedImage" accept="image/*" required>
+
+        <select name="crop" id="crop">
+        <option value="">Select your Crop type</option>
+</select>
+
+        <select name="staff" id="staff">
+        <option value="">Select the Staff</option>
+</select>
+
+        <button type="submit" class="add-btn">Add Log</button>
+    </form>
+
+    <h3>Log List</h3>
+    <table class="field-table">
+        <thead>
+            <tr>
+                <th>Log Code</th>
+                <th>Log Date</th>
+                <th>Log Details</th>
+                <th>Observed Image</th>
+                <th>Crop</th>
+                <th>Staff</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="logTableBody">
+            <!-- Rows will be added dynamically -->
+        </tbody>
+    </table>
+</div>`;
             break;
 
             // vehicle page starting
