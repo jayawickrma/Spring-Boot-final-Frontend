@@ -196,7 +196,7 @@ function loadContent(page) {
             </div>
         `;
         document.getElementById("cropForm").addEventListener("submit", addOrUpdateCrop);
-        let editingRow = null;
+        let editingRows = null;
 
         function addOrUpdateCrop(event) {
             event.preventDefault();
@@ -310,5 +310,202 @@ function loadContent(page) {
                 row.style.display = (code.includes(searchInput) || name.includes(searchInput)) ? "" : "none";
             });
         };
+        if (page === "staff") {
+            contentDiv.innerHTML = `
+        <div class="staff-management-container">
+            <h2>Staff Management</h2>
+            
+            <form id="staffForm">
+                <input type="text" id="staffCode" placeholder="Staff Code" required>
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <input type="text" id="designation" placeholder="Designation" required>
+                <input type="text" id="gender" placeholder="Gender" required>
+                <input type="text" id="joinedDate" placeholder="Joined Date" required>
+                <input type="text" id="dob" placeholder="Date of Birth" required>
+                <input type="text" id="buildingNumber" placeholder="Building Number" required>
+                <input type="text" id="lane" placeholder="Lane" required>
+                <input type="text" id="city" placeholder="City" required>
+                <input type="text" id="state" placeholder="State" required>
+                <input type="text" id="postalCode" placeholder="Postal Code" required>
+                <input type="text" id="contactNumber" placeholder="Contact Number" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="role" placeholder="Role" required>
+                <input type="text" id="field" placeholder="Field" required>
+                <input type="text" id="logs" placeholder="Logs" required>
+                <input type="text" id="vehicle" placeholder="Vehicle" required>
+                <input type="text" id="equipment" placeholder="Equipment" required>
+                <button type="submit">Add Staff</button>
+            </form>
+
+            <table id="staffTable">
+                <thead>
+                    <tr>
+                        <th>Staff Code</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Designation</th>
+                        <th>Gender</th>
+                        <th>Joined Date</th>
+                        <th>DOB</th>
+                        <th>Building No</th>
+                        <th>Lane</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Postal Code</th>
+                        <th>Contact No</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Field</th>
+                        <th>Logs</th>
+                        <th>Vehicle</th>
+                        <th>Equipment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="staffTableBody"></tbody>
+            </table>
+        </div>
+    `;
+
+            document.getElementById("staffForm").addEventListener("submit", addOrUpdateStaff);
+        }
+
+        let editingRow = null;
+
+        function addOrUpdateStaff(event) {
+            event.preventDefault();
+
+            const staffData = {
+                staffCode: document.getElementById("staffCode").value,
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                designation: document.getElementById("designation").value,
+                gender: document.getElementById("gender").value,
+                joinedDate: document.getElementById("joinedDate").value,
+                dob: document.getElementById("dob").value,
+                buildingNumber: document.getElementById("buildingNumber").value,
+                lane: document.getElementById("lane").value,
+                city: document.getElementById("city").value,
+                state: document.getElementById("state").value,
+                postalCode: document.getElementById("postalCode").value,
+                contactNumber: document.getElementById("contactNumber").value,
+                email: document.getElementById("email").value,
+                role: document.getElementById("role").value,
+                field: document.getElementById("field").value,
+                logs: document.getElementById("logs").value,
+                vehicle: document.getElementById("vehicle").value,
+                equipment: document.getElementById("equipment").value
+            };
+
+            if (editingRow) {
+                // Send AJAX request to update staff data
+                const staffId = editingRow.dataset.id; // Assume each row has a unique data-id attribute
+                fetch(`/api/staff/${staffId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(staffData)
+                })
+                    .then(response => response.json())
+                    .then(updatedData => {
+                        updateStaffRowInTable(updatedData);
+                        editingRow = null;
+                        document.getElementById("staffForm").reset();
+                    })
+                    .catch(error => console.error("Error updating staff:", error));
+            } else {
+                // Send AJAX request to add new staff data
+                fetch(`/api/staff`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(staffData)
+                })
+                    .then(response => response.json())
+                    .then(newStaff => {
+                        addStaffRowToTable(newStaff);
+                        document.getElementById("staffForm").reset();
+                    })
+                    .catch(error => console.error("Error adding staff:", error));
+            }
+        }
+
+        function addStaffRowToTable(data) {
+            const tableBody = document.getElementById("staffTableBody");
+            const row = document.createElement("tr");
+            row.dataset.id = data.id; // Store the staff ID for future updates
+
+            row.innerHTML = `
+        <td>${data.staffCode}</td>
+        <td>${data.firstName}</td>
+        <td>${data.lastName}</td>
+        <td>${data.designation}</td>
+        <td>${data.gender}</td>
+        <td>${data.joinedDate}</td>
+        <td>${data.dob}</td>
+        <td>${data.buildingNumber}</td>
+        <td>${data.lane}</td>
+        <td>${data.city}</td>
+        <td>${data.state}</td>
+        <td>${data.postalCode}</td>
+        <td>${data.contactNumber}</td>
+        <td>${data.email}</td>
+        <td>${data.role}</td>
+        <td>${data.field}</td>
+        <td>${data.logs}</td>
+        <td>${data.vehicle}</td>
+        <td>${data.equipment}</td>
+        <td>
+            <button onclick="editStaffRow(this)">Edit</button>
+            <button onclick="deleteStaffRow(this)">Delete</button>
+        </td>
+    `;
+            tableBody.appendChild(row);
+        }
+
+        function updateStaffRowInTable(data) {
+            const row = document.querySelector(`tr[data-id="${data.id}"]`);
+            row.cells[0].innerText = data.staffCode;
+            row.cells[1].innerText = data.firstName;
+            row.cells[2].innerText = data.lastName;
+            row.cells[3].innerText = data.designation;
+            row.cells[4].innerText = data.gender;
+            row.cells[5].innerText = data.joinedDate;
+            row.cells[6].innerText = data.dob;
+            row.cells[7].innerText = data.buildingNumber;
+            row.cells[8].innerText = data.lane;
+            row.cells[9].innerText = data.city;
+            row.cells[10].innerText = data.state;
+            row.cells[11].innerText = data.postalCode;
+            row.cells[12].innerText = data.contactNumber;
+            row.cells[13].innerText = data.email;
+            row.cells[14].innerText = data.role;
+            row.cells[15].innerText = data.field;
+            row.cells[16].innerText = data.logs;
+            row.cells[17].innerText = data.vehicle;
+            row.cells[18].innerText = data.equipment;
+        }
+
+        window.editStaffRow = function(button) {
+            const row = button.closest("tr");
+            editingRow = row;
+            // Populate form fields with row data for editing
+            [...row.cells].forEach((cell, index) => {
+                document.getElementById(row.children[index].id).value = cell.innerText;
+            });
+        };
+
+        window.deleteStaffRow = function(button) {
+            const row = button.closest("tr");
+            const staffId = row.dataset.id;
+
+            fetch(`/api/staff/${staffId}`, {
+                method: 'DELETE'
+            })
+                .then(() => {
+                    row.remove();
+                })
+                .catch(error => console.error("Error deleting staff:", error));
+        };
+
     }
 }
