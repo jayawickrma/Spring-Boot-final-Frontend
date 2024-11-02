@@ -64,7 +64,7 @@ function loadPage(page) {
             break;
 
         case "crop":
-            contentDiv.innerHTML = `<h2>CROPS</h2><p>Manage your Crops here.</p>
+            contentDiv.innerHTML = `
     
 <div class="main-content">
     <h2>Crop Management</h2>
