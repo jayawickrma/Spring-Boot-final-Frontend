@@ -15,6 +15,7 @@ function loadPage(page) {
     switch (page) {
         case "home":
             contentDiv.innerHTML = `<h2>Home</h2><p>Welcome to the Green Shadow.</p>`;
+
             break;
 
         case "field":
