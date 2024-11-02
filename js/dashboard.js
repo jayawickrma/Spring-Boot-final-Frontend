@@ -18,6 +18,8 @@ function loadPage(page) {
 
             break;
 
+            // field page statring
+
         case "field":
             contentDiv.innerHTML = `
                <div class="main-container">
@@ -62,6 +64,8 @@ function loadPage(page) {
     </div>
 `;
             break;
+
+            // crop page starting
 
         case "crop":
             contentDiv.innerHTML = `<div class="main-container">
@@ -116,17 +120,25 @@ function loadPage(page) {
 </div>`;
             break;
 
+            // staff page starting
+
         case "staff":
             contentDiv.innerHTML = `<h2>STAFF</h2><p>View Staff here.</p>`;
             break;
+
+            // logs page starting
 
         case "logs":
             contentDiv.innerHTML = `<h2>LOG SERVICE</h2><p>View Log Services here.</p>`;
             break;
 
+            // vehicle page starting
+
         case "vehicle":
             contentDiv.innerHTML = `<h2>VEHICLES</h2><p>View Vehicles here.</p>`;
             break;
+
+            // equipment page starting
 
         case "equipment":
             contentDiv.innerHTML = `<h2>EQUIPMENTS</h2><p>View Equipments here.</p>`;
