@@ -64,12 +64,10 @@ function loadPage(page) {
             break;
 
         case "crop":
-            contentDiv.innerHTML = `
-    
-<div class="main-content">
+            contentDiv.innerHTML = `<div class="main-container">
     <h2>Crop Management</h2>
 
-    <form id="cropForm">
+    <form id="cropForm" class="field-form">
         <label for="cropCode">Crop Code:</label>
         <input type="text" id="cropCode" name="cropCode" placeholder="Enter Crop Code" required>
 
@@ -91,14 +89,14 @@ function loadPage(page) {
         <label for="field">Field:</label>
         <select id="field" name="field">
             <option value="">Select Field</option>
-            <!-- Options for fields can be dynamically loaded here -->
+            <!-- Add field options dynamically if needed -->
         </select>
 
-        <button type="submit" class="submit-btn">Add Crop</button>
+        <button type="submit" class="add-btn">Add Crop</button>
     </form>
 
     <h3>Crop List</h3>
-    <table id="cropTable">
+    <table class="field-table">
         <thead>
             <tr>
                 <th>Crop Code</th>
@@ -112,11 +110,10 @@ function loadPage(page) {
             </tr>
         </thead>
         <tbody id="cropTableBody">
-            <!-- Crop rows will be added here -->
+            <!-- Rows will be added dynamically -->
         </tbody>
     </table>
-</div>
-`;
+</div>`;
             break;
 
         case "staff":
