@@ -114,3 +114,42 @@ h2 {
     background-color: #e74c3c;
     color: white;
 }
+.main-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.field-form {
+    margin-bottom: 20px;
+}
+
+.field-form label {
+    display: block;
+    margin: 5px 0;
+}
+
+.field-form input,
+.field-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.field-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.field-table th,
+.field-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.field-table th {
+    background-color: #f2f2f2;
+}
