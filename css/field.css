@@ -1,9 +1,24 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
 /* Main Container Styling */
 .main-container {
     margin-left: 250px; /* Adjust for sidebar */
     padding: 20px;
     width: calc(100% - 250px);
     background-color: #f9f9f9;
+    border-radius: 8px; /* Optional: Add border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
 }
 
 .main-container h2 {
@@ -40,6 +55,7 @@
     color: #333;
 }
 
+/* Add Button Styling */
 .field-form .add-btn {
     grid-column: span 2;
     padding: 10px 20px;
@@ -51,8 +67,6 @@
     font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s;
-    align-self: start;
-    justify-self: start;
 }
 
 .field-form .add-btn:hover {
