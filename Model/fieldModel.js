@@ -9,4 +9,5 @@ export default class field{
                 this._img1=img1;
                 this._img2=img2;
     }
+
 }
