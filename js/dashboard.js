@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sections.forEach(section => section.style.display = 'none');
 
     // Display the "Home" section or default section on page load
-    const defaultSection = document.querySelector('#fieldSection');
+    const defaultSection = document.querySelector('#homeSection');
     if (defaultSection) defaultSection.style.display = 'block';
 
     // Event listener for sidebar links
