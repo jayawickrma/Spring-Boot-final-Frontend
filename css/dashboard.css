@@ -1,11 +1,3 @@
-/* CSS Folder Structure
-- css/
-  - reset.css (optional for additional resets)
-  - styles.css (main stylesheet)
-*/
-
-/* styles.css */
-
 /* Reset styles */
 * {
     margin: 0;
@@ -17,17 +9,18 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* Sidebar Styling */
 .sidebar {
     width: 250px;
-    background-color: #00FF9C; /* Light background color */
-    color: #333; /* Darker text color for readability */
+    background-color: #00FF9C;
+    color: #333;
     padding: 20px;
     position: fixed;
-    height: 100%;
-    overflow: auto;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -35,21 +28,19 @@ body {
 
 .sidebar h2 {
     text-align: center;
-    color: #111; /* Muted but visible header color */
+    color: #111;
     margin-bottom: 70px;
 }
 
 .sidebar ul {
     list-style-type: none;
+    padding: 0;
     flex-grow: 1;
-
 }
 
 .sidebar ul li {
-
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
-    text-size-adjust: auto;
 }
 
 .sidebar ul li a {
@@ -70,16 +61,31 @@ body {
 
 /* Main Content Styling */
 .main-content {
-    margin-left: 250px;
+    margin-left: 250px; /* Offset for sidebar */
     padding: 20px;
-    width: calc(100% - 250px);
+    width: calc(100vw - 250px); /* Available width without sidebar */
+    height: 100vh; /* Full height of viewport */
     overflow-y: auto;
 }
 
+/* Content Wrapper Styling */
 #content {
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 5px;
+}
+
+/* Section Styling */
+section {
+    /*display: none; !* Hide initially *!*/
+    width: 100%; /* Take full width of .main-content */
+    min-height: 100%; /* Ensure it fills main content height */
+    display: flex; /* Center content */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px;
 }
 
 /* Logout Button */
@@ -102,15 +108,3 @@ body {
 .logout-btn:hover {
     background-color: #c0392b;
 }
-section {
-    display: none; /* Hide initially */
-    width: 100vw;
-    height: 100vh;
-    display: flex; /* Flex layout for centering */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow-y: auto; /* Allows scrolling if content is taller than viewport */
-    padding: 20px; /* Optional padding for spacing */
-}
-
