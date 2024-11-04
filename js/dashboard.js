@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sections.forEach(section => {
         section.style.display = 'none';
         section.style.width = '1500vw'; // Adjust to full viewport width
-        section.style.height = '100vh'; // Full viewport height
+        section.style.height = '10vh'; // Full viewport height
         section.style.justifyContent = 'center';
         section.style.alignItems = 'center';
         section.style.flexDirection = 'column';
