@@ -31,12 +31,10 @@
 
 <section id="homeSection"></section>
 
-<section id="fieldSection">
+  <section id="fieldSection">
     <div class="main-container">
-    <h2>Field Management</h2>
+      <h2>Field Management</h2>
 
-
-      <lable f></lable>
       <input type="text" id="fieldCode" placeholder="Field Code" required>
       <input type="text" id="fieldName" placeholder="Field Name" required>
       <input type="text" id="fieldLocation" placeholder="Field Location (Coordinate)" required>
@@ -48,31 +46,31 @@
         <option value="">Select Staff ID</option>
       </select>
       <label for="fieldImage1">Field Image 1:</label>
-      <input type="file" id="fieldImage1" required>
+      <input type="file" id="fieldImage1" accept="image/*" required>
       <label for="fieldImage2">Field Image 2:</label>
-      <input type="file" id="fieldImage2" required>
-      <button type="submit" class="add-btn">Add Field</button>
+      <input type="file" id="fieldImage2" accept="image/*" required>
+      <button id="addFieldBtn" class="add-btn">Add Field</button>
 
-
-    <!-- Field Table -->
-    <table id="fieldTable" class="field-table">
-      <thead>
-      <tr>
-        <th>Field Code</th>
-        <th>Field Name</th>
-        <th>Location</th>
-        <th>Size</th>
-        <th>Crops</th>
-        <th>Staff</th>
-        <th>Image 1</th>
-        <th>Image 2</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody id="fieldTableBody"></tbody>
-    </table>
+      <!-- Field Table -->
+      <table id="fieldTable" class="field-table">
+        <thead>
+        <tr>
+          <th>Field Code</th>
+          <th>Field Name</th>
+          <th>Location</th>
+          <th>Size</th>
+          <th>Crops</th>
+          <th>Staff</th>
+          <th>Image 1</th>
+          <th>Image 2</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="fieldTableBody"></tbody>
+      </table>
     </div>
-</section>
+  </section>
+
 
 <section id="cropSection">
   <div class="main-container">
@@ -386,6 +384,7 @@
   </section>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/lib/jquery-3.7.1.min.js"></script>
 <script src="controller/fieldController.js"></script>
