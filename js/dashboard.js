@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide all sections initially and set full-page layout
     sections.forEach(section => {
         section.style.display = 'none';
-        section.style.width = '100vw'; // Adjust to full viewport width
+        section.style.width = '1500vw'; // Adjust to full viewport width
         section.style.height = '100vh'; // Full viewport height
         section.style.justifyContent = 'center';
         section.style.alignItems = 'center';
