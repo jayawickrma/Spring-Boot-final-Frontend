@@ -102,4 +102,15 @@ body {
 .logout-btn:hover {
     background-color: #c0392b;
 }
+section {
+    display: none; /* Hide initially */
+    width: 100vw;
+    height: 100vh;
+    display: flex; /* Flex layout for centering */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto; /* Allows scrolling if content is taller than viewport */
+    padding: 20px; /* Optional padding for spacing */
+}
 
