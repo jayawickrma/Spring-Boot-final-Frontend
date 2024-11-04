@@ -1,118 +1,105 @@
-/* Reset styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+#cropSection {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
 }
 
 .main-container {
+    background-color: #ffffff;
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+/* Title styling */
+.main-container h2 {
     color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: bold;
 }
 
+/* Form styling */
 .field-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 15px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+}
+
+.field-form label {
+    font-size: 0.9em;
+    color: #666;
 }
 
 .field-form input[type="text"],
 .field-form select,
 .field-form input[type="file"] {
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
+    border-radius: 4px;
+    font-size: 1em;
 }
 
 .field-form input[type="file"] {
-    padding: 5px;
-}
-
-.field-form label {
-    grid-column: span 2;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.add-btn {
-    grid-column: span 2;
-    padding: 12px;
-    background-color: #6ba539;
-    color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 8px;
+}
+
+/* Button styling */
+.add-btn {
+    padding: 12px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #28a745; /* Green color */
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
 }
 
 .add-btn:hover {
-    background-color: #4d8332;
+    background-color: #218838; /* Darker green on hover */
 }
 
+/* Table styling */
 .field-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
-.field-table th, .field-table td {
-    padding: 15px;
+.field-table th,
+.field-table td {
+    padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
 }
 
 .field-table th {
-    background-color: #6ba539;
-    color: white;
+    background-color: #f1f1f1;
+    color: #333;
     font-weight: bold;
 }
 
-.field-table tr:hover {
-    background-color: #f1f1f1;
+.field-table tbody tr:hover {
+    background-color: #f9f9f9;
 }
 
-.field-table td:last-child {
-    display: flex;
-    gap: 10px;
-}
-
-.edit-btn, .delete-btn {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.edit-btn {
-    background-color: #3498db;
-    color: white;
-}
-
-.delete-btn {
-    background-color: #e74c3c;
-    color: white;
+/* Additional section styling */
+h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-top: 20px;
+    font-weight: bold;
 }

@@ -102,3 +102,12 @@ body {
 .logout-btn:hover {
     background-color: #c0392b;
 }
+section {
+    display: none; /* Initial state */
+    width: 100vw;
+    height: 100vh;
+    display: flex; /* For centering content */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -2,12 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section');
     const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
 
-    // Hide all sections initially
-    sections.forEach(section => section.style.display = 'none');
+    // Hide all sections initially and set full-page layout
+    sections.forEach(section => {
+        section.style.display = 'none';
+        section.style.width = '100vw';
+        section.style.height = '100vh';
+        section.style.justifyContent = 'center';
+        section.style.alignItems = 'center';
+        section.style.flexDirection = 'column';
+    });
 
     // Display the "Home" section or default section on page load
     const defaultSection = document.querySelector('#homeSection');
-    if (defaultSection) defaultSection.style.display = 'block';
+    if (defaultSection) {
+        defaultSection.style.display = 'flex'; // Display as flex for full-page layout
+    }
 
     // Event listener for sidebar links
     sidebarLinks.forEach(link => {
@@ -21,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSectionId = this.getAttribute('href').replace('#', '');
             const targetSection = document.getElementById(targetSectionId);
 
-            if (targetSection) targetSection.style.display = 'block';
+            if (targetSection) {
+                targetSection.style.display = 'flex'; // Display as flex for full-page layout
+            }
         });
     });
 });
