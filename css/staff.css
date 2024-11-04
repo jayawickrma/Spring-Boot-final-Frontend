@@ -7,30 +7,43 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.main-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+    background-color: #f8f9fa; /* Light background for better contrast */
     color: #333;
 }
 
+/* Main container for central layout */
+.main-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header style */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 1.8em;
+}
+
+/* Field Form Styling */
 .field-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 20px;
-    background-color: white;
+    gap: 20px;
+    padding: 25px;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.field-form label {
+    font-weight: bold;
+    color: #444;
 }
 
 .field-form input[type="text"],
@@ -38,45 +51,53 @@ h2 {
 .field-form input[type="date"],
 .field-form select,
 .field-form input[type="file"] {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
+    transition: border-color 0.3s;
 }
 
-.field-form label {
-    grid-column: span 2;
-    font-weight: bold;
-    margin-top: 10px;
+.field-form input:focus,
+.field-form select:focus {
+    border-color: #6ba539; /* Focus border color for inputs */
+    outline: none;
 }
 
+/* Add Button Styling */
 .add-btn {
     grid-column: span 2;
-    padding: 12px;
+    padding: 15px;
     background-color: #6ba539;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
 }
 
 .add-btn:hover {
     background-color: #4d8332;
+    transform: scale(1.02); /* Slight scale effect on hover */
 }
 
+/* Field Table Styling */
 .field-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
+    margin-top: 20px;
+    background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-.field-table th, .field-table td {
+.field-table th,
+.field-table td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -86,10 +107,15 @@ h2 {
     background-color: #6ba539;
     color: white;
     font-weight: bold;
+    font-size: 16px;
+}
+
+.field-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row color for readability */
 }
 
 .field-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Hover effect for table rows */
 }
 
 .field-table td:last-child {
@@ -97,12 +123,16 @@ h2 {
     gap: 10px;
 }
 
-.edit-btn, .delete-btn {
-    padding: 5px 10px;
+/* Edit and Delete Button Styling */
+.edit-btn,
+.delete-btn {
+    padding: 8px 12px;
     font-size: 14px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .edit-btn {
@@ -110,46 +140,35 @@ h2 {
     color: white;
 }
 
+.edit-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05); /* Hover effect for edit button */
+}
+
 .delete-btn {
     background-color: #e74c3c;
     color: white;
 }
-.main-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+
+.delete-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05); /* Hover effect for delete button */
 }
 
-.field-form {
-    margin-bottom: 20px;
-}
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .field-form {
+        grid-template-columns: 1fr; /* Stack form fields in one column on smaller screens */
+    }
 
-.field-form label {
-    display: block;
-    margin: 5px 0;
-}
+    .add-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
 
-.field-form input,
-.field-form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-.field-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.field-table th,
-.field-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.field-table th {
-    background-color: #f2f2f2;
+    .field-table th,
+    .field-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
