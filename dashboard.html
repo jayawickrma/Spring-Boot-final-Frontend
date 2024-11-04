@@ -27,7 +27,7 @@
   <button class="logout-btn" >Logout</button>
 </div>
 
-
+<div class="main-content">
 
 <section id="homeSection"></section>
 
@@ -35,8 +35,7 @@
     <div class="main-container">
     <h2>Field Management</h2>
 
-    <!-- Field Form -->
-    <form id="fieldForm" class="field-form">
+
       <lable f></lable>
       <input type="text" id="fieldCode" placeholder="Field Code" required>
       <input type="text" id="fieldName" placeholder="Field Name" required>
@@ -53,7 +52,7 @@
       <label for="fieldImage2">Field Image 2:</label>
       <input type="file" id="fieldImage2" required>
       <button type="submit" class="add-btn">Add Field</button>
-    </form>
+
 
     <!-- Field Table -->
     <table id="fieldTable" class="field-table">
@@ -79,7 +78,7 @@
   <div class="main-container">
   <h2>Crop Management</h2>
 
-  <form id="cropForm" class="field-form">
+
     <label for="cropCode">Crop Code:</label>
     <input type="text" id="cropCode" name="cropCode" placeholder="Enter Crop Code" required>
 
@@ -105,7 +104,7 @@
     </select>
 
     <button type="submit" class="add-btn">Add Crop</button>
-  </form>
+
 
   <h3>Crop List</h3>
   <table class="field-table">
@@ -131,7 +130,7 @@
   <div class="main-container">
   <h2>Staff Management</h2>
 
-  <form id="staffForm" class="field-form">
+
     <label for="staffId">ID:</label>
     <input type="text" id="staffId" name="staffId" placeholder="Enter Staff ID" required>
 
@@ -192,7 +191,7 @@
     <input type="text" id="vehicle" name="vehicle" placeholder="Enter Vehicle Information">
 
     <button type="submit" class="add-btn">Add Staff</button>
-  </form>
+
 
   <h3>Staff List</h3>
   <table class="field-table">
@@ -224,8 +223,7 @@
     <div class="main-container">
       <h2>Log Service Management</h2>
 
-      <!-- Log Service Form -->
-      <form id="logServiceForm" class="field-form">
+
         <label for="logDate">Log Date:</label>
         <input type="date" id="logDate" name="logDate" required>
 
@@ -254,7 +252,7 @@
         <input type="file" id="logImage" name="logImage" accept="image/*" required>
 
         <button type="submit" class="add-btn">Add Log Entry</button>
-      </form>
+
 
       <!-- Log Service Table -->
       <h3>Log Entries</h3>
@@ -285,8 +283,7 @@
     <div class="main-container">
       <h2>Vehicle Management</h2>
 
-      <!-- Vehicle Form -->
-      <form id="vehicleForm" class="field-form">
+
         <label for="licensePlate">License Plate Number:</label>
         <input type="text" id="licensePlate" name="licensePlate" placeholder="Enter License Plate" required>
 
@@ -317,7 +314,7 @@
         <input type="text" id="remarks" name="remarks" placeholder="Enter Remarks" required>
 
         <button type="submit" class="add-btn">Add Vehicle</button>
-      </form>
+
 
       <!-- Vehicle Table -->
       <h3>Vehicle List</h3>
@@ -340,7 +337,7 @@
       </table>
     </div>
   </section>
-
+</div>
 
 <script src="js/dashboard.js"></script>
 <script src="js/lib/jquery-3.7.1.min.js"></script>
