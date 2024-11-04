@@ -1,135 +1,143 @@
-/* Reset styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body Styling */
+/* General styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-/* Main Container Styling */
-.main-container {
-    margin-left: 250px; /* Adjust for sidebar */
-    padding: 20px;
-    width: calc(100% - 250px);
     background-color: #f9f9f9;
-    border-radius: 8px; /* Optional: Add border radius */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+    margin: 0;
+    padding: 0;
 }
 
+#fieldSection {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.main-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
 .main-container h2 {
-    font-size: 24px;
     color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* Form styling */
+.field-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
-/* Field Form Styling */
-.field-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+.field-form input[type="text"],
+.field-form select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
 }
 
-.field-form input[type="text"],
-.field-form select,
 .field-form input[type="file"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
+    border: none;
+    padding: 8px;
 }
 
 .field-form label {
-    font-weight: bold;
-    color: #333;
+    font-size: 0.9em;
+    color: #666;
 }
 
-/* Add Button Styling */
-.field-form .add-btn {
-    grid-column: span 2;
-    padding: 10px 20px;
-    background-color: #00FF9C;
-    color: #fff;
+/* Button styling */
+.add-btn {
+    padding: 12px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #28a745; /* Green color */
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
 }
 
-.field-form .add-btn:hover {
-    background-color: #00cc81;
+.add-btn:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
-/* Field Table Styling */
+/* Table styling */
 .field-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .field-table th,
 .field-table td {
-    padding: 12px 15px;
+    padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
 }
 
 .field-table th {
-    background-color: #00FF9C;
+    background-color: #f1f1f1;
     color: #333;
     font-weight: bold;
 }
 
-.field-table tr:nth-child(even) {
+.field-table tbody tr:hover {
     background-color: #f9f9f9;
 }
 
-.field-table td img {
-    width: 50px;
-    height: auto;
-    border-radius: 4px;
+/* Sidebar styles for the sidebar buttons */
+.sidebar {
+    background-color: #e8e8e8;
+    padding: 20px;
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Action Buttons in Table */
-.field-table td button {
-    padding: 8px 12px;
-    font-size: 14px;
-    border: none;
+.sidebar .nav-item {
+    margin-bottom: 15px;
+}
+
+.sidebar .nav-item a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    display: block;
     border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .nav-item a:hover {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.sidebar .logout-btn {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    padding: 12px;
+    text-align: center;
+    background-color: #dc3545; /* Red color for logout */
+    color: #ffffff;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    margin-right: 5px;
-    color: #fff;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-.field-table td button.edit-btn {
-    background-color: #3498db;
-}
-
-.field-table td button.edit-btn:hover {
-    background-color: #2980b9;
-}
-
-.field-table td button.delete-btn {
-    background-color: #e74c3c;
-}
-
-.field-table td button.delete-btn:hover {
-    background-color: #c0392b;
+.sidebar .logout-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
 }
