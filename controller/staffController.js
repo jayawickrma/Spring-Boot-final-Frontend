@@ -1,196 +1,164 @@
-// // Array to hold staff data
-// let staffData = [];
-//
-// // Function to add staff
-// function addStaff(event) {
-//     event.preventDefault(); // Prevent form submission
-//
-//     // Gather form data
-//     const staff = {
-//         id: document.getElementById('staffId').value,
-//         firstName: document.getElementById('firstName').value,
-//         lastName: document.getElementById('lastName').value,
-//         designation: document.getElementById('designation').value,
-//         gender: document.getElementById('gender').value,
-//         joinedDate: document.getElementById('joinedDate').value,
-//         dob: document.getElementById('dob').value,
-//         address: [
-//             document.getElementById('address1').value,
-//             document.getElementById('address2').value,
-//             document.getElementById('address3').value,
-//             document.getElementById('address4').value,
-//             document.getElementById('address5').value,
-//         ],
-//         contactNo: document.getElementById('contactNo').value,
-//         email: document.getElementById('email').value,
-//         role: document.getElementById('role').value,
-//         field: document.getElementById('field').value,
-//         vehicle: document.getElementById('vehicle').value
-//     };
-//
-//     // Add staff to array and update table
-//     staffData.push(staff);
-//     updateStaffTable();
-//     document.getElementById('staffForm').reset(); // Reset form fields
-// }
-//
-// // Function to update staff table
-// function updateStaffTable() {
-//     const tableBody = document.getElementById('staffTableBody');
-//     tableBody.innerHTML = ''; // Clear existing table rows
-//
-//     staffData.forEach((staff, index) => {
-//         const row = document.createElement('tr');
-//         row.innerHTML = `
-//             <td>${staff.id}</td>
-//             <td>${staff.firstName}</td>
-//             <td>${staff.lastName}</td>
-//             <td>${staff.designation}</td>
-//             <td>${staff.gender}</td>
-//             <td>${staff.joinedDate}</td>
-//             <td>${staff.dob}</td>
-//             <td>${staff.address.join(', ')}</td>
-//             <td>${staff.contactNo}</td>
-//             <td>${staff.email}</td>
-//             <td>${staff.role}</td>
-//             <td>${staff.field}</td>
-//             <td>${staff.vehicle}</td>
-//             <td>
-//                 <button onclick="editStaff(${index})" class="edit-btn">Edit</button>
-//                 <button onclick="deleteStaff(${index})" class="delete-btn">Delete</button>
-//             </td>
-//         `;
-//         tableBody.appendChild(row);
-//     });
-// }
-//
-// // Function to edit staff
-// function editStaff(index) {
-//     const staff = staffData[index];
-//     document.getElementById('staffId').value = staff.id;
-//     document.getElementById('firstName').value = staff.firstName;
-//     document.getElementById('lastName').value = staff.lastName;
-//     document.getElementById('designation').value = staff.designation;
-//     document.getElementById('gender').value = staff.gender;
-//     document.getElementById('joinedDate').value = staff.joinedDate;
-//     document.getElementById('dob').value = staff.dob;
-//     document.getElementById('address1').value = staff.address[0];
-//     document.getElementById('address2').value = staff.address[1];
-//     document.getElementById('address3').value = staff.address[2];
-//     document.getElementById('address4').value = staff.address[3];
-//     document.getElementById('address5').value = staff.address[4];
-//     document.getElementById('contactNo').value = staff.contactNo;
-//     document.getElementById('email').value = staff.email;
-//     document.getElementById('role').value = staff.role;
-//     document.getElementById('field').value = staff.field;
-//     document.getElementById('vehicle').value = staff.vehicle;
-//
-//     // Remove the staff from array and update the table
-//     deleteStaff(index);
-// }
-//
-// // Function to delete staff
-// function deleteStaff(index) {
-//     staffData.splice(index, 1); // Remove staff from array
-//     updateStaffTable(); // Refresh the table
-// }
-// Array to hold staff data
-let staffData = [];
+$(document).ready(function() {
+    let staffMembers = []; // Array to hold staff data
 
-// Function to add staff
-function addStaff(event) {
-    event.preventDefault(); // Prevent form submission
+    // Function to refresh the staff table
+    function refreshStaffTable() {
+        const staffTableBody = $('#staffTableBody');
+        staffTableBody.empty(); // Clear the existing table body
 
-    // Gather form data
-    const staff = {
-        id: $('#staffId').val(),
-        firstName: $('#firstName').val(),
-        lastName: $('#lastName').val(),
-        designation: $('#designation').val(),
-        gender: $('#gender').val(),
-        joinedDate: $('#joinedDate').val(),
-        dob: $('#dob').val(),
-        address: [
-            $('#address1').val(),
-            $('#address2').val(),
-            $('#address3').val(),
-            $('#address4').val(),
-            $('#address5').val()
-        ],
-        contactNo: $('#contactNo').val(),
-        email: $('#email').val(),
-        role: $('#role').val(),
-        field: $('#field').val(),
-        vehicle: $('#vehicle').val()
-    };
+        staffMembers.forEach((staff, index) => {
+            const address = [staff.address1, staff.address2, staff.address3, staff.address4, staff.address5].filter(Boolean).join(', ');
+            const row = `
+                <tr>
+                    <td>${staff.staffId}</td>
+                    <td>${staff.firstName}</td>
+                    <td>${staff.lastName}</td>
+                    <td>${staff.designation}</td>
+                    <td>${staff.gender}</td>
+                    <td>${staff.joinedDate}</td>
+                    <td>${staff.dob}</td>
+                    <td>${address}</td>
+                    <td>${staff.contactNo}</td>
+                    <td>${staff.email}</td>
+                    <td>${staff.role}</td>
+                    <td>${staff.field}</td>
+                    <td>${staff.vehicle}</td>
+                    <td>
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Delete</button>
+                    </td>
+                </tr>
+            `;
+            staffTableBody.append(row);
+        });
+    }
 
-    // Add staff to array and update table
-    staffData.push(staff);
-    updateStaffTable();
-    $('#staffForm')[0].reset(); // Reset form fields
-}
+    // Add Staff
+    $('.add-btn').click(function(e) {
+        e.preventDefault(); // Prevent the default form submission
 
-// Function to update staff table
-function updateStaffTable() {
-    const $tableBody = $('#staffTableBody');
-    $tableBody.empty(); // Clear existing table rows
+        const staffId = $('#staffId').val();
+        const firstName = $('#firstName').val();
+        const lastName = $('#lastName').val();
+        const designation = $('#designation').val();
+        const gender = $('#gender').val();
+        const joinedDate = $('#joinedDate').val();
+        const dob = $('#dob').val();
+        const address1 = $('#address1').val();
+        const address2 = $('#address2').val();
+        const address3 = $('#address3').val();
+        const address4 = $('#address4').val();
+        const address5 = $('#address5').val();
+        const contactNo = $('#contactNo').val();
+        const email = $('#email').val();
+        const role = $('#role').val();
+        const field = $('#field').val();
+        const vehicle = $('#vehicle').val();
 
-    staffData.forEach((staff, index) => {
-        const row = $(`
-            <tr>
-                <td>${staff.id}</td>
-                <td>${staff.firstName}</td>
-                <td>${staff.lastName}</td>
-                <td>${staff.designation}</td>
-                <td>${staff.gender}</td>
-                <td>${staff.joinedDate}</td>
-                <td>${staff.dob}</td>
-                <td>${staff.address.join(', ')}</td>
-                <td>${staff.contactNo}</td>
-                <td>${staff.email}</td>
-                <td>${staff.role}</td>
-                <td>${staff.field}</td>
-                <td>${staff.vehicle}</td>
-                <td>
-                    <button onclick="editStaff(${index})" class="edit-btn">Edit</button>
-                    <button onclick="deleteStaff(${index})" class="delete-btn">Delete</button>
-                </td>
-            </tr>
-        `);
-        $tableBody.append(row);
+        const newStaff = {
+            staffId,
+            firstName,
+            lastName,
+            designation,
+            gender,
+            joinedDate,
+            dob,
+            address1,
+            address2,
+            address3,
+            address4,
+            address5,
+            contactNo,
+            email,
+            role,
+            field,
+            vehicle
+        };
+
+        staffMembers.push(newStaff); // Add new staff member to the array
+        refreshStaffTable(); // Refresh the table
+        clearForm(); // Clear form fields
     });
-}
 
-// Function to edit staff
-function editStaff(index) {
-    const staff = staffData[index];
-    $('#staffId').val(staff.id);
-    $('#firstName').val(staff.firstName);
-    $('#lastName').val(staff.lastName);
-    $('#designation').val(staff.designation);
-    $('#gender').val(staff.gender);
-    $('#joinedDate').val(staff.joinedDate);
-    $('#dob').val(staff.dob);
-    $('#address1').val(staff.address[0]);
-    $('#address2').val(staff.address[1]);
-    $('#address3').val(staff.address[2]);
-    $('#address4').val(staff.address[3]);
-    $('#address5').val(staff.address[4]);
-    $('#contactNo').val(staff.contactNo);
-    $('#email').val(staff.email);
-    $('#role').val(staff.role);
-    $('#field').val(staff.field);
-    $('#vehicle').val(staff.vehicle);
+    // Edit Staff
+    $(document).on('click', '.edit-btn', function() {
+        const index = $(this).data('index');
+        const staff = staffMembers[index];
 
-    // Remove the staff from array and update the table
-    deleteStaff(index);
-}
+        $('#staffId').val(staff.staffId);
+        $('#firstName').val(staff.firstName);
+        $('#lastName').val(staff.lastName);
+        $('#designation').val(staff.designation);
+        $('#gender').val(staff.gender);
+        $('#joinedDate').val(staff.joinedDate);
+        $('#dob').val(staff.dob);
+        $('#address1').val(staff.address1);
+        $('#address2').val(staff.address2);
+        $('#address3').val(staff.address3);
+        $('#address4').val(staff.address4);
+        $('#address5').val(staff.address5);
+        $('#contactNo').val(staff.contactNo);
+        $('#email').val(staff.email);
+        $('#role').val(staff.role);
+        $('#field').val(staff.field);
+        $('#vehicle').val(staff.vehicle);
 
-// Function to delete staff
-function deleteStaff(index) {
-    staffData.splice(index, 1); // Remove staff from array
-    updateStaffTable(); // Refresh the table
-}
+        // Update the Add button to Save
+        $('.add-btn').text('Save').off('click').click(function(e) {
+            e.preventDefault();
 
-// Event listener for form submission
-$('#staffForm').on('submit', addStaff);
+            const updatedStaff = {
+                staffId: $('#staffId').val(),
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                designation: $('#designation').val(),
+                gender: $('#gender').val(),
+                joinedDate: $('#joinedDate').val(),
+                dob: $('#dob').val(),
+                address1: $('#address1').val(),
+                address2: $('#address2').val(),
+                address3: $('#address3').val(),
+                address4: $('#address4').val(),
+                address5: $('#address5').val(),
+                contactNo: $('#contactNo').val(),
+                email: $('#email').val(),
+                role: $('#role').val(),
+                field: $('#field').val(),
+                vehicle: $('#vehicle').val()
+            };
+
+            staffMembers[index] = updatedStaff; // Update the staff member in the array
+            refreshStaffTable(); // Refresh the table
+            clearForm(); // Clear form fields
+            $('.add-btn').text('Add Staff'); // Reset button text
+        });
+    });
+
+    // Delete Staff
+    $(document).on('click', '.delete-btn', function() {
+        const index = $(this).data('index');
+        staffMembers.splice(index, 1); // Remove staff member from array
+        refreshStaffTable(); // Refresh the table
+    });
+
+    // Function to clear the form fields
+    function clearForm() {
+        $('#staffId').val('');
+        $('#firstName').val('');
+        $('#lastName').val('');
+        $('#designation').val('');
+        $('#gender').val('');
+        $('#joinedDate').val('');
+        $('#dob').val('');
+        $('#address1').val('');
+        $('#address2').val('');
+        $('#address3').val('');
+        $('#address4').val('');
+        $('#address5').val('');
+        $('#contactNo').val('');
+        $('#email').val('');
+        $('#role').val('');
+        $('#field').val('');
+        $('#vehicle').val('');
+    }
+});
