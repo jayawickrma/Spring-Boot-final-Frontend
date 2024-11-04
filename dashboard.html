@@ -278,7 +278,53 @@
 
 
 
-<section id="equipmentSection"></section>
+<section id="equipmentSection">
+  <div class="main-container">
+    <h2>Equipment Management</h2>
+
+
+      <label for="equipmentId">Equipment ID:</label>
+      <input type="text" id="equipmentId" name="equipmentId" placeholder="Enter Equipment ID" required>
+
+      <label for="equipmentName">Equipment Name:</label>
+      <input type="text" id="equipmentName" name="equipmentName" placeholder="Enter Equipment Name" required>
+
+      <label for="equipmentType">Equipment Type:</label>
+      <input type="text" id="equipmentType" name="equipmentType" placeholder="Enter Equipment Type" required>
+
+      <label for="purchaseDate">Purchase Date:</label>
+      <input type="date" id="purchaseDate" name="purchaseDate" required>
+
+      <label for="status">Status:</label>
+      <input type="text" id="status" name="status" placeholder="Enter Status" required>
+
+      <label for="remarks">Remarks:</label>
+      <input type="text" id="remarks" name="remarks" placeholder="Enter Remarks">
+
+      <button type="submit" class="add-btn">Add Equipment</button>
+
+
+    <!-- Equipment Table -->
+    <h3>Equipment List</h3>
+    <table class="field-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Purchase Date</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody id="equipmentTableBody">
+      <!-- Rows will be added dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+</section>
 <section id="vehicleSection">
 
     <div class="main-container">
@@ -346,6 +392,7 @@
 <script src="controller/cropController.js"></script>
 <script src="controller/staffController.js"></script>
 <script src="controller/logController.js"></script>
+<script src="controller/equipmentController.js"></script>
 <script src="controller/vehicle%20controller.js"></script>
 </body>
 </html>
