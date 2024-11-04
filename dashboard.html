@@ -280,7 +280,68 @@
 
 
 <section id="equipmentSection"></section>
-<section id="vehicleSection"></section>
+<section id="vehicleSection">
+
+    <div class="main-container">
+      <h2>Vehicle Management</h2>
+
+      <!-- Vehicle Form -->
+      <form id="vehicleForm" class="field-form">
+        <label for="licensePlate">License Plate Number:</label>
+        <input type="text" id="licensePlate" name="licensePlate" placeholder="Enter License Plate" required>
+
+        <label for="vehicleName">Vehicle Name:</label>
+        <input type="text" id="vehicleName" name="vehicleName" placeholder="Enter Vehicle Name" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" placeholder="Enter Category" required>
+
+        <label for="fuelType">Fuel Type:</label>
+        <select id="fuelType" name="fuelType" required>
+          <option value="">Select Fuel Type</option>
+          <option value="Petrol">Petrol</option>
+          <option value="Diesel">Diesel</option>
+          <option value="Electric">Electric</option>
+        </select>
+
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" placeholder="Enter Status" required>
+
+        <label for="selectStaff">Select Staff Member:</label>
+        <select id="selectStaff" name="selectStaff" required>
+          <option value="">Select Staff</option>
+          <!-- Staff options dynamically added here if needed -->
+        </select>
+
+        <label for="remarks">Remarks:</label>
+        <input type="text" id="remarks" name="remarks" placeholder="Enter Remarks" required>
+
+        <button type="submit" class="add-btn">Add Vehicle</button>
+      </form>
+
+      <!-- Vehicle Table -->
+      <h3>Vehicle List</h3>
+      <table class="field-table">
+        <thead>
+        <tr>
+          <th>License Plate</th>
+          <th>Vehicle Name</th>
+          <th>Category</th>
+          <th>Fuel Type</th>
+          <th>Status</th>
+          <th>Staff</th>
+          <th>Remarks</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="vehicleTableBody">
+        <!-- Rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
 <script src="js/dashboard.js"></script>
 <script src="js/lib/jquery-3.7.1.min.js"></script>
 <script src="controller/fieldController.js"></script>
