@@ -19,7 +19,7 @@
     <li><a href="#fieldSection">Field Management</a></li>
     <li><a href="#cropSection">Crops Management</a></li>
     <li><a href="#staffSection">Staff Management</a></li>
-    <li><a href="#logSection" >Monitoring Log Service</a></li>
+    <li><a href="#logServiceSection" >Monitoring Log Service</a></li>
     <li><a href="#vehicleSection" >Vehicle Management</a></li>
     <li><a href="#equipmentSection">Equipment Service</a></li>
   </ul>
@@ -220,53 +220,64 @@
   </table>
   </div>
 </section>
-<section>
-  <div class="main-container">
-    <h2>Log Management</h2>
+  <section id="logServiceSection">
+    <div class="main-container">
+      <h2>Log Service Management</h2>
 
-    <form id="logForm" class="field-form">
-      <label for="logCode">Log Code:</label>
-      <input type="text" id="logCode" name="logCode" placeholder="Enter Log Code" required>
+      <!-- Log Service Form -->
+      <form id="logServiceForm" class="field-form">
+        <label for="logDate">Log Date:</label>
+        <input type="date" id="logDate" name="logDate" required>
 
-      <label for="logDate">Log Date:</label>
-      <input type="date" id="logDate" name="logDate" required>
+        <label for="logDetails">Log Details:</label>
+        <textarea id="logDetails" name="logDetails" placeholder="Enter Log Details" required></textarea>
 
-      <label for="logDetails">Log Details / Observation:</label>
-      <textarea id="logDetails" name="logDetails" rows="4" placeholder="Enter Log Details" required></textarea>
+        <label for="selectField">Select Field:</label>
+        <select id="selectField" name="selectField" required>
+          <option value="">Select Field</option>
+          <!-- Populate dynamically as needed -->
+        </select>
 
-      <label for="observedImage">Observed Image Field:</label>
-      <input type="file" id="observedImage" name="observedImage" accept="image/*" required>
+        <label for="selectCrop">Select Crop:</label>
+        <select id="selectCrop" name="selectCrop" required>
+          <option value="">Select Crop</option>
+          <!-- Populate dynamically as needed -->
+        </select>
 
-      <select name="crop" id="crop">
-        <option value="">Select your Crop type</option>
-      </select>
+        <label for="selectStaff">Select Staff:</label>
+        <select id="selectStaff" name="selectStaff" required>
+          <option value="">Select Staff</option>
+          <!-- Populate dynamically as needed -->
+        </select>
 
-      <select name="staff" id="staff">
-        <option value="">Select the Staff</option>
-      </select>
+        <label for="logImage">Log Crop Image:</label>
+        <input type="file" id="logImage" name="logImage" accept="image/*" required>
 
-      <button type="submit" class="add-btn">Add Log</button>
-    </form>
+        <button type="submit" class="add-btn">Add Log Entry</button>
+      </form>
 
-    <h3>Log List</h3>
-    <table class="field-table">
-      <thead>
-      <tr>
-        <th>Log Code</th>
-        <th>Log Date</th>
-        <th>Log Details</th>
-        <th>Observed Image</th>
-        <th>Crop</th>
-        <th>Staff</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody id="logTableBody">
-      <!-- Rows will be added dynamically -->
-      </tbody>
-    </table>
-  </div>
-</section>
+      <!-- Log Service Table -->
+      <h3>Log Entries</h3>
+      <table class="field-table">
+        <thead>
+        <tr>
+          <th>Log Date</th>
+          <th>Log Details</th>
+          <th>Field</th>
+          <th>Crop</th>
+          <th>Staff</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="logTableBody">
+        <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
 
 <section id="equipmentSection"></section>
 <section id="vehicleSection"></section>
