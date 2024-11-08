@@ -3,6 +3,7 @@ import{vehicleList} from "../db/db";
 $(document).ready(function() {
 
 
+
     // Function to refresh the vehicle table
     function refreshVehicleTable() {
         const vehicleTableBody = $('#vehicleTableBody');
