@@ -1,5 +1,7 @@
+import{vehicleList} from "../db/db";
+
 $(document).ready(function() {
-    let vehicleList = []; // Array to hold vehicle data
+
 
     // Function to refresh the vehicle table
     function refreshVehicleTable() {

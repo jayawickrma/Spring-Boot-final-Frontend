@@ -1,3 +1,5 @@
+import{staffList} from "../db/db";
+
 $(document).ready(function () {
     // Sample fields data for populating the "Field" dropdown dynamically
     const fieldsData = [
@@ -20,7 +22,7 @@ $(document).ready(function () {
     loadFieldOptions();
 
     // Array to store staff entries
-    let staffList = [];
+
 
     // Add new staff entry
     function addStaff() {
