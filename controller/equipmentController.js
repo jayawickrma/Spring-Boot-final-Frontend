@@ -1,5 +1,9 @@
+import {equipmentList} from "../db/db";
+
+import{equipmentList} from"../db/db"
+
 $(document).ready(function() {
-    let equipmentList = []; // Array to hold equipment data
+
 
     // Function to refresh the equipment table
     function refreshEquipmentTable() {

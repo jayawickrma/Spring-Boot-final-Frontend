@@ -1,5 +1,6 @@
+import {crops} from "../db/db";
 $(document).ready(function() {
-    let crops = []; // Array to hold crop data
+
 
     // Function to refresh the crop table
     function refreshCropTable() {

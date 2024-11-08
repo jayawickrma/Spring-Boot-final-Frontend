@@ -1,6 +1,6 @@
-export let fieldDetails =[];
-export let cropDetails=[];
-export let staffData=[];
-export let logsDetails=[];
-export let vehicleDetails=[];
-export let equipmentDetails=[];
+export var fieldDetails =[];
+export var crops=[];
+export var staffData=[];
+export var logsDetails=[];
+export var vehicleDetails=[];
+export var equipmentList=[];
