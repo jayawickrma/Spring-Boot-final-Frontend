@@ -1,6 +1,5 @@
 import {equipmentList} from "../db/db";
 
-import{equipmentList} from"../db/db"
 
 $(document).ready(function() {
 

@@ -1,5 +1,7 @@
+import{logEntries} from "../db/db";
+
 $(document).ready(function() {
-    let logEntries = []; // Array to hold log data
+
 
     // Function to refresh the log table
     function refreshLogTable() {

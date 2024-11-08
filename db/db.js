@@ -1,6 +1,6 @@
-export var fieldDetails =[];
+export var fields =[];
 export var crops=[];
 export var staffData=[];
-export var logsDetails=[];
+export var logEntries=[];
 export var vehicleDetails=[];
 export var equipmentList=[];

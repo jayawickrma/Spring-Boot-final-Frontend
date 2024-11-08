@@ -1,6 +1,7 @@
 
+import{fields}from"../db/db"
     $(document).ready(function() {
-    let fields = []; // Array to store field entries
+
     let currentIndex = -1; // To track the index of the item being edited
 
     // Function to display fields in the table
