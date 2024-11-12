@@ -1,11 +1,23 @@
-import {crops} from "../db/db";
 $(document).ready(function() {
-
+    // Function to load crops data from the server
+    function loadCrops() {
+        $.ajax({
+            url: '/api/crops', // Replace with your actual endpoint
+            method: 'GET',
+            success: function(data) {
+                crops = data; // Assume the server returns an array of crops
+                refreshCropTable();
+            },
+            error: function() {
+                alert('Failed to load crops data');
+            }
+        });
+    }
 
     // Function to refresh the crop table
     function refreshCropTable() {
         const cropTableBody = $('#cropTableBody');
-        cropTableBody.empty(); // Clear the existing table body
+        cropTableBody.empty();
 
         crops.forEach((crop, index) => {
             const row = `
@@ -18,8 +30,8 @@ $(document).ready(function() {
                     <td>${crop.season}</td>
                     <td>${crop.field}</td>
                     <td>
-                        <button class="edit-btn" data-index="${index}">Edit</button>
-                        <button class="delete-btn" data-index="${index}">Delete</button>
+                        <button class="edit-btn" data-id="${crop.id}">Edit</button>
+                        <button class="delete-btn" data-id="${crop.id}">Delete</button>
                     </td>
                 </tr>
             `;
@@ -27,86 +39,92 @@ $(document).ready(function() {
         });
     }
 
-    // Add Crop
+    // Function to clear the form fields
+    function clearForm() {
+        $('#cropForm')[0].reset();
+        $('.add-btn').text('Add Crop').removeData('id');
+    }
+
+    // Function to handle adding or updating crops
     $('.add-btn').click(function(e) {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
 
-        const cropCode = $('#cropCode').val();
-        const commonName = $('#commonName').val();
-        const scientificName = $('#scientificName').val();
-        const cropImage = $('#cropImage')[0].files[0];
-        const category = $('#category').val();
-        const season = $('#season').val();
-        const field = $('#field').val();
+        const cropData = new FormData($('#cropForm')[0]);
+        const currentId = $(this).data('id');
 
-        if (cropImage) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const newCrop = {
-                    cropCode,
-                    commonName,
-                    scientificName,
-                    image: event.target.result,
-                    category,
-                    season,
-                    field
-                };
-                crops.push(newCrop); // Add new crop to the array
-                refreshCropTable(); // Refresh the table
-                clearForm(); // Clear form fields
-            };
-            reader.readAsDataURL(cropImage);
+        if (currentId) {
+            // Update crop
+            $.ajax({
+                url: `/api/crops/${currentId}`, // Replace with your actual endpoint
+                method: 'PUT',
+                data: cropData,
+                contentType: false,
+                processData: false,
+                success: function() {
+                    loadCrops();
+                    clearForm();
+                },
+                error: function() {
+                    alert('Failed to update crop');
+                }
+            });
+        } else {
+            // Add new crop
+            $.ajax({
+                url: 'http://localhost:8080/springFinal/api/v1/crops', // Replace with your actual endpoint
+                method: 'POST',
+                data: cropData,
+                contentType: false,
+                processData: false,
+                success: function() {
+                    loadCrops();
+                    clearForm();
+                },
+                error: function() {
+                    alert('Failed to add crop');
+                }
+            });
         }
     });
 
     // Edit Crop
     $(document).on('click', '.edit-btn', function() {
-        const index = $(this).data('index');
-        const crop = crops[index];
+        const cropId = $(this).data('id');
 
-        $('#cropCode').val(crop.cropCode);
-        $('#commonName').val(crop.commonName);
-        $('#scientificName').val(crop.scientificName);
-        $('#category').val(crop.category);
-        $('#season').val(crop.season);
-        $('#field').val(crop.field);
-        $('#cropImage').val(''); // Reset image input
-
-        // Update the Add button to Save
-        $('.add-btn').text('Save').off('click').click(function(e) {
-            e.preventDefault();
-
-            const updatedCrop = {
-                cropCode: $('#cropCode').val(),
-                commonName: $('#commonName').val(),
-                scientificName: $('#scientificName').val(),
-                image: crop.image, // Keep the same image unless changed
-                category: $('#category').val(),
-                season: $('#season').val(),
-                field: $('#field').val()
-            };
-            crops[index] = updatedCrop; // Update the crop in the array
-            refreshCropTable(); // Refresh the table
-            clearForm(); // Clear form fields
-            $('.add-btn').text('Add Crop'); // Reset button text
+        $.ajax({
+            url: `/api/crops/${cropId}`, // Replace with your actual endpoint
+            method: 'GET',
+            success: function(crop) {
+                $('#cropCode').val(crop.cropCode);
+                $('#commonName').val(crop.commonName);
+                $('#scientificName').val(crop.scientificName);
+                $('#category').val(crop.category);
+                $('#season').val(crop.season);
+                $('#field').val(crop.field);
+                $('.add-btn').text('Save Crop').data('id', crop.id);
+            },
+            error: function() {
+                alert('Failed to load crop data');
+            }
         });
     });
 
     // Delete Crop
     $(document).on('click', '.delete-btn', function() {
-        const index = $(this).data('index');
-        crops.splice(index, 1); // Remove crop from array
-        refreshCropTable(); // Refresh the table
+        const cropId = $(this).data('id');
+
+        $.ajax({
+            url: `/api/crops/${cropId}`, // Replace with your actual endpoint
+            method: 'DELETE',
+            success: function() {
+                loadCrops();
+            },
+            error: function() {
+                alert('Failed to delete crop');
+            }
+        });
     });
 
-    // Function to clear the form fields
-    function clearForm() {
-        $('#cropCode').val('');
-        $('#commonName').val('');
-        $('#scientificName').val('');
-        $('#cropImage').val('');
-        $('#category').val('');
-        $('#season').val('');
-        $('#field').val('');
-    }
+    // Load crops initially
+    loadCrops();
 });
