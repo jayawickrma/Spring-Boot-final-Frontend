@@ -1,4 +1,4 @@
-import field from "../Model/fieldModel";
+
 
 $(document).ready(function() {
     var crops = [];
