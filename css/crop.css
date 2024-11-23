@@ -1,0 +1,60 @@
+#cropsSection{
+        width: 70%;
+    height: 100%;
+    align-content: center;
+    top: -15%;
+    right: 0%;
+    left: 20%;
+    bottom: 0;
+    position: absolute;
+
+}
+#cropTable{
+    width: 100%;
+  position: absolute;
+
+}
+/* Style for the crops section */
+.content-section {
+    padding: 20px;
+}
+
+/* Modal Styling */
+.modal-content {
+    border-radius: 10px;
+}
+
+/* Table Styling */
+.table-bordered {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.table-success {
+    background-color: #d4edda;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Button Styling */
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-close {
+    font-size: 1.5rem;
+}
+
+/* Add some spacing between form elements */
+.mb-3 {
+    margin-bottom: 15px;
+}

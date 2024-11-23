@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/homePage.css">
   <link rel="stylesheet" href="css/crop.css">
+
 </head>
 <body>
 <div class="d-flex" id="wrapper">
@@ -107,17 +108,78 @@
       </div>
     </div>
     </div>
-    <div id="cropsSection" class="content-section">Crops Management</div>
+  <div id="cropsSection" class="content-section">
+    <div id="cropsSection" class="section">
+      <h2 class="text-center my-4">Manage Crops</h2>
+      <!-- Crop Save Button -->
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cropModal" id="cropSaveBtn">Add Crop</button>
+      </div>
+      <!-- Crop Table -->
+      <table class="table table-bordered" id="cropTable">
+        <thead class="table-success">
+        <tr>
+          <th>ID</th>
+          <th>Crop Name</th>
+          <th>Season</th>
+          <th>ScientificName</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+      <!-- Popup Modal for Crop Details -->
+      <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cropModalLabel">Add Crop</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="cropForm">
+                <div class="mb-3">
+                  <label for="cropName" class="form-label">Crop Name</label>
+                  <input type="text" class="form-control" id="cropName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="Season" class="form-label">Season</label>
+                  <input type="text" class="form-control" id="Season" required>
+                </div>
+                <div class="mb-3">
+                  <label for="ScientificName" class="form-label">Scientific name</label>
+                  <input type="text" class="form-control" id="ScientificName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="CropImage" class="form-label">Image</label>
+                  <input type="file" class="form-control" id="CropImage" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Crop</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
     <div id="fieldsSection" class="content-section">Field Overview</div>
     <div id="logsSection" class="content-section">Logs Management</div>
     <div id="equipmentSection" class="content-section">Equipment Overview</div>
     <div id="staffSection" class="content-section">Staff Management</div>
     <div id="vehiclesSection" class="content-section">Vehicles Tracking</div>
     <div id="userSection" class="content-section">User Settings</div>
-  </div>
-</div>
+
+
+<script src="js/lib/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="controller/dashboardController.js"></script>
+<script src="controller/cropController.js"></script>
+
 </body>
 </html>
 
