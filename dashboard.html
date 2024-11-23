@@ -1,88 +1,104 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Green Shadow Farm Dashboard</title>-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">-->
+<!--  <link rel="stylesheet" href="css/dashboard.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="d-flex" id="wrapper">-->
+<!--  &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--  <nav class="bg-light border-end" id="sidebar-wrapper">-->
+<!--    <div class="sidebar-heading text-center py-4 text-success fw-bold fs-4">Green Shadow</div>-->
+<!--    <div class="list-group list-group-flush">-->
+<!--      <a href="#dashboardContent" class="list-group-item list-group-item-action" id="navDashboard">Dashboard</a>-->
+<!--      <a href="#cropsSection" class="list-group-item list-group-item-action" id="navCrops">Crops</a>-->
+<!--      <a href="#fieldsSection" class="list-group-item list-group-item-action" id="navFields">Fields</a>-->
+<!--      <a href="#logsSection" class="list-group-item list-group-item-action" id="navLogs">Logs</a>-->
+<!--      <a href="#equipmentSection" class="list-group-item list-group-item-action" id="navEquipment">Equipment</a>-->
+<!--      <a href="#staffSection" class="list-group-item list-group-item-action" id="navStaff">Staff</a>-->
+<!--      <a href="#vehiclesSection" class="list-group-item list-group-item-action" id="navVehicles">Vehicles</a>-->
+<!--      <a href="#userSection" class="list-group-item list-group-item-action" id="navUser">User</a>-->
+<!--    </div>-->
+<!--  </nav>-->
+
+<!--  &lt;!&ndash; Page Content &ndash;&gt;-->
+<!--  <div id="page-content-wrapper" class="p-4">-->
+<!--    <div id="dashboardContent" class="content-section">Dashboard Content</div>-->
+<!--    <div id="cropsSection" class="content-section">Crops Management</div>-->
+<!--    <div id="fieldsSection" class="content-section">Field Overview</div>-->
+<!--    <div id="logsSection" class="content-section">Logs Management</div>-->
+<!--    <div id="equipmentSection" class="content-section">Equipment Overview</div>-->
+<!--    <div id="staffSection" class="content-section">Staff Management</div>-->
+<!--    <div id="vehiclesSection" class="content-section">Vehicles Tracking</div>-->
+<!--    <div id="userSection" class="content-section">User Settings</div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="controller/dashboardController.js"></script>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/boot">
-  <link href="css/dashboard.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/homePage.css">
+  <title>Green Shadow Farm Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-
-
-
-</div><!-- Sidebar and Dashboard Layout -->
-<div class="container-fluid">
+<div class="d-flex" id="wrapper">
   <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div id="logoDiv">
-      <div class="close-btn" id="closeSidebar">&times;</div>
-      <img src="Asserts/greenshadow.webp" id="logo" width="70px">
+  <nav class="bg-light border-end" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-4">
+      <img src="Asserts/greenshadow.webp" alt="Green Shadow Logo" class="img-fluid rounded-circle mb-2" style="width: 80px;">
+      <h5 class="text-success">Green Shadow</h5>
     </div>
-
-    <div id="navLinksDiv">
-      <a href="#" id="navDashboard">Dashboard</a>
-      <a href="#" id="navCrops">Crops</a>
-      <a href="#" id="navFields">Fields</a>
-      <a href="#" id="navLogs">Logs</a>
-      <a href="#" id="navEquipment">Equipment</a>
-      <a href="#" id="navStaff">Staff</a>
-      <a href="#" id="navVehicle">Vehicles</a>
-      <a href="#" id="navUser">User</a>
+    <div class="list-group list-group-flush text-center">
+      <a href="#dashboardContent" class="list-group-item list-group-item-action" id="navDashboard">
+        <img src="Asserts/dashboard.png" alt="Dashboard" class="menu-icon"> Home</a>
+      </a>
+      <a href="#cropsSection" class="list-group-item list-group-item-action" id="navCrops">
+        <img src="Asserts/icons8-crops-64.png" alt="Crops" class="menu-icon"> Crops
+      </a>
+      <a href="#fieldsSection" class="list-group-item list-group-item-action" id="navFields">
+        <img src="Asserts/field.png" alt="Fields" class="menu-icon"> Fields
+      </a>
+      <a href="#logsSection" class="list-group-item list-group-item-action" id="navLogs">
+        <img src="Asserts/logs.png" alt="Logs" class="menu-icon"> Logs
+      </a>
+      <a href="#equipmentSection" class="list-group-item list-group-item-action" id="navEquipment">
+        <img src="Asserts/icons8-equipment-100.png" alt="Equipment" class="menu-icon"> Equipment
+      </a>
+      <a href="#staffSection" class="list-group-item list-group-item-action" id="navStaff">
+        <img src="Asserts/staff.png" alt="Staff" class="menu-icon"> Staff
+      </a>
+      <a href="#vehiclesSection" class="list-group-item list-group-item-action" id="navVehicles">
+        <img src="Asserts/icons8-vehicles-64.png" alt="Vehicles" class="menu-icon"> Vehicles
+      </a>
+      <a href="#userSection" class="list-group-item list-group-item-action" id="navUser">
+        <img src="Asserts/icons8-user-50.png" alt="User" class="menu-icon"> User
+      </a>
     </div>
-  </div>
+  </nav>
 
-  <!-- Main Content Area (Dashboard) -->
-  <div id="dashboardContent" class="dashboard-content">
-    <section id="homePage" class="container">
-      <div class="text-center my-5">
-        <h1>Welcome to Green Shadow Farm</h1>
-        <p>Your partner in sustainable farming and crop management.</p>
-      </div>
-
-      <!-- Action Buttons for Crop, Field, and Staff Management -->
-      <div class="row justify-content-center my-4">
-        <div class="col-md-3 mb-4">
-          <button type="button" class="btn btn-primary w-100" id="addCropButton">
-            Add Crop
-          </button>
-        </div>
-        <div class="col-md-3 mb-4">
-          <button type="button" class="btn btn-secondary w-100" id="addFieldButton">
-            Add Field
-          </button>
-        </div>
-        <div class="col-md-3 mb-4">
-          <button type="button" class="btn btn-success w-100" id="addStaffButton">
-            Add Staff
-          </button>
-        </div>
-      </div>
-
-      <!-- Brief Overview Section -->
-      <div class="overview">
-        <h3>About Green Shadow</h3>
-        <p>At Green Shadow, we specialize in root crops and cereals. Our farm focuses on sustainable farming practices to provide fresh, quality produce. Join us in cultivating a green future!</p>
-      </div>
-    </section>
+  <!-- Page Content -->
+  <div id="page-content-wrapper" class="p-4">
+    <div id="dashboardContent" class="content-section">Dashboard Content</div>
+    <div id="cropsSection" class="content-section">Crops Management</div>
+    <div id="fieldsSection" class="content-section">Field Overview</div>
+    <div id="logsSection" class="content-section">Logs Management</div>
+    <div id="equipmentSection" class="content-section">Equipment Overview</div>
+    <div id="staffSection" class="content-section">Staff Management</div>
+    <div id="vehiclesSection" class="content-section">Vehicles Tracking</div>
+    <div id="userSection" class="content-section">User Settings</div>
   </div>
 </div>
-
-
-
-
-
-<script src="assets/lib/jquery-3.7.1.min.js"></script>
-<script type="module" src="controller/DashboardController.js"></script>
-<script type="module" src="controller/CropController.js"></script>
-<script type="module" src="controller/StaffController.js"></script>
-<script type="module" src="controller/FieldController.js"></script>
-<script type="module" src="controller/LogController.js"></script>
-<script type="module" src="controller/VehicleController.js"></script>
-<script type="module" src="controller/EquipmentController.js"></script>
-<script type="module" src="controller/UserController.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="controller/dashboardController.js"></script>
 </body>
 </html>
+

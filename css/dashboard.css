@@ -1,103 +1,108 @@
-/* General Sidebar Styling */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+/*!* Sidebar styling *!*/
+/*#sidebar-wrapper {*/
+/*    width: 250px;*/
+/*    height: 100vh;*/
+/*    position: fixed;*/
+/*    z-index: 1000;*/
+/*    overflow-y: auto;*/
+/*}*/
+
+/*.sidebar-heading {*/
+/*    background-color: #e3f9e5;*/
+/*    color: #1e7c4e;*/
+/*}*/
+
+/*.list-group-item {*/
+/*    border: none;*/
+/*    background-color: #f8f9fa;*/
+/*    color: #333;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.list-group-item:hover {*/
+/*    background-color: #d1f5d3;*/
+/*    color: #1e7c4e;*/
+/*}*/
+
+/*#page-content-wrapper {*/
+/*    margin-left: 250px;*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.content-section {*/
+/*    display: none;*/
+/*}*/
+
+/*.content-section.active {*/
+/*    display: block;*/
+/*}*/
+
+/*!* Responsive adjustments *!*/
+/*@media (max-width: 768px) {*/
+/*    #sidebar-wrapper {*/
+/*        width: 100%;*/
+/*        position: relative;*/
+/*    }*/
+
+/*    #page-content-wrapper {*/
+/*        margin-left: 0;*/
+/*    }*/
+/*}*/
+/* Sidebar styling */
+#sidebar-wrapper {
     width: 250px;
-    background-color: #343a40;
-    color: white;
-    padding-top: 30px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
 }
 
-.sidebar h3 {
-    text-align: center;
-    color: white;
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+.sidebar-heading {
+    background-color: #e3f9e5;
 }
 
-/* Sidebar Logo Section */
-#logoDiv {
-    text-align: center;
-    margin-bottom: 30px;
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
-#logo {
-    width: 70px;
-    height: auto;
-}
-
-/* Close Button Styling */
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.close-btn:hover {
-    color: #f1c40f; /* Yellow on hover */
-}
-
-/* Navigation Links Section */
-#navLinksDiv {
+.list-group-item {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    align-items: center;
+    justify-content: start;
+    background-color: #f8f9fa;
+    color: #333;
+    transition: all 0.3s ease;
+    padding: 10px 15px;
 }
 
-#navLinksDiv a {
+.list-group-item:hover {
+    background-color: #d1f5d3;
+    color: #1e7c4e;
+}
+
+#page-content-wrapper {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
     display: block;
-    text-align: left;
-    color: white;
-    font-size: 1.1rem;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s, padding-left 0.3s;
 }
 
-#navLinksDiv a:hover {
-    background-color: #007bff;
-    padding-left: 30px;
-}
-
-/* Active link styling */
-#navLinksDiv a.active {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-}
-
-/* Responsive Styling */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
+    #sidebar-wrapper {
+        width: 100%;
+        position: relative;
     }
 
-    #logo {
-        width: 50px;
+    #page-content-wrapper {
+        margin-left: 0;
     }
-
-    #navLinksDiv a {
-        font-size: 1rem;
-        padding: 10px 18px;
-    }
-}
-
-/* Sidebar Slide-in Animation (For Mobile) */
-.sidebar.open {
-    transform: translateX(0);
-}
-
-/* Transition effect when the sidebar is closed (For Mobile) */
-.sidebar.closed {
-    transform: translateX(-100%);
 }
