@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/homePage.css">
   <link rel="stylesheet" href="css/crop.css">
+  <link rel="stylesheet" href="css/field.css">
 
 </head>
 <body>
@@ -171,7 +172,82 @@
   </div>
 
 
-    <div id="fieldsSection" class="content-section">Field Overview</div>
+    <div id="fieldsSection" class="content-section">
+      <div class="container my-5">
+        <h2 class="text-center mb-4">Field Management</h2>
+
+        <!-- Button to Trigger Modal -->
+        <div class="d-flex justify-content-center mb-4">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#fieldModal">Add Field</button>
+        </div>
+
+        <!-- Fields Table -->
+        <table class="table table-bordered" id="fieldTable">
+          <thead class="table-success">
+          <tr>
+            <th>ID</th>
+            <th>Field Name</th>
+            <th>Field Location</th>
+            <th>Field Size</th>
+            <th>Image 1</th>
+            <th>Image 2</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Rows will be dynamically added -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Input Modal -->
+      <div class="modal fade" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="fieldModalLabel">Add Field</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="fieldForm">
+                <div class="mb-3">
+                  <label for="fieldName" class="form-label">Field Name</label>
+                  <input type="text" class="form-control" id="fieldName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="fieldLocation" class="form-label">Field Location</label>
+                  <input type="text" class="form-control" id="fieldLocation" required>
+                </div>
+                <div class="mb-3">
+                  <label for="fieldSize" class="form-label">Field Size</label>
+                  <input type="text" class="form-control" id="fieldSize" required>
+                </div>
+                <div class="mb-3">
+                  <label for="fieldImg1" class="form-label">Field Image 1</label>
+                  <input type="file" class="form-control" id="fieldImg1" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                  <label for="fieldImg2" class="form-label">Field Image 2</label>
+                  <input type="file" class="form-control" id="fieldImg2" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Save Field</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Popup Modal -->
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <img id="modalImage" src="" class="img-fluid" alt="Field Image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="logsSection" class="content-section">Logs Management</div>
     <div id="equipmentSection" class="content-section">Equipment Overview</div>
     <div id="staffSection" class="content-section">Staff Management</div>
@@ -183,6 +259,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="controller/dashboardController.js"></script>
 <script src="controller/cropController.js"></script>
+  <script src="controller/fieldController.js"></script>
   <script src="Ajax/cropAjax.js"></script>
 
 </body>
