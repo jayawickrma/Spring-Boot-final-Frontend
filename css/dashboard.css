@@ -32,9 +32,13 @@
 }
 
 #page-content-wrapper {
+    padding-top: 20px;
+    width: 100%;
+    height: auto;
     margin-left: 250px;
-    padding: 20px;
+ 
 }
+
 
 .content-section {
     display: none;
