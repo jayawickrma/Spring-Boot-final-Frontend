@@ -1,397 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/dashboard.css">
-  <link rel="stylesheet" href="css/field.css">
-  <link rel="stylesheet" href="css/crop.css">
-  <link rel="stylesheet" href="css/staff.css">
-  <link rel="stylesheet" href="css/log.css">
-  <link rel="stylesheet" href="css/vehicle.css">
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/boot">
+  <link href="css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/homePage.css">
 </head>
 <body>
-<div class="sidebar">
-  <h2>Dashboard</h2>
-  <ul>
-    <li><a href="#homeSection">Home</a></li>
-    <li><a href="#fieldSection">Field Management</a></li>
-    <li><a href="#cropSection">Crops Management</a></li>
-    <li><a href="#staffSection">Staff Management</a></li>
-    <li><a href="#logServiceSection" >Monitoring Log Service</a></li>
-    <li><a href="#vehicleSection" >Vehicle Management</a></li>
-    <li><a href="#equipmentSection">Equipment Service</a></li>
-  </ul>
-  <button class="logout-btn" >Logout</button>
+
+<div class="sidebar" id="sidebar">
+
+  <h3 class="text-center mt-3"></h3>
+  <div id="logoDiv">
+    <div class="close-btn" id="closeSidebar">&times;</div>
+    <img src="Asserts/greenshadow.webp" id="logo" ;
+         width="70px" style=" ">
+  </div>
+
+  <div id="navLinksDiv">
+    <a href="#" id="navDashboard">Dashboard</a>
+    <a href="#" id="navCrops">Crops</a>
+    <a href="#" id="navFields">Fields</a>
+    <a href="#" id="navLogs">Logs</a>
+    <a href="#" id="navEquipment">Equipment</a>
+    <a href="#" id="navStaff">Staff</a>
+    <a href="#" id="navVehicle">Vehicles</a>
+    <a href="#" id="navUser">User</a>
+  </div>
+
+</div><!-- Sidebar and Dashboard Layout -->
+<div class="container-fluid">
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div id="logoDiv">
+      <div class="close-btn" id="closeSidebar">&times;</div>
+      <img src="assets/images/Green_and_White_Modern_Simple_Herbal_Shop_Logo-removebg-preview.png" id="logo" width="70px">
+    </div>
+
+    <div id="navLinksDiv">
+      <a href="#" id="navDashboard">Dashboard</a>
+      <a href="#" id="navCrops">Crops</a>
+      <a href="#" id="navFields">Fields</a>
+      <a href="#" id="navLogs">Logs</a>
+      <a href="#" id="navEquipment">Equipment</a>
+      <a href="#" id="navStaff">Staff</a>
+      <a href="#" id="navVehicle">Vehicles</a>
+      <a href="#" id="navUser">User</a>
+    </div>
+  </div>
+
+  <!-- Main Content Area (Dashboard) -->
+  <div id="dashboardContent" class="dashboard-content">
+    <section id="homePage" class="container">
+      <div class="text-center my-5">
+        <h1>Welcome to Green Shadow Farm</h1>
+        <p>Your partner in sustainable farming and crop management.</p>
+      </div>
+
+      <!-- Action Buttons for Crop, Field, and Staff Management -->
+      <div class="row justify-content-center my-4">
+        <div class="col-md-3 mb-4">
+          <button type="button" class="btn btn-primary w-100" id="addCropButton">
+            Add Crop
+          </button>
+        </div>
+        <div class="col-md-3 mb-4">
+          <button type="button" class="btn btn-secondary w-100" id="addFieldButton">
+            Add Field
+          </button>
+        </div>
+        <div class="col-md-3 mb-4">
+          <button type="button" class="btn btn-success w-100" id="addStaffButton">
+            Add Staff
+          </button>
+        </div>
+      </div>
+
+      <!-- Brief Overview Section -->
+      <div class="overview">
+        <h3>About Green Shadow</h3>
+        <p>At Green Shadow, we specialize in root crops and cereals. Our farm focuses on sustainable farming practices to provide fresh, quality produce. Join us in cultivating a green future!</p>
+      </div>
+    </section>
+  </div>
 </div>
 
-<div class="main-content">
 
-<section id="homeSection"></section>
 
-  <section id="fieldSection">
-    <div class="main-container">
-      <h2>Field Management</h2>
 
-      <input type="text" id="fieldCode" placeholder="Field Code" required>
-      <input type="text" id="fieldName" placeholder="Field Name" required>
-      <input type="text" id="fieldLocation" placeholder="Field Location (Coordinate)" required>
-      <input type="text" id="fieldSize" placeholder="Extent Size of the Field" required>
-      <select name="crop" id="crop">
-        <option value="">Select Crop ID</option>
-      </select>
-      <select name="staff" id="staff">
-        <option value="">Select Staff ID</option>
-      </select>
-      <label for="fieldImage1">Field Image 1:</label>
-      <input type="file" id="fieldImage1" accept="image/*" required>
-      <label for="fieldImage2">Field Image 2:</label>
-      <input type="file" id="fieldImage2" accept="image/*" required>
-      <button id="addFieldBtn" class="add-btn">Add Field</button>
 
-      <!-- Field Table -->
-      <table id="fieldTable" class="field-table">
-        <thead>
-        <tr>
-          <th>Field Code</th>
-          <th>Field Name</th>
-          <th>Location</th>
-          <th>Size</th>
-          <th>Crops</th>
-          <th>Staff</th>
-          <th>Image 1</th>
-          <th>Image 2</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="fieldTableBody"></tbody>
-      </table>
-    </div>
-  </section>
-
-
-<section id="cropSection">
-  <div class="main-container">
-  <h2>Crop Management</h2>
-
-
-    <label for="cropCode">Crop Code:</label>
-    <input type="text" id="cropCode" name="cropCode" placeholder="Enter Crop Code" required>
-
-    <label for="commonName">Crop Common Name:</label>
-    <input type="text" id="commonName" name="commonName" placeholder="Enter Common Name" required>
-
-    <label for="scientificName">Crop Scientific Name:</label>
-    <input type="text" id="scientificName" name="scientificName" placeholder="Enter Scientific Name" required>
-
-    <label for="cropImage">Crop Image:</label>
-    <input type="file" id="cropImage" name="cropImage" accept="image/*" required>
-
-    <label for="category">Category:</label>
-    <input type="text" id="category" name="category" placeholder="Enter Category" required>
-
-    <label for="season">Crop Season:</label>
-    <input type="text" id="season" name="season" placeholder="Enter Season" required>
-
-    <label for="field">Field:</label>
-    <select id="field" name="field">
-      <option value="">Select Field</option>
-      <!-- Add field options dynamically if needed -->
-    </select>
-
-    <button type="submit" class="add-btn">Add Crop</button>
-
-
-  <h3>Crop List</h3>
-  <table class="field-table">
-    <thead>
-    <tr>
-      <th>Crop Code</th>
-      <th>Common Name</th>
-      <th>Scientific Name</th>
-      <th>Image</th>
-      <th>Category</th>
-      <th>Season</th>
-      <th>Field</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="cropTableBody">
-    <!-- Rows will be added dynamically -->
-    </tbody>
-  </table>
-  </div>
-</section>
-
-<section id="staffSection">
-  <div class="main-container">
-  <h2>Staff Management</h2>
-
-
-    <label for="staffId">ID:</label>
-    <input type="text" id="staffId" name="staffId" placeholder="Enter Staff ID" required>
-
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
-
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
-
-    <label for="designation">Designation:</label>
-    <input type="text" id="designation" name="designation" placeholder="Enter Designation" required>
-
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-
-    <label for="joinedDate">Joined Date:</label>
-    <input type="date" id="joinedDate" name="joinedDate" required>
-
-    <label for="dob">Date of Birth:</label>
-    <input type="date" id="dob" name="dob" required>
-
-    <label for="address1">Address Line 01:</label>
-    <input type="text" id="address1" name="address1" placeholder="Enter Address Line 01" required>
-
-    <label for="address2">Address Line 02:</label>
-    <input type="text" id="address2" name="address2" placeholder="Enter Address Line 02">
-
-    <label for="address3">Address Line 03:</label>
-    <input type="text" id="address3" name="address3" placeholder="Enter Address Line 03">
-
-    <label for="address4">Address Line 04:</label>
-    <input type="text" id="address4" name="address4" placeholder="Enter Address Line 04">
-
-    <label for="address5">Address Line 05:</label>
-    <input type="text" id="address5" name="address5" placeholder="Enter Address Line 05">
-
-    <label for="contactNo">Contact No.:</label>
-    <input type="text" id="contactNo" name="contactNo" placeholder="Enter Contact No." required>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" placeholder="Enter Email" required>
-
-    <label for="role">Role:</label>
-    <input type="text" id="role" name="role" placeholder="Enter Role" required>
-
-    <label for="field">Field:</label>
-    <select id="field" name="field" required>
-      <option value="">Select Field</option>
-      <!-- Add field options dynamically if needed -->
-    </select>
-
-    <label for="vehicle">Vehicle:</label>
-    <input type="text" id="vehicle" name="vehicle" placeholder="Enter Vehicle Information">
-
-    <button type="submit" class="add-btn">Add Staff</button>
-
-
-  <h3>Staff List</h3>
-  <table class="field-table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Designation</th>
-      <th>Gender</th>
-      <th>Joined Date</th>
-      <th>DOB</th>
-      <th>Address</th>
-      <th>Contact No.</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Field</th>
-      <th>Vehicle</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="staffTableBody">
-    <!-- Rows will be added dynamically -->
-    </tbody>
-  </table>
-  </div>
-</section>
-  <section id="logServiceSection">
-    <div class="main-container">
-      <h2>Log Service Management</h2>
-
-
-        <label for="logDate">Log Date:</label>
-        <input type="date" id="logDate" name="logDate" required>
-
-        <label for="logDetails">Log Details:</label>
-        <textarea id="logDetails" name="logDetails" placeholder="Enter Log Details" required></textarea>
-
-        <label for="selectField">Select Field:</label>
-        <select id="selectField" name="selectField" required>
-          <option value="">Select Field</option>
-          <!-- Populate dynamically as needed -->
-        </select>
-
-        <label for="selectCrop">Select Crop:</label>
-        <select id="selectCrop" name="selectCrop" required>
-          <option value="">Select Crop</option>
-          <!-- Populate dynamically as needed -->
-        </select>
-
-        <label for="selectStaff">Select Staff:</label>
-        <select id="selectStaff" name="selectStaff" required>
-          <option value="">Select Staff</option>
-          <!-- Populate dynamically as needed -->
-        </select>
-
-        <label for="logImage">Log Crop Image:</label>
-        <input type="file" id="logImage" name="logImage" accept="image/*" required>
-
-        <button type="submit" class="add-btn">Add Log Entry</button>
-
-
-      <!-- Log Service Table -->
-      <h3>Log Entries</h3>
-      <table class="field-table">
-        <thead>
-        <tr>
-          <th>Log Date</th>
-          <th>Log Details</th>
-          <th>Field</th>
-          <th>Crop</th>
-          <th>Staff</th>
-          <th>Image</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="logTableBody">
-        <!-- Rows will be added dynamically -->
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-
-
-<section id="equipmentSection">
-  <div class="main-container">
-    <h2>Equipment Management</h2>
-
-
-      <label for="equipmentId">Equipment ID:</label>
-      <input type="text" id="equipmentId" name="equipmentId" placeholder="Enter Equipment ID" required>
-
-      <label for="equipmentName">Equipment Name:</label>
-      <input type="text" id="equipmentName" name="equipmentName" placeholder="Enter Equipment Name" required>
-
-      <label for="equipmentType">Equipment Type:</label>
-      <input type="text" id="equipmentType" name="equipmentType" placeholder="Enter Equipment Type" required>
-
-      <label for="purchaseDate">Purchase Date:</label>
-      <input type="date" id="purchaseDate" name="purchaseDate" required>
-
-      <label for="status">Status:</label>
-      <input type="text" id="status" name="status" placeholder="Enter Status" required>
-
-      <label for="remarks">Remarks:</label>
-      <input type="text" id="remarks" name="remarks" placeholder="Enter Remarks">
-
-      <button type="submit" class="add-btn">Add Equipment</button>
-
-
-    <!-- Equipment Table -->
-    <h3>Equipment List</h3>
-    <table class="field-table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Purchase Date</th>
-        <th>Status</th>
-        <th>Remarks</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody id="equipmentTableBody">
-      <!-- Rows will be added dynamically -->
-      </tbody>
-    </table>
-  </div>
-
-</section>
-<section id="vehicleSection">
-
-    <div class="main-container">
-      <h2>Vehicle Management</h2>
-
-
-        <label for="licensePlate">License Plate Number:</label>
-        <input type="text" id="licensePlate" name="licensePlate" placeholder="Enter License Plate" required>
-
-        <label for="vehicleName">Vehicle Name:</label>
-        <input type="text" id="vehicleName" name="vehicleName" placeholder="Enter Vehicle Name" required>
-
-        <label for="category">Category:</label>
-        <input type="text" id="category" name="category" placeholder="Enter Category" required>
-
-        <label for="fuelType">Fuel Type:</label>
-        <select id="fuelType" name="fuelType" required>
-          <option value="">Select Fuel Type</option>
-          <option value="Petrol">Petrol</option>
-          <option value="Diesel">Diesel</option>
-          <option value="Electric">Electric</option>
-        </select>
-
-        <label for="status">Status:</label>
-        <input type="text" id="status" name="status" placeholder="Enter Status" required>
-
-        <label for="selectStaff">Select Staff Member:</label>
-        <select id="selectStaff" name="selectStaff" >
-          <option value="">Select Staff</option>
-          <!-- Staff options dynamically added here if needed -->
-        </select>
-
-        <label for="remarks">Remarks:</label>
-        <input type="text" id="remarks" name="remarks" placeholder="Enter Remarks" required>
-
-        <button type="submit" class="add-btn">Add Vehicle</button>
-
-
-      <!-- Vehicle Table -->
-      <h3>Vehicle List</h3>
-      <table class="field-table">
-        <thead>
-        <tr>
-          <th>License Plate</th>
-          <th>Vehicle Name</th>
-          <th>Category</th>
-          <th>Fuel Type</th>
-          <th>Status</th>
-          <th>Staff</th>
-          <th>Remarks</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="vehicleTableBody">
-        <!-- Rows will be dynamically added here -->
-        </tbody>
-      </table>
-    </div>
-  </section>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/dashboard.js"></script>
-<script src="js/lib/jquery-3.7.1.min.js"></script>
-<script src="controller/fieldController.js"></script>
-<script src="controller/cropController.js"></script>
-<script src="controller/staffController.js"></script>
-<script src="controller/logController.js"></script>
-<script src="controller/equipmentController.js"></script>
-<script src="controller/vehicle%20controller.js"></script>
+<script src="assets/lib/jquery-3.7.1.min.js"></script>
+<script type="module" src="controller/DashboardController.js"></script>
+<script type="module" src="controller/CropController.js"></script>
+<script type="module" src="controller/StaffController.js"></script>
+<script type="module" src="controller/FieldController.js"></script>
+<script type="module" src="controller/LogController.js"></script>
+<script type="module" src="controller/VehicleController.js"></script>
+<script type="module" src="controller/EquipmentController.js"></script>
+<script type="module" src="controller/UserController.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

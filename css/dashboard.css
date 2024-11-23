@@ -1,218 +1,103 @@
-/*!* Reset styles *!*/
-/** {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-/*body {*/
-/*    font-family: Arial, sans-serif;*/
-/*    display: flex;*/
-/*    height: 100vh;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*!* Sidebar Styling *!*/
-/*.sidebar {*/
-/*    width: 250px;*/
-/*    background-color: #00FF9C;*/
-/*    color: #333;*/
-/*    padding: 20px;*/
-/*    position: fixed;*/
-/*    height: 100vh;*/
-/*    overflow-y: auto;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: space-between;*/
-/*}*/
-
-/*.sidebar h2 {*/
-/*    text-align: center;*/
-/*    color: #111;*/
-/*    margin-bottom: 70px;*/
-/*}*/
-
-/*.sidebar ul {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.sidebar ul li {*/
-/*    padding: 10px 0;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.sidebar ul li a {*/
-/*    color: #333;*/
-/*    text-decoration: none;*/
-/*    display: block;*/
-/*    font-weight: bold;*/
-/*    padding: 10px;*/
-/*    border-radius: 4px;*/
-/*    transition: background-color 0.3s, color 0.3s;*/
-/*}*/
-
-/*.sidebar ul li a:hover {*/
-/*    background-color: #ddd;*/
-/*    color: #222;*/
-/*    padding-left: 15px;*/
-/*}*/
-
-/*!* Main Content Styling *!*/
-/*.main-content {*/
-/*    margin-left: 250px; !* Offset for sidebar *!*/
-/*    padding: 20px;*/
-/*    width: calc(100vw - 250px); !* Available width without sidebar *!*/
-/*    height: 100vh; !* Full height of viewport *!*/
-/*    overflow-y: auto;*/
-/*}*/
-
-/*!* Content Wrapper Styling *!*/
-/*#content {*/
-/*    padding: 20px;*/
-/*    background-color: #f4f4f4;*/
-/*    border-radius: 5px;*/
-/*}*/
-
-/*!* Section Styling *!*/
-/*section {*/
-/*    !*display: none; !* Hide initially *!*!*/
-/*    width: 100%; !* Take full width of .main-content *!*/
-/*    min-height: 100%; !* Ensure it fills main content height *!*/
-/*    display: flex; !* Center content *!*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    flex-direction: column;*/
-/*    overflow-y: auto;*/
-/*    padding: 20px;*/
-/*}*/
-
-/*!* Logout Button *!*/
-/*.logout-btn {*/
-/*    padding: 15px;*/
-/*    background-color: #e74c3c;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    font-size: 16px;*/
-/*    font-weight: bold;*/
-/*    text-align: center;*/
-/*    border-radius: 5px;*/
-/*    transition: background-color 0.3s;*/
-/*    width: 100%;*/
-/*    margin-top: 20px;*/
-/*    align-self: flex-end;*/
-/*}*/
-
-/*.logout-btn:hover {*/
-/*    background-color: #c0392b;*/
-/*}*/
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-}
-
+/* General Sidebar Styling */
 .sidebar {
-    width: 250px;
-    background-color: #00FF9C;
-    color: #333;
-    padding: 20px;
     position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sidebar h2 {
-    text-align: center;
-    color: #111;
-    margin-bottom: 70px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    flex-grow: 1;
-}
-
-.sidebar ul li {
-    padding: 10px 0;
-    text-align: center;
-}
-
-.sidebar ul li a {
-    color: #333;
-    text-decoration: none;
-    display: block;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.sidebar ul li a:hover {
-    background-color: #ddd;
-    color: #222;
-    padding-left: 15px;
-}
-
-.main-content {
-    margin-left: 250px;
-    width: calc(100vw - 250px);
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-section {
-    display: none;
-    width: 100%;
-    min-height: calc(100vh - 40px); /* Account for padding */
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-#homeSection {
-    display: flex; /* Show the default section */
-}
-
-.logout-btn {
-    padding: 15px;
-    background-color: #e74c3c;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #343a40;
     color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    width: 100%;
-    margin-top: 20px;
-    align-self: flex-end;
+    padding-top: 30px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 
-.logout-btn:hover {
-    background-color: #c0392b;
+.sidebar h3 {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+/* Sidebar Logo Section */
+#logoDiv {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#logo {
+    width: 70px;
+    height: auto;
+}
+
+/* Close Button Styling */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #f1c40f; /* Yellow on hover */
+}
+
+/* Navigation Links Section */
+#navLinksDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#navLinksDiv a {
+    display: block;
+    text-align: left;
+    color: white;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, padding-left 0.3s;
+}
+
+#navLinksDiv a:hover {
+    background-color: #007bff;
+    padding-left: 30px;
+}
+
+/* Active link styling */
+#navLinksDiv a.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    #logo {
+        width: 50px;
+    }
+
+    #navLinksDiv a {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+}
+
+/* Sidebar Slide-in Animation (For Mobile) */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Transition effect when the sidebar is closed (For Mobile) */
+.sidebar.closed {
+    transform: translateX(-100%);
 }
