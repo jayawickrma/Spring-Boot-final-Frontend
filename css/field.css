@@ -10,6 +10,7 @@ body {
     left: 20%;
     bottom: 0;
     position: absolute;
+    scroll-behavior: auto;
 
 }
 
