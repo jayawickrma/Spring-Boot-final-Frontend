@@ -1,3 +1,5 @@
+import field from "../Model/fieldModel";
+
 $(document).ready(function() {
     var crops = [];
     var editIndex = -1;
@@ -9,6 +11,7 @@ $(document).ready(function() {
         var season = $('#Season').val();
         var scientificName = $('#ScientificName').val();
         var image = $('#Image').val();
+        var field = $('#Field').val();
 
         if (editIndex === -1) {
             var newCrop = {
@@ -16,7 +19,8 @@ $(document).ready(function() {
                 name: cropName,
                 season: season,
                 scientificName: scientificName,
-                image: image
+                image: image,
+                field:field
             };
             crops.push(newCrop);
         } else {
@@ -24,6 +28,7 @@ $(document).ready(function() {
             crops[editIndex].season = season;
             crops[editIndex].scientificName = scientificName;
             crops[editIndex].image=image
+            crop[editIndex].field = field
             editIndex = -1;
         }
 
@@ -41,6 +46,7 @@ $(document).ready(function() {
         $('#Season').val(crop.season);
         $('#ScientificName').val(crop.scientificName);
         $('#CropImage').val(crop.image);
+        $('#Field').val(crop.field);
         $('#cropModalLabel').text('Edit Crop');
         $('#cropModal').modal('show');
     });
