@@ -1,3 +1,14 @@
+#logsSection{
+    width: 70%;
+    height: 100%;
+    align-content: center;
+    top: -15%;
+    right: 0%;
+    left: 20%;
+    bottom: 0;
+    position: absolute;
+
+}
 .content-section {
     padding: 20px;
 }
