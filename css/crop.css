@@ -1,5 +1,5 @@
 #cropsSection{
-    width: 70%;
+        width: 70%;
     height: 100%;
     align-content: center;
     top: -15%;
@@ -14,24 +14,62 @@
   position: absolute;
 
 }
-#modalImage {
-    max-width: 100%;
-    max-height: 90vh;
-    display: block;
-    margin: auto;
-}
-
-.table-image {
-    width: 100px;
-    cursor: pointer;
-    position: relative;
-}
 /* Style for the crops section */
 .content-section {
     padding: 20px;
 }
 
 /* Modal Styling */
+#imagePopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /*display: flex; !* Ensures flexbox centering *!*/
+}
+
+#imagePopup img {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    max-width: 600px;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+}
+
+#imagePopup .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#imagePopup img {
+    width: 50%;
+    max-width: 600px;
+    border: 5px solid white;
+}
+#imagePopup .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
 .modal-content {
     border-radius: 10px;
 }
@@ -49,9 +87,6 @@
 .table th, .table td {
     text-align: center;
     vertical-align: middle;
-}
-#cropTable{
-    position: relative;
 }
 
 /* Button Styling */
