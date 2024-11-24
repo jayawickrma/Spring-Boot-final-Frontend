@@ -109,21 +109,24 @@
       </div>
     </div>
     </div>
+
   <div id="cropsSection" class="content-section">
-    <div id="cropsSection" class="section">
+    <div class="section">
       <h2 class="text-center my-4">Manage Crops</h2>
+
       <!-- Crop Save Button -->
       <div class="d-flex justify-content-center mb-4">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cropModal" id="cropSaveBtn">Add Crop</button>
       </div>
+
       <!-- Crop Table -->
-      <table class="table table-bordered" id="cropTable">
+      <table class="table table-bordered table-hover" id="cropTable">
         <thead class="table-success">
         <tr>
           <th>ID</th>
           <th>Crop Name</th>
           <th>Season</th>
-          <th>ScientificName</th>
+          <th>Scientific Name</th>
           <th>Image</th>
           <th>Field</th>
           <th>Actions</th>
@@ -133,6 +136,7 @@
         <!-- Rows will be added dynamically -->
         </tbody>
       </table>
+
       <!-- Popup Modal for Crop Details -->
       <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -152,7 +156,7 @@
                   <input type="text" class="form-control" id="Season" required>
                 </div>
                 <div class="mb-3">
-                  <label for="ScientificName" class="form-label">Scientific name</label>
+                  <label for="ScientificName" class="form-label">Scientific Name</label>
                   <input type="text" class="form-control" id="ScientificName" required>
                 </div>
                 <div class="mb-3">
@@ -173,7 +177,9 @@
   </div>
 
 
-    <div id="fieldsSection" class="content-section">
+
+
+  <div id="fieldsSection" class="content-section">
       <div class="container my-5">
         <h2 class="text-center mb-4">Field Management</h2>
 
