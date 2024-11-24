@@ -1,9 +1,11 @@
 $(document).ready(function () {
     var logs = [];
+    var editIndex = -1;
 
-    // Save Log
+    // Save or Update Log
     $('#logForm').submit(function (e) {
         e.preventDefault();
+
         var logDate = $('#logDate').val();
         var logDetails = $('#logDetails').val();
         var logImage = $('#logImage')[0].files[0];
@@ -11,18 +13,30 @@ $(document).ready(function () {
         var logCrop = $('#logCrop').val();
         var logField = $('#logField').val();
 
-        var imageUrl = logImage ? URL.createObjectURL(logImage) : '';
+        var imageUrl = logImage ? URL.createObjectURL(logImage) : logs[editIndex]?.image || '';
 
-        var newLog = {
-            id: logs.length + 1,
-            date: logDate,
-            details: logDetails,
-            image: imageUrl,
-            staff: logStaff,
-            crop: logCrop,
-            field: logField,
-        };
-        logs.push(newLog);
+        if (editIndex === -1) {
+            // Add new log
+            var newLog = {
+                id: logs.length + 1,
+                date: logDate,
+                details: logDetails,
+                image: imageUrl,
+                staff: logStaff,
+                crop: logCrop,
+                field: logField,
+            };
+            logs.push(newLog);
+        } else {
+            // Update existing log
+            logs[editIndex].date = logDate;
+            logs[editIndex].details = logDetails;
+            logs[editIndex].image = imageUrl;
+            logs[editIndex].staff = logStaff;
+            logs[editIndex].crop = logCrop;
+            logs[editIndex].field = logField;
+            editIndex = -1;
+        }
 
         $('#logModal').modal('hide');
         $('#logForm')[0].reset();
@@ -32,24 +46,47 @@ $(document).ready(function () {
     // Render Log Table
     function renderLogTable() {
         $('#logTable tbody').empty();
-        logs.forEach((log) => {
+        logs.forEach((log, index) => {
             $('#logTable tbody').append(`
         <tr>
           <td>${log.date}</td>
           <td>${log.details}</td>
           <td>
-            <img src="${log.image}"  class="table-img" " onclick="showPopup('${log.image}')">
+            <img src="${log.image}" alt="Log Image" class="table-img" style="width:50px;height:auto;cursor:pointer;" onclick="showPopup('${log.image}')">
           </td>
           <td>${log.staff}</td>
           <td>${log.crop}</td>
           <td>${log.field}</td>
           <td>
-            <button class="btn btn-danger delete-log-btn" data-id="${log.id}">Delete</button>
+            <button class="btn btn-primary edit-log-btn" data-index="${index}">Edit</button>
+            <button class="btn btn-danger delete-log-btn" data-index="${index}">Delete</button>
           </td>
         </tr>
       `);
         });
     }
+
+    // Edit Log
+    $(document).on('click', '.edit-log-btn', function () {
+        editIndex = $(this).data('index');
+        var log = logs[editIndex];
+
+        $('#logDate').val(log.date);
+        $('#logDetails').val(log.details);
+        $('#logStaff').val(log.staff);
+        $('#logCrop').val(log.crop);
+        $('#logField').val(log.field);
+
+        $('#logModalLabel').text('Edit Log');
+        $('#logModal').modal('show');
+    });
+
+    // Delete Log
+    $(document).on('click', '.delete-log-btn', function () {
+        var index = $(this).data('index');
+        logs.splice(index, 1);
+        renderLogTable();
+    });
 
     // Show Popup Image
     window.showPopup = function (src) {
@@ -60,12 +97,5 @@ $(document).ready(function () {
     // Hide Popup Image
     $('#imagePopup .close').click(function () {
         $('#imagePopup').fadeOut();
-    });
-
-    // Delete Log
-    $(document).on('click', '.delete-log-btn', function () {
-        var id = $(this).data('id');
-        logs = logs.filter((log) => log.id !== id);
-        renderLogTable();
     });
 });
