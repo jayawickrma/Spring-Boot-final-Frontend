@@ -1,5 +1,5 @@
 #cropsSection{
-        width: 70%;
+    width: 70%;
     height: 100%;
     align-content: center;
     top: -15%;
@@ -13,6 +13,18 @@
     width: 100%;
   position: absolute;
 
+}
+#modalImage {
+    max-width: 100%;
+    max-height: 90vh;
+    display: block;
+    margin: auto;
+}
+
+.table-image {
+    width: 100px;
+    cursor: pointer;
+    position: relative;
 }
 /* Style for the crops section */
 .content-section {
@@ -37,6 +49,9 @@
 .table th, .table td {
     text-align: center;
     vertical-align: middle;
+}
+#cropTable{
+    position: relative;
 }
 
 /* Button Styling */

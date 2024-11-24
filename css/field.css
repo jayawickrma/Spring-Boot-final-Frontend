@@ -17,6 +17,7 @@ body {
 .table-image {
     width: 100px;
     cursor: pointer;
+    position: relative;
 }
 
 .modal-content {

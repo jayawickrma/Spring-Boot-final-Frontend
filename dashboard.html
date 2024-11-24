@@ -125,6 +125,7 @@
           <th>Season</th>
           <th>ScientificName</th>
           <th>Image</th>
+          <th>Field</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -159,7 +160,7 @@
                   <input type="file" class="form-control" id="CropImage" required>
                 </div>
                 <div class="mb-3">
-                  <label for="field" class="form-label">Image</label>
+                  <label for="field" class="form-label">Field</label>
                   <input type="text" class="form-control" id="field" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Save Crop</button>
@@ -255,13 +256,13 @@
     <div id="userSection" class="content-section">User Settings</div>
 
 
+</div>
 <script src="js/lib/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="controller/dashboardController.js"></script>
 <script src="controller/cropController.js"></script>
-  <script src="controller/fieldController.js"></script>
-  <script src="Ajax/cropAjax.js"></script>
-
+<script src="controller/fieldController.js"></script>
+<script src="Ajax/cropAjax.js"></script>
 </body>
 </html>
 
