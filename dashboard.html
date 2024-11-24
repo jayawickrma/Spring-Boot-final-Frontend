@@ -266,7 +266,83 @@
     </div>
 
   </div>
-    <div id="logsSection" class="content-section">Logs Management</div>
+    <div id="logsSection" class="content-section">
+        <div class="section">
+          <h2 class="text-center my-4">Log Management</h2>
+
+          <!-- Add Log Button -->
+          <div class="d-flex justify-content-center mb-4">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#logModal">Add Log</button>
+          </div>
+
+          <!-- Log Table -->
+          <table class="table table-bordered" id="logTable">
+            <thead class="table-success">
+            <tr>
+              <th>Date</th>
+              <th>Details</th>
+              <th>Image</th>
+              <th>Staff</th>
+              <th>Crop</th>
+              <th>Field</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Rows will be added dynamically -->
+            </tbody>
+          </table>
+
+          <!-- Popup Modal for Log Details -->
+          <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="logModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="logModalLabel">Add Log</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="logForm">
+                    <div class="mb-3">
+                      <label for="logDate" class="form-label">Date</label>
+                      <input type="date" class="form-control" id="logDate" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="logDetails" class="form-label">Details</label>
+                      <textarea class="form-control" id="logDetails" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="logImage" class="form-label">Image</label>
+                      <input type="file" class="form-control" id="logImage" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="logStaff" class="form-label">Staff</label>
+                      <input type="text" class="form-control" id="logStaff" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="logCrop" class="form-label">Crop</label>
+                      <input type="text" class="form-control" id="logCrop" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="logField" class="form-label">Field</label>
+                      <input type="text" class="form-control" id="logField" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Log</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Popup Image Viewer -->
+          <div id="imagePopup" class="image-popup">
+            <span class="close">&times;</span>
+            <img id="popupImage" src="" alt="Log Image">
+          </div>
+        </div>
+      </div>
+
+    </div>
     <div id="equipmentSection" class="content-section">
         <div class="section">
           <h2 class="text-center my-4">Manage Equipment</h2>
