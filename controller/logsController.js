@@ -38,7 +38,7 @@ $(document).ready(function () {
           <td>${log.date}</td>
           <td>${log.details}</td>
           <td>
-            <img src="${log.image}" alt="Log Image" class="table-img" style="width:50px;height:auto;cursor:pointer;" onclick="showPopup('${log.image}')">
+            <img src="${log.image}"  class="table-img" " onclick="showPopup('${log.image}')">
           </td>
           <td>${log.staff}</td>
           <td>${log.crop}</td>
