@@ -1,5 +1,6 @@
 import { LoadFieldCard } from './FieldController.js'; // Import LoadFieldCard
 
+// Clear the modal when the "Add Crop" button is clicked
 $('#newCropButton').on('click', function () {
     clearAddModal();
 });
@@ -10,31 +11,30 @@ $('#cropForm').on('submit', function (e) {
 
     // Retrieve form values
     let cropName = $('#cropName').val();
-    let scientificName = $('#crop-scientificName').val();
-    let category = $('#crop-Category').val();
-    let season = $('#crop-season').val();
+    let scientificName = $('#ScientificName').val();
+    let season = $('#Season').val();
     let fieldIds = [];
 
     // Collect all field IDs from the main select and additional fields
-    $('#crop-FieldId').val() && fieldIds.push($('#crop-FieldId').val()); // Add main select value if not empty
+    $('#field').val() && fieldIds.push($('#field').val()); // Add main select value if not empty
     $('#additionalField select').each(function () {
         let fields = $(this).val();
         fieldIds.push(fields);
     });
 
     // Remove empty values (if any)
-    fieldIds = fieldIds.filter(id => ({ fieldCode: id }));
+    fieldIds = fieldIds.filter(id => id);
 
-    let cropImageFile = $('#cropImageInput')[0].files[0];
+    let cropImageFile = $('#CropImage')[0].files[0];
 
     const formData = new FormData();
     formData.append("cropName", cropName);
     formData.append("scientificName", scientificName);
-    formData.append("category", category);
     formData.append("season", season);
     formData.append("cropImage", cropImageFile);
     formData.append("field", new Blob([JSON.stringify(fieldIds)], { type: "application/json" }));
 
+    // Show confirmation before saving
     Swal.fire({
         title: "Do you want to save the changes?",
         showDenyButton: true,
@@ -52,13 +52,13 @@ $('#cropForm').on('submit', function (e) {
                 success: function (response) {
                     $('#cropForm')[0].reset();
                     $('#previewCrop').addClass('d-none');
-                    $('#newCropModal').modal('hide');
+                    $('#cropModal').modal('hide');
                     let loadCard = new LoadCards();
-                    loadCard.loadAllCropCard();
+                    loadCard.loadAllCropCard();  // Reload the crop cards
                     Swal.fire("Saved!", "", "success");
                 },
                 error: function (xhr, status, error) {
-                    alert("Failed crop");
+                    alert("Failed to save crop.");
                 }
             });
         } else if (result.isDenied) {
@@ -71,51 +71,34 @@ $('#cropForm').on('submit', function (e) {
 $('#addFieldButton').on('click', function () {
     let fieldCard = new LoadFieldCard(); // Initialize LoadFieldCard
     fieldCard.loadAllFieldCard().then(fieldCodes => {
-        addDropdownUpdate('#additionalField', '#crop-FieldId', fieldCodes);
+        addDropdownUpdate('#additionalField', '#field', fieldCodes);
     }).catch(error => {
         console.error("Error loading field cards:", error);
     });
 });
 
-$('#cropImageInput').on('click', function () {
-    previewCropImage("#cropImageInput", "#previewCropImg");
-});
-
-$('#updateCropImage').on('click', function () {
-    previewCropImage("#updateCropImage", "#updatePreview");
+// Image preview functionality
+$('#CropImage').on('change', function () {
+    previewCropImage("#CropImage", "#previewCropImg");
 });
 
 // Preview image in modal when file input changes
 function previewCropImage(imageInputId, imgPreviewId) {
-    $(`${imageInputId}`).on('change', function (event) {
+    $(imageInputId).on('change', function (event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                $(`${imgPreviewId}`).attr('src', e.target.result).removeClass('d-none').show(); // Remove d-none and display the image
+                $(imgPreviewId).attr('src', e.target.result).removeClass('d-none').show(); // Remove d-none and display the image
             };
             reader.readAsDataURL(file);
         } else {
-            $(`${imgPreviewId}`).addClass('d-none');
+            $(imgPreviewId).addClass('d-none');
         }
     });
 }
 
-// SET CARD DATA UPDATE MODAL
-$('#cropCard').on('click', '.update-button', function () {
-    const card = $(this).closest('.card');
-    $('#selectedCropCode').val(card.find('.card-cropCode').text().replace('Code:', '').trim());
-    $('#updateCropName').val(card.find('.card-name').text().replace('Name:', '').trim());
-    $('#updateScientificName').val(card.find('.card-scientific').text().replace('Scientific Name: ', '').trim());
-    $('#updateCategory').val(card.find('.card-category').text().replace('Category: ', ''));
-    $('#updateCropSeason').val(card.find('.card-season').text().replace('Crop Season: ', ''));
-    $('#updatePreview').attr('src', card.find('.image-preview').attr('src')).removeClass('d-none');
-    $('#cropImageInput').val('');
-    $('#updateFieldModalButton').data('card-id', card);
-    $('#updateCropModal').modal('show');
-});
-
-//add additional combo box in update modal
+// Function to add a new field dropdown in the update modal
 function addDropdownUpdate(containerId, selectClass, options) {
     const $container = $('<div class="d-flex align-items-center mt-2"></div>');
     const $select = $('<select id="optionSelect" class="form-control me-2 text-white" style="background-color:#2B2B2B"></select>').addClass(selectClass);
@@ -138,14 +121,12 @@ $('#updateFieldModalButton').on('click', async function () {
     let cropCode = $('#selectedCropCode').val();
     let cropName = $('#updateCropName').val();
     let scientificName = $('#updateScientificName').val();
-    let category = $('#updateCategory').val();
     let season = $('#updateCropSeason').val();
     let cropImage = $('#updateCropImage')[0].files[0];
 
     const formData = new FormData();
     formData.append("cropName", cropName);
     formData.append("scientificName", scientificName);
-    formData.append("category", category);
     formData.append("season", season);
 
     if (!cropImage) {
@@ -184,15 +165,13 @@ $('#updateFieldModalButton').on('click', async function () {
                 success: function (response) {
                     $('#updateCropForm')[0].reset();
                     $('#previewCrop').addClass('d-none');
-                    $('#additionalLogInCropUpdate').empty();
-                    $('#additionalFieldInCropUpdate').empty();
                     $('#updateCropModal').modal('hide');
                     let loadAllCrops = new LoadCards();
-                    loadAllCrops.loadAllCropCard();
+                    loadAllCrops.loadAllCropCard();  // Reload the crop cards
                     Swal.fire("Updated!", "", "success");
                 },
                 error: function (xhr, status, error) {
-                    Swal.fire("Failed crop", "", "info");
+                    Swal.fire("Failed crop update", "", "info");
                 }
             });
         } else if (result.isDenied) {
@@ -201,27 +180,7 @@ $('#updateFieldModalButton').on('click', async function () {
     });
 });
 
-function populateDropdownCrop(container, selectedValues, options) {
-    $(container).empty();
-    selectedValues.forEach(value => {
-        const dropdownWrapper = $('<div class="dropdown-wrapper mb-3" style="display: flex; align-items: center;"></div>');
-        const dropdown = $('<select class="form-control me-2 text-white" style="background-color:#2B2B2B"></select>');
-        options.forEach(option => {
-            dropdown.append(`<option value="${option}" ${option.trim() === value ? 'selected' : ''}>${option}</option>`);
-        });
-
-        const removeButton = $('<button type="button" class="btn btn-danger ml-2">Remove</button>');
-        removeButton.click(function () {
-            dropdownWrapper.remove();
-        });
-
-        dropdownWrapper.append(dropdown);
-        dropdownWrapper.append(removeButton);
-        $(container).append(dropdownWrapper);
-    });
-}
-
-// Show the confirmation modal and set the card ID to delete
+// CROP DELETION CONFIRMATION
 $(document).ready(function () {
     $(document).on('click', '.delete-button', function () {
         const cardId = $(this).data('card-id');
