@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/field.css">
   <link rel="stylesheet" href="css/equipment.css">
   <link rel="stylesheet" href="css/logs.css">
+  <link rel="stylesheet" href="css/staff.css">
+  <link rel="stylesheet" href="css/vehicle.css">
 
 </head>
 <body>
@@ -418,7 +420,82 @@
 
     </div>
     <div id="staffSection" class="content-section">Staff Management</div>
-    <div id="vehiclesSection" class="content-section">Vehicles Tracking</div>
+    <div id="vehiclesSection" class="content-section">
+        <div class="section">
+          <h2 class="text-center my-4">Vehicle Management</h2>
+
+          <!-- Add Vehicle Button -->
+          <div class="d-flex justify-content-center mb-4">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#vehicleModal">Add Vehicle</button>
+          </div>
+
+          <!-- Vehicle Table -->
+          <table class="table table-bordered" id="vehicleTable">
+            <thead class="table-success">
+            <tr>
+              <th>License Plate</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Fuel Type</th>
+              <th>Remark</th>
+              <th>Status</th>
+              <th>Staff</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Rows will be added dynamically -->
+            </tbody>
+          </table>
+
+          <!-- Popup Modal for Adding/Editing Vehicles -->
+          <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="vehicleModalLabel">Add Vehicle</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="vehicleForm">
+                    <div class="mb-3">
+                      <label for="licensePlate" class="form-label">License Plate</label>
+                      <input type="text" class="form-control" id="licensePlate" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="vehicleName" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="vehicleName" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="vehicleCategory" class="form-label">Category</label>
+                      <input type="text" class="form-control" id="vehicleCategory" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="fuelType" class="form-label">Fuel Type</label>
+                      <input type="text" class="form-control" id="fuelType" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="remark" class="form-label">Remark</label>
+                      <textarea class="form-control" id="remark" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="status" class="form-label">Status</label>
+                      <input type="text" class="form-control" id="status" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="staffId" class="form-label">Staff</label>
+                      <input type="text" class="form-control" id="staffId" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Vehicle</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
     <div id="userSection" class="content-section">User Settings</div>
 
 
@@ -429,6 +506,8 @@
 <script src="controller/fieldController.js"></script>
 <script src="controller/logsController.js"></script>
 <script src="controller/equipmentController.js"></script>
+<script src="controller/staffController.js"></script>
+<script src="controller/vehicleControlller.js"></script>
 
 </body>
 </html>
