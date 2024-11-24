@@ -75,7 +75,7 @@ $(document).ready(function () {
                     <td>${crop.name}</td>
                     <td>${crop.season}</td>
                     <td>${crop.scientificName}</td>
-                    <td><img src="${crop.image}" alt="Crop Image" style="width:50px; height:50px;display: flex cursor:pointer;" onclick="showPopup('${crop.image}')"></td>
+                    <td><img src="${crop.image} "class="table-img"" onclick="showPopup('${crop.image}')"></td>
                     <td>${crop.field}</td>
                     <td>
                         <button class="btn btn-primary edit-btn" data-id="${crop.id}">Edit</button>
