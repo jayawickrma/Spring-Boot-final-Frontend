@@ -7,13 +7,14 @@ $(document).ready(function () {
         e.preventDefault();
 
         var staffData = {
+            id:$('#staff').val(),
             firstName: $('#firstName').val(),
             lastName: $('#lastName').val(),
             joinedDate: $('#joinedDate').val(),
             dateOfBirth: $('#dateOfBirth').val(),
             gender: $('#gender').val(),
             designation: $('#designation').val(),
-            address: $('#address').val(),
+            address: $('#address1').val(),
             contactNo: $('#contactNo').val(),
             email: $('#email').val(),
             role: $('#role').val(),

@@ -1,82 +1,82 @@
-$(document).ready(function () {
-    var equipmentList = [];
-    var editEquipmentIndex = -1;
+$(document).ready(function() {
+    let equipmentData = [];
+    let editIndex = -1;
 
-    // Save or Update Equipment
-    $('#equipmentForm').submit(function (e) {
+    // Handle form submission for creating/updating equipment
+    $('#equipmentForm').submit(function(e) {
         e.preventDefault();
-        var name = $('#equipmentName').val();
-        var type = $('#equipmentType').val();
-        var status = $('#equipmentStatus').val();
-        var count = $('#equipmentCount').val();
-        var field = $('#equipmentField').val();
 
-        if (editEquipmentIndex === -1) {
-            var newEquipment = {
-                id: equipmentList.length + 1,
-                name: name,
-                type: type,
-                status: status,
-                count: count,
-                field: field,
-            };
-            equipmentList.push(newEquipment);
+        const equipment = {
+            equipmentId: editIndex === -1 ? generateEquipmentId() : equipmentData[editIndex].equipmentId,
+            equipmentName: $('#equipmentName').val(),
+            equipmentType: $('#equipmentType').val(),
+            status: $('#status').val(),
+            availableCount: $('#availableCount').val(),
+            field: $('#field').val(),
+        };
+
+        if (editIndex === -1) {
+            equipmentData.push(equipment);
         } else {
-            equipmentList[editEquipmentIndex] = {
-                ...equipmentList[editEquipmentIndex],
-                name: name,
-                type: type,
-                status: status,
-                count: count,
-                field: field,
-            };
-            editEquipmentIndex = -1;
+            equipmentData[editIndex] = equipment;
+            editIndex = -1; // Reset after update
         }
 
-        $('#equipmentModal').modal('hide');
         $('#equipmentForm')[0].reset();
-        renderEquipmentTable();
+        $('#equipmentModal').modal('hide');
+        updateEquipmentTable();
+        $('#saveBtn').text('Save Equipment');
+        $('#addEquipmentBtn').prop('disabled', false);
     });
 
-    // Render Equipment Table
-    function renderEquipmentTable() {
-        $('#equipmentTable tbody').empty();
-        equipmentList.forEach((equipment) => {
-            $('#equipmentTable tbody').append(`
-        <tr>
-          <td>${equipment.id}</td>
-          <td>${equipment.name}</td>
-          <td>${equipment.type}</td>
-          <td>${equipment.status}</td>
-          <td>${equipment.count}</td>
-          <td>${equipment.field}</td>
-          <td>
-            <button class="btn btn-primary edit-equipment-btn" data-id="${equipment.id}">Edit</button>
-            <button class="btn btn-danger delete-equipment-btn" data-id="${equipment.id}">Delete</button>
-          </td>
-        </tr>
-      `);
+    // Update the Equipment Table
+    function updateEquipmentTable() {
+        const tableBody = $('#equipmentTable tbody');
+        tableBody.empty();
+
+        equipmentData.forEach((equipment, index) => {
+            tableBody.append(`
+          <tr data-index="${index}">
+            <td>${equipment.equipmentId}</td>
+            <td>${equipment.equipmentName}</td>
+            <td>${equipment.equipmentType}</td>
+            <td>${equipment.status}</td>
+            <td>${equipment.availableCount}</td>
+            <td>${equipment.field}</td>  <!-- Display the field value here -->
+            <td>
+              <button class="btn btn-warning btn-sm edit-btn">Edit</button>
+              <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+            </td>
+          </tr>
+        `);
         });
     }
 
     // Edit Equipment
-    $(document).on('click', '.edit-equipment-btn', function () {
-        var id = $(this).data('id');
-        editEquipmentIndex = equipmentList.findIndex((equipment) => equipment.id === id);
-        var equipment = equipmentList[editEquipmentIndex];
-        $('#equipmentName').val(equipment.name);
-        $('#equipmentType').val(equipment.type);
-        $('#equipmentStatus').val(equipment.status);
-        $('#equipmentCount').val(equipment.count);
-        $('#equipmentField').val(equipment.field);
-        $('#equipmentModalLabel').text('Edit Equipment');
+    $('#equipmentTable').on('click', '.edit-btn', function() {
+        editIndex = $(this).closest('tr').data('index');
+        const equipment = equipmentData[editIndex];
+
+        $('#equipmentName').val(equipment.equipmentName);
+        $('#equipmentType').val(equipment.equipmentType);
+        $('#status').val(equipment.status);
+        $('#availableCount').val(equipment.availableCount);
+        $('#field').val(equipment.field);  // Populate the field input here
+
         $('#equipmentModal').modal('show');
+        $('#saveBtn').text('Update Equipment');
+        $('#addEquipmentBtn').prop('disabled', true);
     });
 
     // Delete Equipment
-    $(document).on('click', '.delete-equipment-btn', function () {
-        var id = $(this).data('id');
-        equipmentList = equipmentList.filter((equipment) => equipment.id !== id);
-        renderEquipmentTable();
+    $('#equipmentTable').on('click', '.delete-btn', function() {
+        const index = $(this).closest('tr').data('index');
+        equipmentData.splice(index, 1);
+        updateEquipmentTable();
     });
+
+    // Generate unique Equipment ID
+    function generateEquipmentId() {
+        return 'EQUIP' + (equipmentData.length + 1);
+    }
 });
