@@ -418,8 +418,117 @@
         </div>
       </div>
 
-ed
-    <div id="staffSection" class="content-section">Staff Management</div>
+
+    <div id="staffSection" class="content-section">
+        <div class="d-flex justify-content-between mb-4">
+          <h2>Staff Management</h2>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staffModal">Add Staff</button>
+        </div>
+
+      <div id="staffTableContainer">
+        <table class="table table-bordered" id="staffTable">
+          <thead class="table-success">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Joined Date</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Designation</th>
+            <th>Address</th>
+            <th>Contact No</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Vehicle</th>
+            <th>Field</th>
+            <th>Log</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+
+
+      <!-- Staff Modal -->
+        <div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staffModalLabel">Add Staff</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="staffForm">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="joinedDate" class="form-label">Joined Date</label>
+                      <input type="date" class="form-control" id="joinedDate" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                      <input type="date" class="form-control" id="dateOfBirth" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="gender" class="form-label">Gender</label>
+                      <select class="form-select" id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="designation" class="form-label">Designation</label>
+                      <input type="text" class="form-control" id="designation" required>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="address" class="form-label">Address</label>
+                      <textarea class="form-control" id="address" rows="2" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="contactNo" class="form-label">Contact No</label>
+                      <input type="text" class="form-control" id="contactNo" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="role" class="form-label">Role</label>
+                      <input type="text" class="form-control" id="role" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="vehicle" class="form-label">Vehicle</label>
+                      <input type="text" class="form-control" id="vehicle">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="field" class="form-label">Field</label>
+                      <input type="text" class="form-control" id="field">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="log" class="form-label">Log</label>
+                      <textarea class="form-control" id="log" rows="2"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-3">Save Staff</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
     <div id="vehiclesSection" class="content-section">
         <div class="section">
