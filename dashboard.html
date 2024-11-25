@@ -113,6 +113,8 @@
       </div>
     </div>
     </div>
+
+
   <div id="cropsSection" class="content-section">
     <div class="section">
       <h2 class="text-center my-4">Manage Crops</h2>
@@ -176,99 +178,97 @@
       </div>
 
       <!-- Image Popup -->
-      <div id="imagePopup">
-        <span class="close" onclick="$('#imagePopup').hide()">×</span>
-        <img id="popupImage" src="" alt="Popup Image">
+      <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 999;">
+        <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer;">×</span>
+        <img id="popupImage" src="" alt="Popup Image" style="max-width: 90%; max-height: 90%;">
       </div>
     </div>
   </div>
 
 
+  <div id="fieldsSection" class="content-section">
+    <div class="section">
+      <h2 class="text-center my-4">Manage Fields</h2>
 
-    <div id="fieldsSection" class="content-section">
-      <div class="section">
-        <h2 class="text-center my-4">Manage Fields</h2>
+      <!-- Add Field Button -->
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#fieldModal">Add Field</button>
+      </div>
 
-        <!-- Add Field Button -->
-        <div class="d-flex justify-content-center mb-4">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#fieldModal">Add Field</button>
-        </div>
+      <!-- Field Table -->
+      <table class="table table-bordered" id="fieldTable">
+        <thead class="table-success">
+        <tr>
+          <th>ID</th>
+          <th>Field Name</th>
+          <th>Location</th>
+          <th>Size</th>
+          <th>Image 1</th>
+          <th>Image 2</th>
+          <th>Crop</th>
+          <th>Staff</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
 
-        <!-- Field Table -->
-        <table class="table table-bordered" id="fieldTable">
-          <thead class="table-success">
-          <tr>
-            <th>ID</th>
-            <th>Field Name</th>
-            <th>Location</th>
-            <th>Size</th>
-            <th>Image 1</th>
-            <th>Image 2</th>
-            <th>Crop</th>
-            <th>Staff</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <!-- Rows will be added dynamically -->
-          </tbody>
-        </table>
-
-        <!-- Popup Modal for Field Details -->
-        <div class="modal fade" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="fieldModalLabel">Add Field</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form id="fieldForm">
-                  <div class="mb-3">
-                    <label for="fieldName" class="form-label">Field Name</label>
-                    <input type="text" class="form-control" id="fieldName" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="location" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="size" class="form-label">Size (Acres)</label>
-                    <input type="number" class="form-control" id="size" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="image1" class="form-label">Image 1</label>
-                    <input type="file" class="form-control" id="image1" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="image2" class="form-label">Image 2</label>
-                    <input type="file" class="form-control" id="image2" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="crop" class="form-label">Crop</label>
-                    <input type="text" class="form-control" id="crop" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="staff" class="form-label">Staff</label>
-                    <input type="text" class="form-control" id="staff" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Save Field</button>
-                </form>
-              </div>
+      <!-- Popup Modal for Field Details -->
+      <div class="modal fade" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="fieldModalLabel">Add Field</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="fieldForm">
+                <div class="mb-3">
+                  <label for="fieldName" class="form-label">Field Name</label>
+                  <input type="text" class="form-control" id="fieldName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="location" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="location" required>
+                </div>
+                <div class="mb-3">
+                  <label for="size" class="form-label">Size (Acres)</label>
+                  <input type="number" class="form-control" id="size" required>
+                </div>
+                <div class="mb-3">
+                  <label for="image1" class="form-label">Image 1</label>
+                  <input type="file" class="form-control" id="image1" required>
+                </div>
+                <div class="mb-3">
+                  <label for="image2" class="form-label">Image 2</label>
+                  <input type="file" class="form-control" id="image2" required>
+                </div>
+                <div class="mb-3">
+                  <label for="crop" class="form-label">Crop</label>
+                  <input type="text" class="form-control" id="crop" required>
+                </div>
+                <div class="mb-3">
+                  <label for="staff" class="form-label">Staff</label>
+                  <input type="text" class="form-control" id="staff" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Field</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Image Popup -->
-    <div id="fieldImagePopup" class="image-popup">
-      <span class="close" onclick="closePopup()">×</span>
-      <img id="popupFieldImage" alt="Popup Field Image">
+      <!-- Image Popup -->
+      <div id="fieldImagePopup">
+        <span class="close" onclick="$('#fieldImagePopup').fadeOut()">×</span>
+        <img id="popupFieldImage" alt="Popup Field Image">
+      </div>
     </div>
-
   </div>
-    <div id="logsSection" class="content-section">
+
+  <div id="logsSection" class="content-section">
 
         <div class="section">
           <h2 class="text-center my-4">Log Management</h2>
@@ -295,6 +295,13 @@
             <!-- Rows will be added dynamically -->
             </tbody>
           </table>
+          <!-- Popup Image Viewer -->
+          <div id="imagePopup" class="image-popup">
+            <span class="close">&times;</span>
+            <img id="popupImage" src="" alt="Log Image">
+          </div>
+        </div>
+    </div>
 
           <!-- Popup Modal for Log Details -->
           <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="logModalLabel" aria-hidden="true">
@@ -337,85 +344,10 @@
             </div>
           </div>
 
-          <!-- Popup Image Viewer -->
-          <div id="imagePopup" class="image-popup">
-            <span class="close">&times;</span>
-            <img id="popupImage" src="" alt="Log Image">
-          </div>
-        </div>
-      </div>
 
-    </div>
 
-    </div>
     <div id="equipmentSection" class="content-section">
-        <div class="section">
-          <h2 class="text-center my-4">Manage Equipment</h2>
 
-          <!-- Add Equipment Button -->
-          <div class="d-flex justify-content-center mb-4">
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#equipmentModal">Add Equipment</button>
-          </div>
-
-          <!-- Equipment Table -->
-          <table class="table table-bordered" id="equipmentTable">
-            <thead class="table-success">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Available Count</th>
-              <th>Field</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Rows will be added dynamically -->
-            </tbody>
-          </table>
-
-          <!-- Popup Modal for Equipment Details -->
-          <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="equipmentModalLabel">Add Equipment</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="equipmentForm">
-                    <div class="mb-3">
-                      <label for="equipmentName" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="equipmentName" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="equipmentType" class="form-label">Type</label>
-                      <input type="text" class="form-control" id="equipmentType" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="equipmentStatus" class="form-label">Status</label>
-                      <select class="form-control" id="equipmentStatus" required>
-                        <option value="Available">Available</option>
-                        <option value="Under Maintenance">Under Maintenance</option>
-                        <option value="Out of Service">Out of Service</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="equipmentCount" class="form-label">Available Count</label>
-                      <input type="number" class="form-control" id="equipmentCount" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="equipmentField" class="form-label">Field</label>
-                      <input type="text" class="form-control" id="equipmentField" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Equipment</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 
