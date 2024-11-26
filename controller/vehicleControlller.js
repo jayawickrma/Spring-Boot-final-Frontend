@@ -1,5 +1,5 @@
+import {vehicles} from "../db/db.js";
 $(document).ready(function () {
-    var vehicles = [];
     var editIndex = -1;
 
     // Save or Update Vehicle

@@ -1,5 +1,6 @@
+import {equipmentData} from "../db/db.js";
 $(document).ready(function() {
-    let equipmentData = [];
+
     let editIndex = -1;
 
     // Handle form submission for creating/updating equipment

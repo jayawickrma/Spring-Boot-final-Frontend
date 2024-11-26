@@ -1,5 +1,5 @@
+import {staffList} from "../db/db.js";
 $(document).ready(function () {
-    var staffList = [];
     var editIndex = -1;
 
     // Save or Update Staff

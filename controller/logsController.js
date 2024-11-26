@@ -1,5 +1,6 @@
+import {logs} from "../db/db.js";
 $(document).ready(function () {
-    var logs = [];
+
     var editIndex = -1;
 
     // Save or Update Log
