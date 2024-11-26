@@ -1,22 +1,12 @@
-export default class field{
-    constructor(code,name,location,size,cropId,staffID,img1,img2) {
-                this._code=code;
-                this._name=name;
-                this._location=location;
-                this._size=size;
-                this._cropId=cropId;
-                this._staffID=staffID;
-                this._img1=img1;
-                this._img2=img2;
+import {staffList} from "../db/db";
+
+export default class  {
+    get fieldCode() {
+        return this._fieldCode;
     }
 
-
-    get code() {
-        return this._code;
-    }
-
-    set code(value) {
-        this._code = value;
+    set fieldCode(value) {
+        this._fieldCode = value;
     }
 
     get name() {
@@ -35,43 +25,72 @@ export default class field{
         this._location = value;
     }
 
-    get size() {
-        return this._size;
+    get extentSize() {
+        return this._extentSize;
     }
 
-    set size(value) {
-        this._size = value;
+    set extentSize(value) {
+        this._extentSize = value;
     }
 
-    get cropId() {
-        return this._cropId;
+    get fieldImage1() {
+        return this._fieldImage1;
     }
 
-    set cropId(value) {
-        this._cropId = value;
+    set fieldImage1(value) {
+        this._fieldImage1 = value;
     }
 
-    get staffID() {
-        return this._staffID;
+    get fieldImage2() {
+        return this._fieldImage2;
     }
 
-    set staffID(value) {
-        this._staffID = value;
+    set fieldImage2(value) {
+        this._fieldImage2 = value;
     }
 
-    get img1() {
-        return this._img1;
+    get equipmentsList() {
+        return this._equipmentsList;
     }
 
-    set img1(value) {
-        this._img1 = value;
+    set equipmentsList(value) {
+        this._equipmentsList = value;
     }
 
-    get img2() {
-        return this._img2;
+    get staffList() {
+        return this._staffList;
     }
 
-    set img2(value) {
-        this._img2 = value;
+    set staffList(value) {
+        this._staffList = value;
+    }
+
+    get cropsList() {
+        return this._cropsList;
+    }
+
+    set cropsList(value) {
+        this._cropsList = value;
+    }
+
+    get logsList() {
+        return this._logsList;
+    }
+
+    set logsList(value) {
+        this._logsList = value;
+    }
+    constructor(fieldCode,name,location,extentSize,fieldImage1,fieldImage2,equipmentsList,staffList,cropsList,logsList) {
+
+        this._fieldCode = fieldCode;
+        this._name = name;
+        this._location = location;
+        this._extentSize = extentSize;
+        this._fieldImage1 = fieldImage1;
+        this._fieldImage2 = fieldImage2;
+        this._equipmentsList = equipmentsList;
+        this._staffList = staffList;
+        this._cropsList = cropsList;
+        this._logsList = logsList;
     }
 }
