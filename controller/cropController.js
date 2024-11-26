@@ -1,76 +1,103 @@
 $(document).ready(function () {
-    let cropId = 1;
-    const cropTableBody = $('#cropTable tbody');
+    // Load crops into the table
+    function loadCrops() {
+        $.ajax({
+            url: 'http://localhost:8080/springFinal/api/v1/crops', // Backend endpoint for fetching crops
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                const cropTableBody = $("#cropTable tbody");
+                cropTableBody.empty(); // Clear table before appending
+                data.forEach(crop => {
+                    cropTableBody.append(`
+            <tr>
+              <td>${crop.id}</td>
+              <td>${crop.name}</td>
+              <td>${crop.season}</td>
+              <td>${crop.scientificName}</td>
+              <td><img src="${crop.image}" alt="Crop Image" class="crop-image" style="width: 50px; cursor: pointer;" data-image="${crop.image}"></td>
+              <td>${crop.field}</td>
+              <td>
+                <button class="btn btn-warning btn-sm edit-btn" data-id="${crop.id}">Edit</button>
+                <button class="btn btn-danger btn-sm delete-btn" data-id="${crop.id}">Delete</button>
+              </td>
+            </tr>
+          `);
+                });
+            }
+        });
+    }
 
-    // Handle form submission
-    $('#cropForm').on('submit', function (e) {
-        e.preventDefault();
-
-        const cropName = $('#cropName').val();
-        const season = $('#Season').val();
-        const scientificName = $('#ScientificName').val();
-        const field = $('#field').val();
-        const imageFile = $('#CropImage')[0].files[0];
-
-        if (!imageFile) {
-            alert('Please select an image.');
-            return;
-        }
-
-        const imageUrl = URL.createObjectURL(imageFile);
-
-        // Add row to the table
-        const rowHtml = `
-        <tr>
-          <td>${cropId++}</td>
-          <td>${cropName}</td>
-          <td>${season}</td>
-          <td>${scientificName}</td>
-          <td><img src="${imageUrl}" alt="${cropName}" class="table-image" style="width: 50px; height: 50px; cursor: pointer;"></td>
-          <td>${field}</td>
-          <td>
-            <button class="btn btn-primary btn-sm update-btn">Update</button>
-            <button class="btn btn-danger btn-sm delete-btn">Delete</button>
-          </td>
-        </tr>
-      `;
-        cropTableBody.append(rowHtml);
-
-        // Reset the form
-        $('#cropForm')[0].reset();
-        $('#cropModal').modal('hide');
-    });
-
-    // Handle image click to show popup
-    $(document).on('click', '.table-image', function () {
-        const src = $(this).attr('src');
-        $('#popupImage').attr('src', src);
+    // Open image in popup
+    $(document).on('click', '.crop-image', function () {
+        const imageUrl = $(this).data('image');
+        $('#popupImage').attr('src', imageUrl);
         $('#imagePopup').fadeIn();
     });
 
-    // Close popup
-    $('#imagePopup .close').on('click', function () {
+    // Close image popup
+    $('#imagePopup .close').click(function () {
         $('#imagePopup').fadeOut();
     });
 
-    // Handle delete action
-    $(document).on('click', '.delete-btn', function () {
-        $(this).closest('tr').remove();
+    // Save crop (Add or Update)
+    $("#cropForm").submit(function (e) {
+        e.preventDefault();
+        const formData = new FormData(this); // Handles file upload
+        const isEdit = $("#cropForm").data("edit");
+        const url = isEdit ? `/updateCrop/${$("#cropForm").data("id")}` : 'http://localhost:8080/springFinal/api/v1/crops';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                $("#cropModal").modal('hide');
+                loadCrops();
+            }
+        });
     });
 
-    // Handle update action (optional: fill modal with data for updating)
-    $(document).on('click', '.update-btn', function () {
-        const row = $(this).closest('tr');
-        const cropName = row.find('td:eq(1)').text();
-        const season = row.find('td:eq(2)').text();
-        const scientificName = row.find('td:eq(3)').text();
-        const field = row.find('td:eq(5)').text();
-
-        $('#cropName').val(cropName);
-        $('#Season').val(season);
-        $('#ScientificName').val(scientificName);
-        $('#field').val(field);
-
-        $('#cropModal').modal('show');
+    // Open Add Crop Modal
+    $("#cropSaveBtn").click(function () {
+        $("#cropForm")[0].reset();
+        $("#cropForm").data("edit", false);
+        $("#cropModalLabel").text("Add Crop");
     });
+
+    // Open Edit Crop Modal
+    $(document).on("click", ".edit-btn", function () {
+        const cropId = $(this).data("id");
+        $.ajax({
+            url: `/getCrop/${cropId}`,
+            type: 'GET',
+            success: function (data) {
+                $("#cropName").val(data.name);
+                $("#Season").val(data.season);
+                $("#ScientificName").val(data.scientificName);
+                $("#field").val(data.field);
+                $("#cropForm").data("edit", true).data("id", cropId);
+                $("#cropModalLabel").text("Edit Crop");
+                $("#cropModal").modal("show");
+            }
+        });
+    });
+
+    // Delete Crop
+    $(document).on("click", ".delete-btn", function () {
+        const cropId = $(this).data("id");
+        if (confirm("Are you sure you want to delete this crop?")) {
+            $.ajax({
+                url: `/deleteCrop/${cropId}`,
+                type: 'DELETE',
+                success: function () {
+                    loadCrops();
+                }
+            });
+        }
+    });
+
+    // Initial load
+    loadCrops();
 });
