@@ -18,8 +18,8 @@ $(document).ready(function () {
               <td>${field.name}</td>
               <td>${field.location}</td>
               <td>${field.extentSize}</td>
-              <td><img src="${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image 1"></td>
-              <td><img src="${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image 2"></td>
+              <td><img src="${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
+              <td><img src="${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
               <td>${field.staffList}</td>
               <td>${field.cropsList}</td>
               <td>
