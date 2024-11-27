@@ -1,102 +1,152 @@
-import {logs} from "../db/db.js";
 $(document).ready(function () {
+    const apiBaseUrl = "http://localhost:8080/springFinal/api/v1/logs";
+    let editLogCode = null;
 
-    var editIndex = -1;
-
-    // Save or Update Log
-    $('#logForm').submit(function (e) {
-        e.preventDefault();
-
-        var logDate = $('#logDate').val();
-        var logDetails = $('#logDetails').val();
-        var logImage = $('#logImage')[0].files[0];
-        var logStaff = $('#logStaff').val();
-        var logCrop = $('#logCrop').val();
-        var logField = $('#logField').val();
-
-        var imageUrl = logImage ? URL.createObjectURL(logImage) : logs[editIndex]?.image || '';
-
-        if (editIndex === -1) {
-            // Add new log
-            var newLog = {
-                id: logs.length + 1,
-                date: logDate,
-                details: logDetails,
-                image: imageUrl,
-                staff: logStaff,
-                crop: logCrop,
-                field: logField,
-            };
-            logs.push(newLog);
-        } else {
-            // Update existing log
-            logs[editIndex].date = logDate;
-            logs[editIndex].details = logDetails;
-            logs[editIndex].image = imageUrl;
-            logs[editIndex].staff = logStaff;
-            logs[editIndex].crop = logCrop;
-            logs[editIndex].field = logField;
-            editIndex = -1;
-        }
-
-        $('#logModal').modal('hide');
-        $('#logForm')[0].reset();
-        renderLogTable();
-    });
-
-    // Render Log Table
-    function renderLogTable() {
-        $('#logTable tbody').empty();
-        logs.forEach((log, index) => {
-            $('#logTable tbody').append(`
-        <tr>
-          <td>${log.date}</td>
-          <td>${log.details}</td>
-          <td>
-            <img src="${log.image}" alt="Log Image" class="table-img" style="width:50px;height:auto;cursor:pointer;" onclick="showPopup('${log.image}')">
-          </td>
-          <td>${log.staff}</td>
-          <td>${log.crop}</td>
-          <td>${log.field}</td>
-          <td>
-            <button class="btn btn-primary edit-log-btn" data-index="${index}">Edit</button>
-            <button class="btn btn-danger delete-log-btn" data-index="${index}">Delete</button>
-          </td>
-        </tr>
-      `);
+    // Load all logs
+    function loadLogs() {
+        $.ajax({
+            url: apiBaseUrl,
+            method: "GET",
+            success: function (logs) {
+                renderLogTable(logs);
+            },
+            error: function () {
+                alert("Failed to fetch logs.");
+            },
         });
     }
 
-    // Edit Log
-    $(document).on('click', '.edit-log-btn', function () {
-        editIndex = $(this).data('index');
-        var log = logs[editIndex];
+    // Render logs in the table
+    function renderLogTable(logs) {
+        const logTableBody = $('#logTable tbody');
+        logTableBody.empty();
 
-        $('#logDate').val(log.date);
-        $('#logDetails').val(log.details);
-        $('#logStaff').val(log.staff);
-        $('#logCrop').val(log.crop);
-        $('#logField').val(log.field);
+        logs.forEach(log => {
+            logTableBody.append(`
+                <tr>
+                    <td>${log.logCode}</td>
+                    <td>${log.logDate}</td>
+                    <td>${log.logDetails}</td>
+                    <td>
+                        <img src="data:image/png;base64,${log.observedImage}" alt="Log Image" class="table-img" style="width:50px;height:auto;cursor:pointer;" onclick="showPopup('data:image/png;base64,${log.observedImage}')">
+                    </td>
+                    <td>${log.staffList.join(", ")}</td>
+                    <td>${log.cropList.join(", ")}</td>
+                    <td>${log.fieldList.join(", ")}</td>
+                    <td>
+                        <button class="btn btn-primary edit-log-btn" data-id="${log.logCode}">Edit</button>
+                        <button class="btn btn-danger delete-log-btn" data-id="${log.logCode}">Delete</button>
+                    </td>
+                </tr>
+            `);
+        });
+    }
 
-        $('#logModalLabel').text('Edit Log');
-        $('#logModal').modal('show');
-    });
-
-    // Delete Log
-    $(document).on('click', '.delete-log-btn', function () {
-        var index = $(this).data('index');
-        logs.splice(index, 1);
-        renderLogTable();
-    });
-
-    // Show Popup Image
+    // Show popup image
     window.showPopup = function (src) {
         $('#popupImage').attr('src', src);
         $('#imagePopup').fadeIn();
     };
 
-    // Hide Popup Image
     $('#imagePopup .close').click(function () {
         $('#imagePopup').fadeOut();
     });
+
+    // Save or update log
+    $('#logForm').submit(function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("logDate", $('#logDate').val());
+        formData.append("logDetails", $('#logDetails').val());
+        formData.append("logImg", $('#logImage')[0].files[0]);
+        formData.append("field", $('#logField').val());
+        formData.append("crop", $('#logCrop').val());
+        formData.append("staff", $('#logStaff').val());
+
+        if (editLogCode) {
+            // Update log
+            $.ajax({
+                url: `${apiBaseUrl}/${editLogCode}`,
+                method: "PUT",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert("Log updated successfully.");
+                    $('#logModal').modal('hide');
+                    loadLogs();
+                },
+                error: function () {
+                    alert("Failed to update log.");
+                },
+            });
+        } else {
+            // Create new log
+            $.ajax({
+                url: apiBaseUrl,
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert("Log added successfully.");
+                    $('#logModal').modal('hide');
+                    $('#logForm')[0].reset();
+                    loadLogs();
+                },
+                error: function () {
+                    alert("Failed to add log.");
+                },
+            });
+        }
+
+        editLogCode = null; // Reset editLogCode
+    });
+
+    // Edit log
+    $(document).on('click', '.edit-log-btn', function () {
+        const logCode = $(this).data('id');
+        editLogCode = logCode;
+
+        $.ajax({
+            url: `${apiBaseUrl}/${logCode}`,
+            method: "GET",
+            success: function (log) {
+                $('#logDate').val(log.logDate);
+                $('#logDetails').val(log.logDetails);
+                $('#logStaff').val(log.staffList.join(", "));
+                $('#logCrop').val(log.cropList.join(", "));
+                $('#logField').val(log.fieldList.join(", "));
+
+                $('#logModalLabel').text('Edit Log');
+                $('#logModal').modal('show');
+            },
+            error: function () {
+                alert("Failed to fetch log details.");
+            },
+        });
+    });
+
+    // Delete log
+    $(document).on('click', '.delete-log-btn', function () {
+        const logCode = $(this).data('id');
+
+        if (confirm("Are you sure you want to delete this log?")) {
+            $.ajax({
+                url: `${apiBaseUrl}/${logCode}`,
+                method: "DELETE",
+                success: function () {
+                    alert("Log deleted successfully.");
+                    loadLogs();
+                },
+                error: function () {
+                    alert("Failed to delete log.");
+                },
+            });
+        }
+    });
+
+    // Initial load
+    loadLogs();
 });
