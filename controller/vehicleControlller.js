@@ -4,7 +4,7 @@ $(document).ready(function () {
     // Fetch and load data from the backend
     function loadVehicles() {
         $.ajax({
-            url: "http://localhost:8080/springFinal/api/v1/lvehicles",
+            url: "http://localhost:8080/springFinal/api/v1/vehicles",
             method: "GET",
             success: function (data) {
                 renderVehicleTable(data);
@@ -22,7 +22,7 @@ $(document).ready(function () {
             $('#vehicleTable tbody').append(`
                 <tr>
                     <td>${vehicle.vehicleCode}</td>
-                    <td>${vehicle.licensePlateNumber}</td>
+                    <td>${vehicle.licencePlateNumber}</td>
                     <td>${vehicle.name}</td>
                     <td>${vehicle.category}</td>
                     <td>${vehicle.fuelType}</td>
@@ -42,26 +42,26 @@ $(document).ready(function () {
     $('#vehicleForm').submit(function (e) {
         e.preventDefault();
 
-        const vehicle = {
-            licensePlateNumber: $('#licensePlate').val(),
-            name: $('#vehicleName').val(),
-            category: $('#vehicleCategory').val(),
-            fuelType: $('#fuelType').val(),
-            remark: $('#remark').val(),
-            status: $('#status').val(),
-            memberCode: $('#staffId').val()
-        };
+        var formData = new FormData();
+        formData.append('licencePlateNumber', $('#licensePlate').val());
+        formData.append('name', $('#vehicleName').val());
+        formData.append('category', $('#vehicleCategory').val());
+        formData.append('fuelType', $('#fuelType').val());
+        formData.append('remark', $('#remark').val());
+        formData.append('status', $('#status').val());
+        formData.append('memberCode', $('#staffId').val());
 
         const url = editIndex === -1
-            ? "http://localhost:8080/springFinal/api/v1/lvehicles"
-            : `http://localhost:8080/springFinal/api/v1/lvehicles/${editIndex}`;
+            ? "http://localhost:8080/springFinal/api/v1/vehicles"
+            : `http://localhost:8080/springFinal/api/v1/vehicles/${editIndex}`;
         const method = editIndex === -1 ? "POST" : "PUT";
 
         $.ajax({
             url: url,
             method: method,
-            contentType: "application/json",
-            data: JSON.stringify(vehicle),
+            contentType: false,
+            processData: false,
+            data: formData,
             success: function () {
                 $('#vehicleModal').modal('hide');
                 $('#vehicleForm')[0].reset();
@@ -79,10 +79,10 @@ $(document).ready(function () {
         editIndex = id;
 
         $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/lvehicles/${id}`,
+            url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
             method: "GET",
             success: function (vehicle) {
-                $('#licensePlate').val(vehicle.licensePlateNumber);
+                $('#licensePlate').val(vehicle.licencePlateNumber);
                 $('#vehicleName').val(vehicle.name);
                 $('#vehicleCategory').val(vehicle.category);
                 $('#fuelType').val(vehicle.fuelType);
@@ -104,7 +104,7 @@ $(document).ready(function () {
         const id = $(this).data("id");
 
         $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/lvehicles/${id}`,
+            url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
             method: "DELETE",
             success: function () {
                 loadVehicles();
