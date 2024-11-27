@@ -348,74 +348,75 @@
 
 
 
-    <div id="equipmentSection" class="content-section">
-      <!-- Modal for adding/editing equipment -->
-      <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="equipmentModalLabel">Add Equipment</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div id="equipmentSection" class="content-section">
+  <!-- Modal for adding/editing equipment -->
+  <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="equipmentModalLabel">Add Equipment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="equipmentForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="equipmentName" class="form-label">Equipment Name</label>
+                <input type="text" class="form-control" id="equipmentName" required>
+              </div>
+              <div class="col-md-6">
+                <label for="equipmentType" class="form-label">Equipment Type</label>
+                <input type="text" class="form-control" id="equipmentType" required>
+              </div>
+              <div class="col-md-6">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" required>
+                  <option value="">Select Status</option>
+                  <option value="Available">Available</option>
+                  <option value="Unavailable">Unavailable</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="availableCount" class="form-label">Available Count</label>
+                <input type="number" class="form-control" id="availableCount" required>
+              </div>
+              <div class="col-md-6">
+                <label for="field" class="form-label">Field</label>
+                <input type="text" class="form-control" id="field" required>
+              </div>
             </div>
-            <div class="modal-body">
-              <form id="equipmentForm">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="equipmentName" class="form-label">Equipment Name</label>
-                    <input type="text" class="form-control" id="equipmentName" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="equipmentType" class="form-label">Equipment Type</label>
-                    <input type="text" class="form-control" id="equipmentType" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" required>
-                      <option value="">Select Status</option>
-                      <option value="Available">Available</option>
-                      <option value="Unavailable">Unavailable</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="availableCount" class="form-label">Available Count</label>
-                    <input type="number" class="form-control" id="availableCount" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="field" class="form-label">Field</label>
-                    <input type="text" class="form-control" id="field" required>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3" id="saveBtn">Save Equipment</button>
-              </form>
-            </div>
-          </div>
+            <button type="submit" class="btn btn-primary mt-3" id="saveBtn">Save Equipment</button>
+          </form>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Button to trigger modal -->
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#equipmentModal" id="addEquipmentBtn">Add New Equipment</button>
+  <!-- Button to trigger modal -->
+  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#equipmentModal" id="addEquipmentBtn">Add New Equipment</button>
 
-      <!-- Equipment Table -->
-      <div class="container mt-5">
-        <h3>Equipment List</h3>
-        <table class="table" id="equipmentTable">
-          <thead>
-          <tr>
-            <th>Equipment ID</th>
-            <th>Equipment Name</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Available Count</th>
-            <th>Field</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <!-- Equipment data will be appended here -->
-          </tbody>
-        </table>
-      </div>
-      </div>
+  <!-- Equipment Table -->
+  <div class="container mt-5">
+    <h3>Equipment List</h3>
+    <table class="table" id="equipmentTable">
+      <thead>
+      <tr>
+        <th>Equipment ID</th>
+        <th>Equipment Name</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Available Count</th>
+        <th>Field</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Equipment data will be appended here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 
     <div id="staffSection" class="content-section">

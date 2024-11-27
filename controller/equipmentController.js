@@ -1,122 +1,115 @@
 $(document).ready(function () {
-    let currentEditID = null;
+    var editIndex = -1;
 
-    // Load equipment data and populate the table
+    // Fetch and load data from the backend
     function loadEquipment() {
         $.ajax({
-            url: 'http://localhost:8080/springFinal/api/v1/equipments',
-            method: 'GET',
-            dataType: 'application/json',
+            url: "http://localhost:8080/springFinal/api/v1/equipments",
+            method: "GET",
             success: function (data) {
-                const tableBody = $('#equipmentTable tbody');
-                tableBody.empty();
-                data.forEach((equipment) => {
-                    tableBody.append(`
-                        <tr data-id="${equipment.equipmentCode}">
-                            <td>${equipment.equipmentCode}</td>
-                            <td>${equipment.name}</td>
-                            <td>${equipment.type}</td>
-                            <td>${equipment.status}</td>
-                            <td>${equipment.availableCount}</td>
-                            <td>${equipment.fieldList.join(', ')}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm edit-equipment">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-equipment">Delete</button>
-                            </td>
-                        </tr>
-                    `);
-                });
+                renderEquipmentTable(data);
             },
             error: function () {
-                alert('Failed to load equipment data.');
+                alert("Failed to load equipment!");
             }
         });
     }
 
-    // Add or update equipment
-    $('#equipmentForm').on('submit', function (e) {
+    // Render Equipment Table
+    function renderEquipmentTable(equipmentList) {
+        $('#equipmentTable tbody').empty();
+        equipmentList.forEach((equipment, index) => {
+            $('#equipmentTable tbody').append(`
+                <tr>
+                    <td>${equipment.equipmentCode}</td>
+                    <td>${equipment.name}</td>
+                    <td>${equipment.type}</td>
+                    <td>${equipment.status}</td>
+                    <td>${equipment.availableCount}</td>
+                    <td>${equipment.fieldList}</td>
+                    <td>
+                        <button class="btn btn-primary edit-equipment-btn" data-id="${equipment.equipmentCode}" data-index="${index}">Edit</button>
+                        <button class="btn btn-danger delete-equipment-btn" data-id="${equipment.equipmentCode}">Delete</button>
+                    </td>
+                </tr>
+            `);
+        });
+    }
+
+    // Save or Update Equipment
+    $('#equipmentForm').submit(function (e) {
         e.preventDefault();
-        const equipmentData = {
+
+        var equipmentData = {
+            equipmentCode: editIndex === -1 ? null : editIndex,
             name: $('#equipmentName').val(),
             type: $('#equipmentType').val(),
             status: $('#status').val(),
-            availableCount: parseInt($('#availableCount').val()),
-            fieldList: $('#field').val().split(',').map((field) => field.trim())
+            availableCount: $('#availableCount').val(),
+            fieldList: $('#field').val()
         };
 
-        const url = currentEditID
-            ? `http://localhost:8080/api/v1/equipments/${currentEditID}`
-            : 'http://localhost:8080/api/v1/equipments';
-
-        const method = currentEditID ? 'PUT' : 'POST';
+        const url = editIndex === -1
+            ? "http://localhost:8080/springFinal/api/v1/equipments"
+            : `http://localhost:8080/springFinal/api/v1/equipments/${editIndex}`;
+        const method = editIndex === -1 ? "POST" : "PUT";
 
         $.ajax({
             url: url,
             method: method,
-            contentType: 'application/json',
+            contentType: "application/json",
             data: JSON.stringify(equipmentData),
             success: function () {
                 $('#equipmentModal').modal('hide');
-                loadEquipment();
-                alert(currentEditID ? 'Equipment updated successfully!' : 'Equipment added successfully!');
                 $('#equipmentForm')[0].reset();
-                currentEditID = null;
+                loadEquipment();
             },
             error: function () {
-                alert('Failed to save equipment data.');
+                alert("Failed to save equipment!");
             }
         });
     });
 
-    // Edit equipment
-    $(document).on('click', '.edit-equipment', function () {
-        const row = $(this).closest('tr');
-        currentEditID = row.data('id');
+    // Edit Equipment
+    $(document).on('click', '.edit-equipment-btn', function () {
+        const id = $(this).data("id");
+        editIndex = id;
 
         $.ajax({
-            url: `http://localhost:8080/api/v1/equipments/${currentEditID}`,
-            method: 'GET',
+            url: `http://localhost:8080/springFinal/api/v1/equipments/${id}`,
+            method: "GET",
             success: function (equipment) {
                 $('#equipmentName').val(equipment.name);
                 $('#equipmentType').val(equipment.type);
                 $('#status').val(equipment.status);
                 $('#availableCount').val(equipment.availableCount);
-                $('#field').val(equipment.fieldList.join(', '));
+                $('#field').val(equipment.fieldList);
 
+                $('#equipmentModalLabel').text('Edit Equipment');
                 $('#equipmentModal').modal('show');
             },
             error: function () {
-                alert('Failed to load equipment details.');
+                alert("Failed to fetch equipment data!");
             }
         });
     });
 
-    // Delete equipment
-    $(document).on('click', '.delete-equipment', function () {
-        const equipmentId = $(this).closest('tr').data('id');
+    // Delete Equipment
+    $(document).on('click', '.delete-equipment-btn', function () {
+        const id = $(this).data("id");
 
-        if (confirm('Are you sure you want to delete this equipment?')) {
-            $.ajax({
-                url: `http://localhost:8080/api/v1/equipments/${equipmentId}`,
-                method: 'DELETE',
-                success: function () {
-                    loadEquipment();
-                    alert('Equipment deleted successfully!');
-                },
-                error: function () {
-                    alert('Failed to delete equipment.');
-                }
-            });
-        }
+        $.ajax({
+            url: `http://localhost:8080/springFinal/api/v1/equipments/${id}`,
+            method: "DELETE",
+            success: function () {
+                loadEquipment();
+            },
+            error: function () {
+                alert("Failed to delete equipment!");
+            }
+        });
     });
 
-    // Handle "Add New Equipment" button click
-    $('#addEquipmentBtn').on('click', function () {
-        currentEditID = null;
-        $('#equipmentForm')[0].reset();
-        $('#equipmentModal').modal('show');
-    });
-
-    // Initial load of equipment data
+    // Initial Load
     loadEquipment();
 });
