@@ -11,19 +11,27 @@ $(document).ready(function () {
                 data.forEach(crop => {
                     cropTableBody.append(`
                         <tr>
-                            <td>${crop.id}</td>
-                            <td>${crop.name}</td>
+                            <td>${crop.cropCode}</td>
+                            <td>${crop.cropName}</td>
                             <td>${crop.season}</td>
                             <td>${crop.scientificName}</td>
-                            <td><img src="${crop.imagePath}" alt="Crop Image" class="crop-image" style="width: 50px; cursor: pointer;" data-image="${crop.imagePath}"></td>
-                            <td>${crop.field}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-btn" data-id="${crop.id}">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-btn" data-id="${crop.id}">Delete</button>
+                                <img src="data:image/jpeg;base64,${crop.cropImage}" 
+                                     alt="Crop Image" class="crop-image" 
+                                     style="width: 50px; cursor: pointer;" 
+                                     data-image="${crop.cropImage}">
+                            </td>
+                            <td>${crop.fieldList ? crop.fieldList.join(', ') : 'N/A'}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-btn" data-id="${crop.cropCode}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${crop.cropCode}">Delete</button>
                             </td>
                         </tr>
                     `);
                 });
+            },
+            error: function () {
+                alert("Failed to load crops.");
             }
         });
     }
@@ -36,14 +44,13 @@ $(document).ready(function () {
         if (isEdit) {
             // Load crop details into the form for editing
             $.ajax({
-                url: `http://localhost:8080/springFinal/api/v1/crops/${cropId}`,
+                url: `http://localhost:8080/springFinal/api/v1/crops/${cropCode}`,
                 type: 'GET',
                 success: function (crop) {
-                    $("#cropName").val(crop.name);
+                    $("#cropName").val(crop.cropName);
                     $("#ScientificName").val(crop.scientificName);
-                    $("#category").val(crop.category);
                     $("#Season").val(crop.season);
-                    $("#field").val(crop.field);
+                    $("#field").val(crop.fieldList ? crop.fieldList.join(', ') : '');
                     $("#cropForm").data("edit", true).data("id", cropId);
                     $("#cropModalLabel").text("Edit Crop");
                     $("#cropModal").modal("show");
@@ -91,7 +98,7 @@ $(document).ready(function () {
         const cropId = $(this).data("id");
         if (confirm("Are you sure you want to delete this crop?")) {
             $.ajax({
-                url: `http://localhost:8080/springFinal/api/v1/crops/${cropId}`,
+                url: `http://localhost:8080/springFinal/api/v1/crops/${cropCode}`,
                 type: 'DELETE',
                 success: function () {
                     loadCrops();
@@ -106,7 +113,7 @@ $(document).ready(function () {
 
     // Image Popup Viewer
     $(document).on('click', '.crop-image', function () {
-        const imageUrl = $(this).data('image');
+        const imageUrl = `data:image/jpeg;base64,${$(this).data('image')}`;
         $('#popupImage').attr('src', imageUrl);
         $('#imagePopup').fadeIn();
     });
