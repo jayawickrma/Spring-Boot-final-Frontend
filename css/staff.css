@@ -4,5 +4,6 @@
 }
 #staffTableContainer{
     width: 80%;
-    padding-left: 57%;
+    padding-left: 52%;
+    overflow-scrolling: auto;
 }
