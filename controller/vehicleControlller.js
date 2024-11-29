@@ -1,3 +1,4 @@
+import vehicles from "../Model/vehicleModel.js";
 $(document).ready(function () {
     var editIndex = -1;
 
@@ -22,10 +23,11 @@ $(document).ready(function () {
     function renderVehicleTable(vehicles) {
         $('#vehicleTable tbody').empty();
         vehicles.forEach((vehicle, index) => {
+            console.log(vehicle.licensePlateNumber)
             $('#vehicleTable tbody').append(`
                 <tr>
                     <td>${vehicle.vehicleCode}</td>
-                    <td>${vehicle.licencePlateNumber}</td>
+                    <td>${vehicle.licensePlateNumber}</td>
                     <td>${vehicle.name}</td>
                     <td>${vehicle.category}</td>
                     <td>${vehicle.fuelType}</td>

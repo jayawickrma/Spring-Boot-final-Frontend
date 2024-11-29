@@ -1,4 +1,4 @@
-    export default class {
+    export default class vehicle {
         get vehicleCode() {
             return this._vehicleCode;
         }
