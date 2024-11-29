@@ -6,6 +6,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:8080/springFinal/api/v1/equipments",
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+            },
             success: function (data) {
                 renderEquipmentTable(data);
             },
