@@ -1,10 +1,15 @@
 $(document).ready(function () {
+
     // Load crops into the table
     function loadCrops() {
+        console.log(localStorage.getItem('jwtToken'))
         $.ajax({
             url: 'http://localhost:8080/springFinal/api/v1/crops', // Backend endpoint for fetching crops
             type: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+            },
             success: function (data) {
                 const cropTableBody = $("#cropTable tbody");
                 cropTableBody.empty(); // Clear table before appending

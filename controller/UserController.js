@@ -1,38 +1,29 @@
-$(document).ready(function () {
-    $("#signupForm").submit(function (e) {
-        e.preventDefault();
 
-        // Gather form data
-        const email = $("#email").val();
-        const password = $("#password").val();
-        const confirmPassword = $("#confirmPassword").val();
-        const role = $("#role").val();
+    $('#signInForm').on('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting traditionally
 
-        // Validate passwords match
-        if (password !== confirmPassword) {
-            $("#responseMessage").text("Passwords do not match.").css("color", "red");
-            return;
+        const email = $('#email').val();
+        const password = $('#password').val();
+
+        const signInDTO = {
+            email:email,
+            password:password
         }
 
-        // Prepare data to send
-        const formData = {
-            email: email,
-            password: password,
-            role: role
-        };
-
-        // AJAX request to backend
         $.ajax({
-            url: "http://localhost:8080/api/v1/auth/signUp",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(formData),
+            url: 'http://localhost:8080/springFinal/api/v1/auth/signIn',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(signInDTO),
             success: function (response) {
-                $("#responseMessage").text("Registration successful!").css("color", "green");
+                console.log(response)
+                localStorage.setItem('jwtToken', response.tokens);
+                window.location.href = 'dashboard.html';
             },
-            error: function (xhr, status, error) {
-                $("#responseMessage").text("Error: " + xhr.responseText).css("color", "red");
+            error: function (xhr) {
+                // Display error message
+                const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : "Login failed. Try again.";
+                $('#responseMessage').text(errorMessage).css("color", "red").show();
             }
         });
     });
-});

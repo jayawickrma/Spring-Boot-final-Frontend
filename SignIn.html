@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Green Shadow</title>
     <link rel="stylesheet" href="css/signIn%20and%20signUp.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="auth-container">
-    <form class="auth-form" action="/signin" method="POST">
+    <form class="auth-form" id="signInForm">
         <h2>Sign In</h2>
         <div class="input-group">
             <label for="email">Email</label>
@@ -18,9 +19,12 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </div>
-        <a id="btn" href="dashboard.html">Sign In</a>
-        <p>Don't have an account? <a href="SignIn.html">Sign Up</a></p>
+        <button type="submit" id="btn">Sign In</button>
+        <p>Don't have an account? <a href="SignUp.html">Sign Up</a></p>
     </form>
+    <div id="responseMessage" style="display:none;"></div>
 </div>
+
+<script src="controller/UserController.js" type="module"></script>
 </body>
 </html>

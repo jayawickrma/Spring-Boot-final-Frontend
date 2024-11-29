@@ -1,4 +1,3 @@
-import { staffList } from "../db/db.js";
 
 $(document).ready(function () {
     const apiUrl = "http://localhost:8080/springFinal/api/v1/vehicles"; // Adjust the base URL as needed
