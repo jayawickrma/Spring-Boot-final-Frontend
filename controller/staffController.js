@@ -9,6 +9,9 @@ $(document).ready(function () {
         $.ajax({
             url: apiUrl,
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+            },
             success: function (data) {
                 renderStaffTable(data);
             },

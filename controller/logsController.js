@@ -7,6 +7,9 @@ $(document).ready(function () {
         $.ajax({
             url: apiBaseUrl,
             method: "GET",
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+            },
             success: function (logs) {
                 renderLogTable(logs);
             },
