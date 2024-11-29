@@ -7,6 +7,9 @@ $(document).ready(function () {
             url: 'http://localhost:8080/springFinal/api/v1/fields',
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+            },
             success: function (data) {
                 const fieldTableBody = $('#fieldTable tbody');
                 fieldTableBody.empty();
