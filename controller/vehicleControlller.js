@@ -1,14 +1,13 @@
-import vehicles from "../Model/vehicleModel.js";
 $(document).ready(function () {
     var editIndex = -1;
 
-    // Fetch and load data from the backend
+    // Load Vehicles
     function loadVehicles() {
         $.ajax({
             url: "http://localhost:8080/springFinal/api/v1/vehicles",
             method: "GET",
             headers: {
-                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             },
             success: function (data) {
                 renderVehicleTable(data);
@@ -22,8 +21,7 @@ $(document).ready(function () {
     // Render Vehicle Table
     function renderVehicleTable(vehicles) {
         $('#vehicleTable tbody').empty();
-        vehicles.forEach((vehicle, index) => {
-            console.log(vehicle.licensePlateNumber)
+        vehicles.forEach(vehicle => {
             $('#vehicleTable tbody').append(`
                 <tr>
                     <td>${vehicle.vehicleCode}</td>
@@ -35,7 +33,7 @@ $(document).ready(function () {
                     <td>${vehicle.status}</td>
                     <td>${vehicle.memberCode}</td>
                     <td>
-                        <button class="btn btn-primary edit-vehicle-btn" data-id="${vehicle.vehicleCode}" data-index="${index}">Edit</button>
+                        <button class="btn btn-primary edit-vehicle-btn" data-id="${vehicle.vehicleCode}">Edit</button>
                         <button class="btn btn-danger delete-vehicle-btn" data-id="${vehicle.vehicleCode}">Delete</button>
                     </td>
                 </tr>
@@ -43,12 +41,71 @@ $(document).ready(function () {
         });
     }
 
-    // Save or Update Vehicle
+
+    // Save Vehicle Details (Create Vehicle)
+    function saveVehicleDetails(formData) {
+        var data = {
+            vehicleCode:"1",
+            licensePlateNumber : $('#licensePlate').val(),
+            name:$('#vehicleName').val(),
+            category : $('#vehicleCategory').val(),
+            status:$('#vehicleStatus').val,
+            fuelType : $('#fuelType').val(),
+            remark : $('#remark').val(),
+            status : $('#status').val(),
+            memberCode : $('#staffId').val()
+        }
+        console.log(data)
+
+        $.ajax({
+            url: "http://localhost:8080/springFinal/api/v1/vehicles",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            },
+            success: function () {
+                $('#vehicleModal').modal('hide');
+                $('#vehicleForm')[0].reset();
+                loadVehicles();
+                alert("Vehicle saved successfully!");
+            },
+            error: function () {
+                alert("Failed to save vehicle details!");
+            }
+        });
+    }
+
+    // Update Vehicle Details
+    function updateVehicleDetails(formData, vehicleCode) {
+        $.ajax({
+            url: `http://localhost:8080/springFinal/api/v1/vehicles/${vehicleCode}`,
+            method: "PUT",
+            contentType: false,
+            processData: false,
+            data: formData,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            },
+            success: function () {
+                $('#vehicleModal').modal('hide');
+                $('#vehicleForm')[0].reset();
+                loadVehicles();
+                alert("Vehicle updated successfully!");
+            },
+            error: function () {
+                alert("Failed to update vehicle details!");
+            }
+        });
+    }
+
+    // Form Submit for Vehicle Details
     $('#vehicleForm').submit(function (e) {
         e.preventDefault();
 
         var formData = new FormData();
-        formData.append('licencePlateNumber', $('#licensePlate').val());
+        formData.append('licensePlateNumber', $('#licensePlate').val());
         formData.append('name', $('#vehicleName').val());
         formData.append('category', $('#vehicleCategory').val());
         formData.append('fuelType', $('#fuelType').val());
@@ -56,26 +113,13 @@ $(document).ready(function () {
         formData.append('status', $('#status').val());
         formData.append('memberCode', $('#staffId').val());
 
-        const url = editIndex === -1
-            ? "http://localhost:8080/springFinal/api/v1/vehicles"
-            : `http://localhost:8080/springFinal/api/v1/vehicles/${editIndex}`;
-        const method = editIndex === -1 ? "POST" : "PUT";
-
-        $.ajax({
-            url: url,
-            method: method,
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function () {
-                $('#vehicleModal').modal('hide');
-                $('#vehicleForm')[0].reset();
-                loadVehicles();
-            },
-            error: function () {
-                alert("Failed to save vehicle!");
-            }
-        });
+        if (editIndex === -1) {
+            // Save new vehicle
+            saveVehicleDetails(formData);
+        } else {
+            // Update existing vehicle
+            updateVehicleDetails(formData, editIndex);
+        }
     });
 
     // Edit Vehicle
@@ -87,7 +131,7 @@ $(document).ready(function () {
             url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
             method: "GET",
             success: function (vehicle) {
-                $('#licensePlate').val(vehicle.licencePlateNumber);
+                $('#licensePlate').val(vehicle.licensePlateNumber);
                 $('#vehicleName').val(vehicle.name);
                 $('#vehicleCategory').val(vehicle.category);
                 $('#fuelType').val(vehicle.fuelType);
@@ -108,18 +152,24 @@ $(document).ready(function () {
     $(document).on('click', '.delete-vehicle-btn', function () {
         const id = $(this).data("id");
 
-        $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
-            method: "DELETE",
-            success: function () {
-                loadVehicles();
-            },
-            error: function () {
-                alert("Failed to delete vehicle!");
-            }
-        });
+        if (confirm("Are you sure you want to delete this vehicle?")) {
+            $.ajax({
+                url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
+                method: "DELETE",
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                },
+                success: function () {
+                    loadVehicles();
+                    alert("Vehicle deleted successfully!");
+                },
+                error: function () {
+                    alert("Failed to delete vehicle!");
+                }
+            });
+        }
     });
 
-    // Initial Load
+    // Load vehicles initially
     loadVehicles();
 });
