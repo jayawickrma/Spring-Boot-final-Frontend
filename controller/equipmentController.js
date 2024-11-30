@@ -1,28 +1,35 @@
 $(document).ready(function () {
-    var editIndex = -1;
+    $(document).ready(function () {
+        const apiUrl = "http://localhost:8080/springFinal/api/v1/equipments";
+        let editIndex = -1;
 
-    // Fetch and load data from the backend
-    function loadEquipment() {
-        $.ajax({
-            url: "http://localhost:8080/springFinal/api/v1/equipments",
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
-            },
-            success: function (data) {
-                renderEquipmentTable(data);
-            },
-            error: function () {
-                alert("Failed to load equipment!");
-            }
-        });
-    }
+        // Common AJAX Headers
+        function getHeaders() {
+            return {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            };
+        }
 
-    // Render Equipment Table
-    function renderEquipmentTable(equipmentList) {
-        $('#equipmentTable tbody').empty();
-        equipmentList.forEach((equipment, index) => {
-            $('#equipmentTable tbody').append(`
+        // Fetch and Load Equipment Data
+        function loadEquipment() {
+            $.ajax({
+                url: apiUrl,
+                method: "GET",
+                headers: getHeaders(),
+                success: function (data) {
+                    renderEquipmentTable(data);
+                },
+                error: function () {
+                    alert("Failed to load equipment!");
+                }
+            });
+        }
+
+        // Render Equipment Table
+        function renderEquipmentTable(equipmentList) {
+            $('#equipmentTable tbody').empty();
+            equipmentList.forEach((equipment, index) => {
+                $('#equipmentTable tbody').append(`
                 <tr>
                     <td>${equipment.equipmentCode}</td>
                     <td>${equipment.name}</td>
@@ -31,88 +38,142 @@ $(document).ready(function () {
                     <td>${equipment.availableCount}</td>
                     <td>${equipment.fieldList}</td>
                     <td>
-                        <button class="btn btn-primary edit-equipment-btn" data-id="${equipment.equipmentCode}" data-index="${index}">Edit</button>
+                        <button class="btn btn-primary edit-equipment-btn" data-id="${equipment.equipmentCode}">Edit</button>
                         <button class="btn btn-danger delete-equipment-btn" data-id="${equipment.equipmentCode}">Delete</button>
                     </td>
                 </tr>
             `);
-        });
-    }
+            });
+        }
 
-    // Save or Update Equipment
-    $('#equipmentForm').submit(function (e) {
-        e.preventDefault();
+        // Save Equipment (POST)
+        function saveEquipment() {
+            var Data = {
+                name: $('#equipmentName').val(),
+                type: $('#equipmentType').val(),
+                status: $('#status').val(),
+                availableCount: $('#availableCount').val(),
+                fieldList: $('#field').val()
+            };
+            $.ajax({
+                url: apiUrl,
+                method: "POST",
+                headers: getHeaders(),
+                contentType: "application/json",
+                data: JSON.stringify(Data),
+                success: function () {
+                    $('#equipmentModal').modal('hide');
+                    $('#equipmentForm')[0].reset();
+                    loadEquipment();
+                    alert("Equipment saved successfully!");
+                },
+                error: function () {
+                    alert("Failed to save equipment!");
+                }
+            });
+        }
 
-        var equipmentData = {
-            equipmentCode: editIndex === -1 ? null : editIndex,
-            name: $('#equipmentName').val(),
-            type: $('#equipmentType').val(),
-            status: $('#status').val(),
-            availableCount: $('#availableCount').val(),
-            fieldList: $('#field').val()
-        };
+        // Update Equipment (PUT)
+        function updateEquipment(equipmentData, id) {
+            $.ajax({
+                url: `${apiUrl}/${id}`,
+                method: "PUT",
+                headers: getHeaders(),
+                contentType: "application/json",
+                data: JSON.stringify(equipmentData),
+                success: function () {
+                    $('#equipmentModal').modal('hide');
+                    $('#equipmentForm')[0].reset();
+                    loadEquipment();
+                    alert("Equipment updated successfully!");
+                },
+                error: function () {
+                    alert("Failed to update equipment!");
+                }
+            });
+        }
 
-        const url = editIndex === -1
-            ? "http://localhost:8080/springFinal/api/v1/equipments"
-            : `http://localhost:8080/springFinal/api/v1/equipments/${editIndex}`;
-        const method = editIndex === -1 ? "POST" : "PUT";
+        // Delete Equipment
+        function deleteEquipment(id) {
+            $.ajax({
+                url: `${apiUrl}/${id}`,
+                method: "DELETE",
+                headers: getHeaders(),
+                success: function () {
+                    loadEquipment();
+                    alert("Equipment deleted successfully!");
+                },
+                error: function () {
+                    alert("Failed to delete equipment!");
+                }
+            });
+        }
 
-        $.ajax({
-            url: url,
-            method: method,
-            contentType: "application/json",
-            data: JSON.stringify(equipmentData),
-            success: function () {
-                $('#equipmentModal').modal('hide');
-                $('#equipmentForm')[0].reset();
-                loadEquipment();
-            },
-            error: function () {
-                alert("Failed to save equipment!");
+        // Edit Equipment (Fetch details and open modal)
+        function editEquipment(id) {
+            $.ajax({
+                url: `${apiUrl}/${id}`,
+                method: "GET",
+                headers: getHeaders(),
+                success: function (equipment) {
+                    $('#equipmentName').val(equipment.name);
+                    $('#equipmentType').val(equipment.type);
+                    $('#status').val(equipment.status);
+                    $('#availableCount').val(equipment.availableCount);
+                    $('#field').val(equipment.fieldList);
+
+                    $('#equipmentModalLabel').text('Edit Equipment');
+                    $('#equipmentModal').modal('show');
+                    editIndex = id;
+                },
+                error: function () {
+                    alert("Failed to fetch equipment data!");
+                }
+            });
+        }
+
+        // Handle Form Submission
+        $('#equipmentForm').submit(function (e) {
+            e.preventDefault();
+
+            var equipmentData = {
+                name: $('#equipmentName').val(),
+                type: $('#equipmentType').val(),
+                status: $('#status').val(),
+                availableCount: $('#availableCount').val(),
+                fieldList: $('#field').val()
+            };
+
+            if (editIndex === -1) {
+                saveEquipment(equipmentData); // Save new equipment
+            } else {
+                updateEquipment(equipmentData, editIndex); // Update existing equipment
             }
         });
-    });
 
-    // Edit Equipment
-    $(document).on('click', '.edit-equipment-btn', function () {
-        const id = $(this).data("id");
-        editIndex = id;
+        // Add Equipment Button Click
+        $('#addEquipmentBtn').click(function () {
+            $('#equipmentForm')[0].reset();
+            $('#equipmentModalLabel').text('Add Equipment');
+            $('#equipmentModal').modal('show');
+            editIndex = -1; // Reset edit index for new entry
+        });
 
-        $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/equipments/${id}`,
-            method: "GET",
-            success: function (equipment) {
-                $('#equipmentName').val(equipment.name);
-                $('#equipmentType').val(equipment.type);
-                $('#status').val(equipment.status);
-                $('#availableCount').val(equipment.availableCount);
-                $('#field').val(equipment.fieldList);
+        // Edit Equipment Button Click
+        $(document).on('click', '.edit-equipment-btn', function () {
+            const id = $(this).data("id");
+            editEquipment(id);
+        });
 
-                $('#equipmentModalLabel').text('Edit Equipment');
-                $('#equipmentModal').modal('show');
-            },
-            error: function () {
-                alert("Failed to fetch equipment data!");
+        // Delete Equipment Button Click
+        $(document).on('click', '.delete-equipment-btn', function () {
+            const id = $(this).data("id");
+            if (confirm("Are you sure you want to delete this equipment?")) {
+                deleteEquipment(id);
             }
         });
+
+        // Initial Data Load
+        loadEquipment();
     });
-
-    // Delete Equipment
-    $(document).on('click', '.delete-equipment-btn', function () {
-        const id = $(this).data("id");
-
-        $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/equipments/${id}`,
-            method: "DELETE",
-            success: function () {
-                loadEquipment();
-            },
-            error: function () {
-                alert("Failed to delete equipment!");
-            }
-        });
-    });
-
-    // Initial Load
-    loadEquipment();
 });
