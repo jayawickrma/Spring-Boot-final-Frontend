@@ -39,6 +39,55 @@
         <p>Already have an account? <a href="SignIn.html">Sign In</a></p>
     </form>
 </div>
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent form from submitting the default way
+
+        // Collect input values
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const role = document.getElementById('role').value;
+
+        // Validate password and confirm password
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        // Prepare the user data object
+        const userData = {
+            email: email,
+            password: password,
+            role: role
+        };
+
+        // Send AJAX request to the specified URL
+        fetch('http://localhost:8080/springFinal/api/v1/auth/signUp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Set content type to JSON
+            },
+            body: JSON.stringify(userData) // Convert userData object to JSON string
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Signup successful! Redirecting to login...");
+                    window.location.href = "SignIn.html"; // Redirect to the SignIn page
+                } else {
+                    return response.json().then(data => {
+                        // Handle server response errors
+                        throw new Error(data.message || "Signup failed");
+                    });
+                }
+            })
+            .catch(error => {
+                // Display error message to the user
+                alert(`Error: ${error.message}`);
+            });
+    });
+
+</script>
 
 
 <script src="controller/UserController.js"></script>
