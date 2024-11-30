@@ -1,3 +1,4 @@
+import {cropModel}from "Model/cropModel.js"
 $(document).ready(function () {
 
     const apiUrl = 'http://localhost:8080/springFinal/api/v1/crops';
@@ -47,42 +48,61 @@ $(document).ready(function () {
     }
 
     // Save Crop
-    function saveCrop() {
-        const formData = new FormData($("#cropForm")[0]);
-        formData.append("cropName", $("#cropName").val());
-        formData.append("scientificName", $("#ScientificName").val());
-        formData.append("category", $("#category").val());
-        formData.append("season", $("#Season").val());
-        formData.append("cropImage", $("#cropImage")[0].files[0]);
-        formData.append("fieldList", $('#fieldList').val());
+    function saveCrop(){
+        let formData =new FormData(this);
+        formData.append("cropName",$('#cropName').val());
+        formData.append("scientificName",$("#ScientificName").val());
+        formData.append("category",$("#category").val());
+        formData.append("season",$("#Season").val());
+        formData.append("cropImage",$("#CropImage").val());
+        formData.append("fieldList",$("#field").val());
 
         $.ajax({
-            url: apiUrl,
-            type: 'POST',
-            processData: false,
-            contentType: false,
-            headers: {
+            url:"http://localhost:8080/springFinal/api/v1/crops",
+            type:"POST",
+            data:formData,
+            processData:false,
+            contentType:false,
+            headers:{
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
-            data: formData,
-            success: function () {
-                $("#cropModal").modal('hide');
-                loadCrops();
+            success: function() {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Crop added successfully!',
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
+                resolve();
             },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to add crop.',
-                });
+            error: function(xhr, status, error) {
+                switch (xhr.status) {
+                    case 400:
+                        Swal.fire("Bad Request", "The request was invalid. Please check your input and try again.", "error");
+                        break;
+                    case 401:
+                        Swal.fire("Unauthorized", "You are not authorized to perform this action.", "warning");
+                        break;
+                    case 403:
+                        Swal.fire("Forbidden", "You do not have permission to access this resource.", "error");
+                        break;
+                    case 404:
+                        Swal.fire("Not Found", "The requested resource could not be found.", "info");
+                        break;
+                    case 500:
+                        Swal.fire("Server Error", "An error occurred on the server. Please try again later.", "error");
+                        break;
+                    default:
+                        Swal.fire("Error", "An unexpected error occurred. Please try again.", "error");
+                        break;
+                }
+                reject(error);
             }
-        });
+        })
+
     }
+
+
 
     // Update Crop
     function updateCrop(formData, cropId) {
@@ -113,6 +133,7 @@ $(document).ready(function () {
             }
         });
     }
+
 
     // Delete Crop
     $(document).on("click", ".delete-btn", function () {

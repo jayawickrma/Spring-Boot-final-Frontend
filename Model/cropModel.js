@@ -1,4 +1,4 @@
-export default class crop {
+export default class cropModel {
     get cropCode() {
         return this._cropCode;
     }
