@@ -13,7 +13,11 @@ $(document).ready(function () {
                 renderVehicleTable(data);
             },
             error: function () {
-                alert("Failed to load vehicles!");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to load vehicles!',
+                });
             }
         });
     }
@@ -41,19 +45,18 @@ $(document).ready(function () {
         });
     }
 
-
-    // Save Vehicle Details (Create Vehicle)
+    // Save Vehicle Details
     function saveVehicleDetails() {
         var data = {
-            vehicleCode:"1",
-            licensePlateNumber : $('#licensePlate').val(),
-            name:$('#vehicleName').val(),
-            category : $('#vehicleCategory').val(),
-            fuelType : $('#fuelType').val(),
-            remark : $('#remark').val(),
-            status:$('#status').val(),
-            memberCode : $('#staffId').val()
-        }
+            vehicleCode: "1",
+            licensePlateNumber: $('#licensePlate').val(),
+            name: $('#vehicleName').val(),
+            category: $('#vehicleCategory').val(),
+            fuelType: $('#fuelType').val(),
+            remark: $('#remark').val(),
+            status: $('#status').val(),
+            memberCode: $('#staffId').val()
+        };
 
         $.ajax({
             url: "http://localhost:8080/springFinal/api/v1/vehicles",
@@ -67,10 +70,18 @@ $(document).ready(function () {
                 $('#vehicleModal').modal('hide');
                 $('#vehicleForm')[0].reset();
                 loadVehicles();
-                alert("Vehicle saved successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Vehicle saved successfully!',
+                });
             },
             error: function () {
-                alert("Failed to save vehicle details!");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to save vehicle details!',
+                });
             }
         });
     }
@@ -90,10 +101,18 @@ $(document).ready(function () {
                 $('#vehicleModal').modal('hide');
                 $('#vehicleForm')[0].reset();
                 loadVehicles();
-                alert("Vehicle updated successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Vehicle updated successfully!',
+                });
             },
             error: function () {
-                alert("Failed to update vehicle details!");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to update vehicle details!',
+                });
             }
         });
     }
@@ -112,10 +131,8 @@ $(document).ready(function () {
         formData.append('memberCode', $('#staffId').val());
 
         if (editIndex === -1) {
-            // Save new vehicle
             saveVehicleDetails(formData);
         } else {
-            // Update existing vehicle
             updateVehicleDetails(formData, editIndex);
         }
     });
@@ -141,7 +158,11 @@ $(document).ready(function () {
                 $('#vehicleModal').modal('show');
             },
             error: function () {
-                alert("Failed to fetch vehicle data!");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to fetch vehicle data!',
+                });
             }
         });
     });
@@ -150,22 +171,40 @@ $(document).ready(function () {
     $(document).on('click', '.delete-vehicle-btn', function () {
         const id = $(this).data("id");
 
-        if (confirm("Are you sure you want to delete this vehicle?")) {
-            $.ajax({
-                url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
-                method: "DELETE",
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-                },
-                success: function () {
-                    loadVehicles();
-                    alert("Vehicle deleted successfully!");
-                },
-                error: function () {
-                    alert("Failed to delete vehicle!");
-                }
-            });
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                    },
+                    success: function () {
+                        loadVehicles();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'Vehicle deleted successfully.',
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to delete vehicle!',
+                        });
+                    }
+                });
+            }
+        });
     });
 
     // Load vehicles initially
