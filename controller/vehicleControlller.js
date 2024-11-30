@@ -49,9 +49,9 @@ $(document).ready(function () {
             licensePlateNumber : $('#licensePlate').val(),
             name:$('#vehicleName').val(),
             category : $('#vehicleCategory').val(),
-            status:$('#status').val,
             fuelType : $('#fuelType').val(),
             remark : $('#remark').val(),
+            status:$('#status').val(),
             memberCode : $('#staffId').val()
         }
 
@@ -99,26 +99,26 @@ $(document).ready(function () {
     }
 
     // Form Submit for Vehicle Details
-    // $('#vehicleForm').submit(function (e) {
-    //     e.preventDefault();
-    //
-    //     var formData = new FormData();
-    //     formData.append('licensePlateNumber', $('#licensePlate').val());
-    //     formData.append('name', $('#vehicleName').val());
-    //     formData.append('category', $('#vehicleCategory').val());
-    //     formData.append('fuelType', $('#fuelType').val());
-    //     formData.append('remark', $('#remark').val());
-    //     formData.append('status', $('#status').val());
-    //     formData.append('memberCode', $('#staffId').val());
-    //
-    //     if (editIndex === -1) {
-    //         // Save new vehicle
-    //         saveVehicleDetails(formData);
-    //     } else {
-    //         // Update existing vehicle
-    //         updateVehicleDetails(formData, editIndex);
-    //     }
-    // });
+    $('#vehicleForm').submit(function (e) {
+        e.preventDefault();
+
+        var formData = new FormData();
+        formData.append('licensePlateNumber', $('#licensePlate').val());
+        formData.append('name', $('#vehicleName').val());
+        formData.append('category', $('#vehicleCategory').val());
+        formData.append('fuelType', $('#fuelType').val());
+        formData.append('remark', $('#remark').val());
+        formData.append('status', $('#status').val());
+        formData.append('memberCode', $('#staffId').val());
+
+        if (editIndex === -1) {
+            // Save new vehicle
+            saveVehicleDetails(formData);
+        } else {
+            // Update existing vehicle
+            updateVehicleDetails(formData, editIndex);
+        }
+    });
 
     // Edit Vehicle
     $(document).on('click', '.edit-vehicle-btn', function () {
