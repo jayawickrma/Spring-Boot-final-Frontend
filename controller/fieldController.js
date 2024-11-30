@@ -43,6 +43,13 @@ $(document).ready(function () {
         e.preventDefault();
 
         const formData = new FormData(this);
+        formData.append("fieldName",$('#fieldName').val());
+        formData.append("fieldLocation",$('#location').val());
+        formData.append("fieldSize",$('#extentSize').val());
+        formData.append("fieldImg1",$('#fieldImage1').val());
+        formData.append("fieldImg2",$('#fieldImage2').val());
+        formData.append("cropId",$('#cropsList').val());
+        formData.append("staffId",$('#staffList').val());
         const url = currentEditID
             ? `http://localhost:8080/api/v1/fields/${currentEditID}`
             : 'http://localhost:8080/api/v1/fields';
@@ -54,6 +61,9 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            },
             success: function () {
                 $('#fieldModal').modal('hide');
                 loadFields();
@@ -110,6 +120,7 @@ $(document).ready(function () {
     // Function to handle Add Field button click
     $('#addFieldBtn').on('click', function () {
         currentEditID = null;
+        $('#fieldModal').modal('show');
         $('#fieldForm')[0].reset();
         $('#fieldModal').modal('show');
     });
