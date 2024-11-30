@@ -37,7 +37,11 @@ $(document).ready(function () {
                 });
             },
             error: function () {
-                alert("Failed to load crops.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to load crops.',
+                });
             }
         });
     }
@@ -49,9 +53,8 @@ $(document).ready(function () {
         formData.append("scientificName", $("#ScientificName").val());
         formData.append("category", $("#category").val());
         formData.append("season", $("#Season").val());
-        formData.append("cropImage",$("#cropImage").val());
-        formData.append("fieldList",$('#field').val());
-
+        formData.append("cropImage", $("#cropImage")[0].files[0]);
+        formData.append("fieldList", $('#fieldList').val());
 
         $.ajax({
             url: apiUrl,
@@ -65,10 +68,18 @@ $(document).ready(function () {
             success: function () {
                 $("#cropModal").modal('hide');
                 loadCrops();
-                alert("Crop added successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Crop added successfully!',
+                });
             },
             error: function () {
-                alert("Failed to add crop.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to add crop.',
+                });
             }
         });
     }
@@ -87,13 +98,60 @@ $(document).ready(function () {
             success: function () {
                 $("#cropModal").modal('hide');
                 loadCrops();
-                alert("Crop updated successfully!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Crop updated successfully!',
+                });
             },
             error: function () {
-                alert("Failed to update crop.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to update crop.',
+                });
             }
         });
     }
+
+    // Delete Crop
+    $(document).on("click", ".delete-btn", function () {
+        const cropId = $(this).data("id");
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `${apiUrl}/${cropId}`,
+                    type: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+                    },
+                    success: function () {
+                        loadCrops();
+                        Swal.fire(
+                            'Deleted!',
+                            'Crop has been deleted.',
+                            'success'
+                        );
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to delete crop.',
+                        });
+                    }
+                });
+            }
+        });
+    });
 
     // Handle Form Submission
     $("#cropForm").submit(function (e) {
@@ -112,8 +170,12 @@ $(document).ready(function () {
         if (cropImageInput && cropImageInput.files && cropImageInput.files.length > 0) {
             formData.append("cropImage", cropImageInput.files[0]); // File upload
         } else {
-            alert("Please select a crop image before saving.");
-            return; // Exit the function to avoid making an incomplete request
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please select a crop image before saving.',
+            });
+            return;
         }
 
         formData.append("fieldList", $("#fieldList").val());
@@ -126,33 +188,6 @@ $(document).ready(function () {
     });
 
     // Open Add/Edit Modal
-    $(document).on("click", ".edit-btn", function () {
-        const cropId = $(this).data("id");
-
-        // Load crop details into the form for editing
-        $.ajax({
-            url: `${apiUrl}/${cropId}`,
-            type: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            },
-            success: function (crop) {
-                $("#cropName").val(crop.cropName);
-                $("#ScientificName").val(crop.scientificName);
-                $("#category").val(crop.category);
-                $("#Season").val(crop.season);
-                $("#fieldList").val(crop.fieldList ? crop.fieldList.join(', ') : '');
-                $("#cropForm").data("edit", true).data("id", cropId);
-                $("#cropModalLabel").text("Edit Crop");
-                $("#cropModal").modal("show");
-            },
-            error: function () {
-                alert("Failed to fetch crop details.");
-            }
-        });
-    });
-
-    // Open Modal for Adding Crop
     $("#addCropBtn").click(function () {
         $("#cropForm")[0].reset();
         $("#cropForm").data("edit", false);
@@ -160,37 +195,16 @@ $(document).ready(function () {
         $("#cropModal").modal("show");
     });
 
-    // Delete Crop
-    $(document).on("click", ".delete-btn", function () {
-        const cropId = $(this).data("id");
-        if (confirm("Are you sure you want to delete this crop?")) {
-            $.ajax({
-                url: `${apiUrl}/${cropId}`,
-                type: 'DELETE',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-                },
-                success: function () {
-                    loadCrops();
-                    alert("Crop deleted successfully!");
-                },
-                error: function () {
-                    alert("Failed to delete crop.");
-                }
-            });
-        }
-    });
-
     // Image Popup Viewer
     $(document).on('click', '.crop-image', function () {
         const imageUrl = `data:image/jpeg;base64,${$(this).data('image')}`;
-        $('#popupImage').attr('src', imageUrl);
-        $('#imagePopup').fadeIn();
-    });
-
-    // Close Image Popup
-    $('#imagePopup .close').click(function () {
-        $('#imagePopup').fadeOut();
+        Swal.fire({
+            title: 'Crop Image',
+            imageUrl: imageUrl,
+            imageWidth: 400,
+            imageHeight: 300,
+            imageAlt: 'Crop Image',
+        });
     });
 
     // Initial Table Load
