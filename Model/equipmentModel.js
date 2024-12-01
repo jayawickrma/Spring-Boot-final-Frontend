@@ -1,4 +1,4 @@
-export default class{
+export default class equipmentModel{
     get equipmentCode() {
         return this._equipmentCode;
     }
