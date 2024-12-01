@@ -169,8 +169,9 @@ $(document).ready(function () {
 
     // Delete Vehicle
     $(document).on('click', '.delete-vehicle-btn', function () {
-        const id = $(this).data("id");
+        const vehicleCode = $(this).data("vehicleCode"); // Extract vehicle code from the button
 
+        // Confirmation alert using SweetAlert
         Swal.fire({
             title: 'Are you sure?',
             text: "This action cannot be undone!",
@@ -181,13 +182,15 @@ $(document).ready(function () {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
+                // Make AJAX DELETE request
                 $.ajax({
-                    url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
+                    url: `http://localhost:8080/springFinal/api/v1/vehicles/${vehicleCode}`, // API endpoint with vehicleCode
                     method: "DELETE",
                     headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'), // Attach JWT token for authentication
                     },
                     success: function () {
+                        // Reload vehicles after successful deletion
                         loadVehicles();
                         Swal.fire({
                             icon: 'success',
@@ -195,17 +198,26 @@ $(document).ready(function () {
                             text: 'Vehicle deleted successfully.',
                         });
                     },
-                    error: function () {
+                    error: function (xhr) {
+                        let errorMessage = 'Failed to delete vehicle!';
+                        if (xhr.status === 400) {
+                            errorMessage = 'Bad request. Please check the input!';
+                        } else if (xhr.status === 500) {
+                            errorMessage = 'Internal server error occurred!';
+                        }
+
+                        // Display error message
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Failed to delete vehicle!',
+                            text: errorMessage,
                         });
                     }
                 });
             }
         });
     });
+
 
     // Load vehicles initially
     loadVehicles();

@@ -46,79 +46,9 @@ $(document).ready(function () {
         });
     }
 
-    // Save a new crop
-    function saveCrop() {
-        const formData = new FormData();
-        formData.append("cropName",$("#cropName").val());
-        formData.append("scientificName",$("#category").val());
-        formData.append("category",$("#Season").val());
-        formData.append("season",$("#ScientificName").val());
-        formData.append("cropImage",$("#CropImage").val());
-        formData.append("fieldList",$("#field").val());
-        console.log(formData)
-        $.ajax({
-            url: apiUrl,
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            },
-
-            success: function () {
-                $("#cropModal").modal('hide');
-                loadCrops();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Crop added successfully!',
-                });
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to add crop.',
-                });
-            }
-        });
-    }
-
-    // Update an existing crop
-    function updateCrop(cropId) {
-        const formData = new FormData($("#cropForm")[0]);
-        $.ajax({
-            url: `${apiUrl}/${cropId}`,
-            type: 'PUT',
-            processData: false,
-            contentType: false,
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            },
-            data: formData,
-            success: function () {
-                $("#cropModal").modal('hide');
-                loadCrops();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Crop updated successfully!',
-                });
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to update crop.',
-                });
-            }
-        });
-    }
-
     // Delete a crop
     $(document).on("click", ".delete-btn", function () {
-        const cropId = $(this).data("id");
+        const cropCode = $(this).data("id");
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -130,7 +60,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `${apiUrl}/${cropId}`,
+                    url: `${apiUrl}/${cropCode}`,
                     type: 'DELETE',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -143,11 +73,17 @@ $(document).ready(function () {
                             'success'
                         );
                     },
-                    error: function () {
+                    error: function (jqXHR) {
+                        let errorMessage = 'Failed to delete crop.';
+                        if (jqXHR.status === 400) {
+                            errorMessage = 'Invalid request.';
+                        } else if (jqXHR.status === 500) {
+                            errorMessage = 'Server error.';
+                        }
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Failed to delete crop.',
+                            text: errorMessage,
                         });
                     }
                 });
@@ -155,71 +91,6 @@ $(document).ready(function () {
         });
     });
 
-    // Handle Add/Edit form submission
-    $("#cropForm").submit(function (e) {
-        e.preventDefault();
-
-        const isEdit = $("#cropForm").data("edit");
-        const cropId = isEdit ? $("#cropForm").data("id") : null;
-
-        if (isEdit) {
-            updateCrop(cropId);
-        } else {
-            saveCrop();
-        }
-    });
-
-    // Open Add/Edit modal
-    $("#addCropBtn").click(function () {
-        $("#cropForm")[0].reset();
-        $("#cropForm").data("edit", false);
-        $("#cropModalLabel").text("Add Crop");
-        $("#cropModal").modal("show");
-    });
-
-    // Open Edit modal
-    $(document).on("click", ".edit-btn", function () {
-        const cropId = $(this).data("id");
-
-        // Fetch crop details and populate the form
-        $.ajax({
-            url: `${apiUrl}/${cropId}`,
-            type: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            },
-            success: function (crop) {
-                $("#cropName").val(crop.cropName);
-                $("#ScientificName").val(crop.scientificName);
-                $("#category").val(crop.category);
-                $("#Season").val(crop.season);
-                $("#fieldList").val(crop.fieldList ? crop.fieldList.join(', ') : '');
-                $("#cropForm").data("edit", true).data("id", crop.cropCode);
-                $("#cropModalLabel").text("Edit Crop");
-                $("#cropModal").modal("show");
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to load crop details.',
-                });
-            }
-        });
-    });
-
-    // Image popup viewer
-    $(document).on('click', '.crop-image', function () {
-        const imageUrl = `data:image/jpeg;base64,${$(this).data('image')}`;
-        Swal.fire({
-            title: 'Crop Image',
-            imageUrl: imageUrl,
-            imageWidth: 400,
-            imageHeight: 300,
-            imageAlt: 'Crop Image',
-        });
-    });
-
-    // Load crops initially
+    // Initialize crop list
     loadCrops();
 });
