@@ -97,7 +97,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.delete-field', function () {
-        const fieldId = $(this).closest('tr').data('id');
+        const fieldCode = $(this).closest('tr').data('id');
 
         Swal.fire({
             title: 'Are you sure?',
@@ -110,7 +110,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:8080/springFinal/api/v1/fields/${fieldId}`,
+                    url: `http://localhost:8080/springFinal/api/v1/fields/${fieldCode}`,
                     method: 'DELETE',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
