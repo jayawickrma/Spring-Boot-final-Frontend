@@ -1,7 +1,6 @@
 $(document).ready(function () {
     let currentEditID = null;
 
-    // Function to load fields into the table
     function loadFields() {
         $.ajax({
             url: 'http://localhost:8080/springFinal/api/v1/fields',
@@ -15,34 +14,34 @@ $(document).ready(function () {
                 fieldTableBody.empty();
                 data.forEach((field) => {
                     fieldTableBody.append(`
-            <tr data-id="${field.fieldCode}">
-              <td>${field.fieldCode}</td>
-              <td>${field.name}</td>
-              <td>${field.location}</td>
-              <td>${field.extentSize}</td>
-              <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
-              <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
-              <td>${field.staffList.join(', ')}</td>
-              <td>${field.cropsList.join(', ')}</td>
-              <td>
-                <button class="btn btn-warning btn-sm edit-field">Edit</button>
-                <button class="btn btn-danger btn-sm delete-field">Delete</button>
-              </td>
-            </tr>
-          `);
+                            <tr data-id="${field.fieldCode}">
+                                <td>${field.fieldCode}</td>
+                                <td>${field.name}</td>
+                                <td>${field.location}</td>
+                                <td>${field.extentSize}</td>
+                                <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
+                                <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
+                                <td>${field.staffList.join(', ')}</td>
+                                <td>${field.cropsList.join(', ')}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm edit-field">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete-field">Delete</button>
+                                </td>
+                            </tr>
+                        `);
                 });
             },
-            error: function (xhr) {
-                Swal.fire('Error', `Failed to load fields. Response Code: ${xhr.status}`, 'error');
+            error: function () {
+                Swal.fire('Error', 'Failed to load fields.', 'error');
             }
         });
     }
 
-    // Function to handle form submission for Add/Edit
     $('#fieldForm').on('submit', function (e) {
         e.preventDefault();
 
         const formData = new FormData(this);
+        formData.append("fieldCode", currentEditID || "");
         formData.append("fieldName", $('#fieldName').val());
         formData.append("fieldLocation", $('#location').val());
         formData.append("fieldSize", $('#extentSize').val());
@@ -50,9 +49,10 @@ $(document).ready(function () {
         formData.append("fieldImg2", $('#fieldImage2')[0].files[0]);
         formData.append("cropId", $('#cropsList').val());
         formData.append("staffId", $('#staffList').val());
+
         const url = currentEditID
-            ? `http://localhost:8080/api/v1/fields/${currentEditID}`
-            : 'http://localhost:8080/api/v1/fields';
+            ? `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`
+            : 'http://localhost:8080/springFinal/api/v1/fields';
         const method = currentEditID ? 'PUT' : 'POST';
 
         $.ajax({
@@ -69,22 +69,20 @@ $(document).ready(function () {
                 loadFields();
                 Swal.fire('Success', 'Field saved successfully!', 'success');
             },
-            error: function (xhr) {
-                Swal.fire('Error', `Failed to save field. Response Code: ${xhr.status}`, 'error');
+            error: function () {
+                Swal.fire('Error', 'Failed to save field.', 'error');
             }
         });
     });
 
-    // Function to handle edit button click
     $(document).on('click', '.edit-field', function () {
         const row = $(this).closest('tr');
         currentEditID = row.data('id');
 
         $.ajax({
-            url: `http://localhost:8080/api/v1/fields/${currentEditID}`,
+            url: `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`,
             method: 'GET',
             success: function (field) {
-                $('#fieldCode').val(field.fieldCode);
                 $('#fieldName').val(field.name);
                 $('#location').val(field.location);
                 $('#extentSize').val(field.extentSize);
@@ -92,13 +90,12 @@ $(document).ready(function () {
                 $('#cropsList').val(field.cropsList.join(', '));
                 $('#fieldModal').modal('show');
             },
-            error: function (xhr) {
-                Swal.fire('Error', `Failed to load field details. Response Code: ${xhr.status}`, 'error');
+            error: function () {
+                Swal.fire('Error', 'Failed to load field details.', 'error');
             }
         });
     });
 
-    // Function to handle delete button click
     $(document).on('click', '.delete-field', function () {
         const fieldId = $(this).closest('tr').data('id');
 
@@ -113,27 +110,28 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:8080/api/v1/fields/${fieldId}`,
+                    url: `http://localhost:8080/springFinal/api/v1/fields/${fieldId}`,
                     method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+                    },
                     success: function () {
                         loadFields();
                         Swal.fire('Deleted!', 'Field has been deleted.', 'success');
                     },
-                    error: function (xhr) {
-                        Swal.fire('Error', `Failed to delete field. Response Code: ${xhr.status}`, 'error');
+                    error: function () {
+                        Swal.fire('Error', 'Failed to delete field.', 'error');
                     }
                 });
             }
         });
     });
 
-    // Function to handle Add Field button click
     $('#addFieldBtn').on('click', function () {
         currentEditID = null;
         $('#fieldForm')[0].reset();
         $('#fieldModal').modal('show');
     });
 
-    // Initial Load
     loadFields();
 });
