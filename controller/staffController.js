@@ -1,60 +1,57 @@
-
 $(document).ready(function () {
-    const apiUrl = "http://localhost:8080/springFinal/api/v1/vehicles"; // Adjust the base URL as needed
+    const API_URL = 'http://localhost:8080/springFinal/api/v1/staff';
+    let currentStaffId = null;
 
-    let editIndex = -1;
-
-    // Load all staff data on page load
-    function loadStaffData() {
+    // Load all staff members
+    function loadStaff() {
         $.ajax({
-            url: apiUrl,
-            method: "GET",
+            url: API_URL,
+            method: 'GET',
             headers: {
-                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
             },
             success: function (data) {
-                renderStaffTable(data);
+                const staffTableBody = $('#staffTable tbody');
+                staffTableBody.empty();
+                data.forEach(staff => {
+                    staffTableBody.append(`
+                        <tr data-id="${staff.memberCode}">
+                            <td>${staff.firstName}</td>
+                            <td>${staff.lastName}</td>
+                            <td>${staff.joinedDate}</td>
+                            <td>${staff.dateOfBirth}</td>
+                            <td>${staff.gender}</td>
+                            <td>${staff.designation}</td>
+                            <td>${staff.addressLine1}</td>
+                            <td>${staff.addressLine2}</td>
+                            <td>${staff.addressLine3}</td>
+                            <td>${staff.addressLine4}</td>
+                            <td>${staff.addressLine5}</td>
+                            <td>${staff.contactNo}</td>
+                            <td>${staff.email}</td>
+                            <td>${staff.role}</td>
+                            <td>${staff.vehicleList.join(', ')}</td>
+                            <td>${staff.fieldList.join(', ')}</td>
+                            <td>${staff.logList.join(', ')}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-staff">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-staff">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
             },
             error: function () {
-                alert("Failed to load staff data.");
+                Swal.fire('Error', 'Failed to load staff data', 'error');
             }
         });
     }
 
-    // Render Staff Table
-    function renderStaffTable(data) {
-        $('#staffTable tbody').empty();
-        data.forEach((staff, index) => {
-            $('#staffTable tbody').append(`
-                <tr>
-                    <td>${staff.firstName}</td>
-                    <td>${staff.lastName}</td>
-                    <td>${staff.joinedDate}</td>
-                    <td>${staff.dateOfBirth}</td>
-                    <td>${staff.gender}</td>
-                    <td>${staff.designation}</td>
-                    <td>${staff.addressLine1}</td>
-                    <td>${staff.contactNo}</td>
-                    <td>${staff.email}</td>
-                    <td>${staff.role}</td>
-                    <td>${staff.vehicleList}</td>
-                    <td>${staff.fieldList}</td>
-                    <td>${staff.log}</td>
-                    <td>
-                        <button class="btn btn-primary edit-btn" data-id="${staff.memberCode}">Edit</button>
-                        <button class="btn btn-danger delete-btn" data-id="${staff.memberCode}">Delete</button>
-                    </td>
-                </tr>
-            `);
-        });
-    }
-
-    // Save or Update Staff
-    $('#staffForm').submit(function (e) {
+    // Save or update staff
+    $('#staffForm').on('submit', function (e) {
         e.preventDefault();
 
         const staffData = {
-            memberCode: editIndex === -1 ? null : $('#staffId').val(),
             firstName: $('#firstName').val(),
             lastName: $('#lastName').val(),
             joinedDate: $('#joinedDate').val(),
@@ -62,43 +59,52 @@ $(document).ready(function () {
             gender: $('#gender').val(),
             designation: $('#designation').val(),
             addressLine1: $('#address').val(),
+            addressLine2: $('#address2').val(),
+            addressLine3: $('#address3').val(),
+            addressLine4: $('#address4').val(),
+            addressLine5: $('#address5').val(),
             contactNo: $('#contactNo').val(),
             email: $('#email').val(),
             role: $('#role').val(),
-            vehicleList: $('#vehicle').val(),
-            fieldList: $('#field').val(),
-            log: $('#log').val()
+            vehicleList: $('#vehicle').val().split(','),
+            fieldList: $('#field').val().split(','),
+            logList: $('#log').val().split(',')
         };
 
-        const requestType = editIndex === -1 ? "POST" : "PUT";
-        const requestUrl = editIndex === -1 ? apiUrl : `${apiUrl}/${staffData.memberCode}`;
+        const method = currentStaffId ? 'PUT' : 'POST';
+        const url = currentStaffId ? `${API_URL}/${currentStaffId}` : API_URL;
 
         $.ajax({
-            url: requestUrl,
-            method: requestType,
-            contentType: "application/json",
+            url: url,
+            method: method,
+            contentType: 'application/json',
             data: JSON.stringify(staffData),
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+            },
             success: function () {
                 $('#staffModal').modal('hide');
-                $('#staffForm')[0].reset();
-                editIndex = -1;
-                loadStaffData();
+                loadStaff();
+                Swal.fire('Success', 'Staff saved successfully', 'success');
             },
             error: function () {
-                alert("Failed to save staff data.");
+                Swal.fire('Error', 'Failed to save staff', 'error');
             }
         });
     });
 
-    // Edit Staff
-    $(document).on('click', '.edit-btn', function () {
-        const memberCode = $(this).data('id');
+    // Edit staff
+    $(document).on('click', '.edit-staff', function () {
+        const staffId = $(this).closest('tr').data('id');
+        currentStaffId = staffId;
+
         $.ajax({
-            url: `${apiUrl}/${memberCode}`,
-            method: "GET",
+            url: `${API_URL}/${staffId}`,
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+            },
             success: function (staff) {
-                editIndex = staff.memberCode;
-                $('#staffId').val(staff.memberCode);
                 $('#firstName').val(staff.firstName);
                 $('#lastName').val(staff.lastName);
                 $('#joinedDate').val(staff.joinedDate);
@@ -106,37 +112,61 @@ $(document).ready(function () {
                 $('#gender').val(staff.gender);
                 $('#designation').val(staff.designation);
                 $('#address').val(staff.addressLine1);
+                $('#address2').val(staff.addressLine2);
+                $('#address3').val(staff.addressLine3);
+                $('#address4').val(staff.addressLine4);
+                $('#address5').val(staff.addressLine5);
                 $('#contactNo').val(staff.contactNo);
                 $('#email').val(staff.email);
                 $('#role').val(staff.role);
-                $('#vehicle').val(staff.vehicleList);
-                $('#field').val(staff.fieldList);
-                $('#log').val(staff.log);
+                $('#vehicle').val(staff.vehicleList.join(','));
+                $('#field').val(staff.fieldList.join(','));
+                $('#log').val(staff.logList.join(','));
                 $('#staffModal').modal('show');
             },
             error: function () {
-                alert("Failed to fetch staff details.");
+                Swal.fire('Error', 'Failed to load staff details', 'error');
             }
         });
     });
 
-    // Delete Staff
-    $(document).on('click', '.delete-btn', function () {
-        const memberCode = $(this).data('id');
-        if (confirm("Are you sure you want to delete this staff member?")) {
-            $.ajax({
-                url: `${apiUrl}/${memberCode}`,
-                method: "DELETE",
-                success: function () {
-                    loadStaffData();
-                },
-                error: function () {
-                    alert("Failed to delete staff.");
-                }
-            });
-        }
+    // Delete staff
+    $(document).on('click', '.delete-staff', function () {
+        const staffId = $(this).closest('tr').data('id');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `${API_URL}/${staffId}`,
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+                    },
+                    success: function () {
+                        loadStaff();
+                        Swal.fire('Deleted!', 'Staff has been deleted.', 'success');
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'Failed to delete staff', 'error');
+                    }
+                });
+            }
+        });
     });
 
-    // Initial Data Load
-    loadStaffData();
+    // Add staff button click
+    $('#addStaffBtn').on('click', function () {
+        currentStaffId = null;
+        $('#staffForm')[0].reset();
+        $('#staffModal').modal('show');
+    });
+
+    // Initial load
+    loadStaff();
 });
