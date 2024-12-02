@@ -8,7 +8,7 @@ $(document).ready(function () {
             method: 'GET',
             dataType: 'json',
             headers: {
-                'Authorization': 'Bearer '+ localStorage.getItem('jwtToken')
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
             success: function (data) {
                 const fieldTableBody = $('#fieldTable tbody');
@@ -32,8 +32,8 @@ $(document).ready(function () {
           `);
                 });
             },
-            error: function () {
-                alert('Failed to load fields.');
+            error: function (xhr) {
+                Swal.fire('Error', `Failed to load fields. Response Code: ${xhr.status}`, 'error');
             }
         });
     }
@@ -43,13 +43,13 @@ $(document).ready(function () {
         e.preventDefault();
 
         const formData = new FormData(this);
-        formData.append("fieldName",$('#fieldName').val());
-        formData.append("fieldLocation",$('#location').val());
-        formData.append("fieldSize",$('#extentSize').val());
-        formData.append("fieldImg1",$('#fieldImage1').val());
-        formData.append("fieldImg2",$('#fieldImage2').val());
-        formData.append("cropId",$('#cropsList').val());
-        formData.append("staffId",$('#staffList').val());
+        formData.append("fieldName", $('#fieldName').val());
+        formData.append("fieldLocation", $('#location').val());
+        formData.append("fieldSize", $('#extentSize').val());
+        formData.append("fieldImg1", $('#fieldImage1')[0].files[0]);
+        formData.append("fieldImg2", $('#fieldImage2')[0].files[0]);
+        formData.append("cropId", $('#cropsList').val());
+        formData.append("staffId", $('#staffList').val());
         const url = currentEditID
             ? `http://localhost:8080/api/v1/fields/${currentEditID}`
             : 'http://localhost:8080/api/v1/fields';
@@ -67,10 +67,10 @@ $(document).ready(function () {
             success: function () {
                 $('#fieldModal').modal('hide');
                 loadFields();
-                alert('Field saved successfully!');
+                Swal.fire('Success', 'Field saved successfully!', 'success');
             },
-            error: function () {
-                alert('Failed to save field.');
+            error: function (xhr) {
+                Swal.fire('Error', `Failed to save field. Response Code: ${xhr.status}`, 'error');
             }
         });
     });
@@ -92,8 +92,8 @@ $(document).ready(function () {
                 $('#cropsList').val(field.cropsList.join(', '));
                 $('#fieldModal').modal('show');
             },
-            error: function () {
-                alert('Failed to load field details.');
+            error: function (xhr) {
+                Swal.fire('Error', `Failed to load field details. Response Code: ${xhr.status}`, 'error');
             }
         });
     });
@@ -102,25 +102,34 @@ $(document).ready(function () {
     $(document).on('click', '.delete-field', function () {
         const fieldId = $(this).closest('tr').data('id');
 
-        if (confirm('Are you sure you want to delete this field?')) {
-            $.ajax({
-                url: `http://localhost:8080/api/v1/fields/${fieldId}`,
-                method: 'DELETE',
-                success: function () {
-                    loadFields();
-                    alert('Field deleted successfully!');
-                },
-                error: function () {
-                    alert('Failed to delete field.');
-                }
-            });
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This will permanently delete the field.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `http://localhost:8080/api/v1/fields/${fieldId}`,
+                    method: 'DELETE',
+                    success: function () {
+                        loadFields();
+                        Swal.fire('Deleted!', 'Field has been deleted.', 'success');
+                    },
+                    error: function (xhr) {
+                        Swal.fire('Error', `Failed to delete field. Response Code: ${xhr.status}`, 'error');
+                    }
+                });
+            }
+        });
     });
 
     // Function to handle Add Field button click
     $('#addFieldBtn').on('click', function () {
         currentEditID = null;
-        $('#fieldModal').modal('show');
         $('#fieldForm')[0].reset();
         $('#fieldModal').modal('show');
     });

@@ -42,7 +42,7 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Failed to load crops.',
+                    text: 'Failed to load crops. Please try again later.',
                 });
             }
         });
@@ -60,67 +60,41 @@ $(document).ready(function () {
         formData.append('cropImage', $('#CropImage')[0].files[0]);
         formData.append('fieldList', $('#field').val());
 
-        if (editCropId) {
-            $.ajax({
-                url: `${apiUrl}/${editCropId}`,
-                type: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-                },
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Crop has been updated successfully!',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                    $('#cropModal').modal('hide');
-                    loadCrops();
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to update crop.',
-                    });
-                }
-            });
-        } else {
-            $.ajax({
-                url: apiUrl,
-                type: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-                },
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Crop has been saved successfully!',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                    $('#cropModal').modal('hide');
-                    loadCrops();
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to save crop.',
-                    });
-                }
-            });
-        }
+        const method = editCropId ? 'PUT' : 'POST';
+        const url = editCropId ? `${apiUrl}/${editCropId}` : apiUrl;
+
+        $.ajax({
+            url: url,
+            type: method,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            },
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: `Crop ${editCropId ? 'updated' : 'added'} successfully!`,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                $('#cropModal').modal('hide');
+                loadCrops();
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `Failed to ${editCropId ? 'update' : 'add'} crop. Please try again.`,
+                });
+            }
+        });
     });
 
     // Attach Event Handlers for Edit and Delete
     function attachHandlers() {
+        // Edit functionality
         $('.edit-btn').on('click', function () {
             const cropCode = $(this).data('id');
             $.ajax({
@@ -150,14 +124,16 @@ $(document).ready(function () {
             });
         });
 
+        // Delete functionality
         $('.delete-btn').on('click', function () {
             const cropCode = $(this).data('id');
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "This action cannot be undone!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -169,7 +145,7 @@ $(document).ready(function () {
                         success: function () {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Crop has been deleted successfully!',
+                                title: 'Crop deleted successfully!',
                                 timer: 1500,
                                 showConfirmButton: false
                             });
@@ -179,7 +155,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'Failed to delete crop.',
+                                text: 'Failed to delete crop. Please try again.',
                             });
                         }
                     });
