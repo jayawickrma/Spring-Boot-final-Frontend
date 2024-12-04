@@ -169,7 +169,7 @@ $(document).ready(function () {
 
     // Delete Vehicle
     $(document).on('click', '.delete-vehicle-btn', function () {
-        const vehicleCode = $(this).data("vehicleCode"); // Extract vehicle code from the button
+        const vehicleCode = $(this).data("id"); // Extract vehicle code from the button
 
         // Confirmation alert using SweetAlert
         Swal.fire({
