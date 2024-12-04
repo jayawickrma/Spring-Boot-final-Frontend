@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let currentEditID = null;
 
+    // Load Fields Function
     function loadFields() {
         $.ajax({
             url: 'http://localhost:8080/springFinal/api/v1/fields',
@@ -14,21 +15,21 @@ $(document).ready(function () {
                 fieldTableBody.empty();
                 data.forEach((field) => {
                     fieldTableBody.append(`
-                            <tr data-id="${field.fieldCode}">
-                                <td>${field.fieldCode}</td>
-                                <td>${field.name}</td>
-                                <td>${field.location}</td>
-                                <td>${field.extentSize}</td>
-                                <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
-                                <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
-                                <td>${field.staffList.join(', ')}</td>
-                                <td>${field.cropsList.join(', ')}</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm edit-field">Edit</button>
-                                    <button class="btn btn-danger btn-sm delete-field">Delete</button>
-                                </td>
-                            </tr>
-                        `);
+                        <tr data-id="${field.fieldCode}">
+                            <td>${field.fieldCode}</td>
+                            <td>${field.name}</td>
+                            <td>${field.location}</td>
+                            <td>${field.extentSize}</td>
+                            <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
+                            <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
+                            <td>${field.staffList.join(', ')}</td>
+                            <td>${field.cropsList.join(', ')}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-field">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-field">Delete</button>
+                            </td>
+                        </tr>
+                    `);
                 });
             },
             error: function () {
@@ -37,18 +38,18 @@ $(document).ready(function () {
         });
     }
 
+    // Handle Add/Edit Form Submission
     $('#fieldForm').on('submit', function (e) {
         e.preventDefault();
 
         const formData = new FormData(this);
-        formData.append("fieldCode", currentEditID || "");
         formData.append("fieldName", $('#fieldName').val());
         formData.append("fieldLocation", $('#location').val());
         formData.append("fieldSize", $('#extentSize').val());
         formData.append("fieldImg1", $('#fieldImage1')[0].files[0]);
         formData.append("fieldImg2", $('#fieldImage2')[0].files[0]);
-        formData.append("cropId", $('#cropsList').val());
-        formData.append("staffId", $('#staffList').val());
+        formData.append("cropId", $('#cropsList').val().split(','));
+        formData.append("staffId", $('#staffList').val().split(','));
 
         const url = currentEditID
             ? `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`
@@ -75,6 +76,7 @@ $(document).ready(function () {
         });
     });
 
+    // Edit Field
     $(document).on('click', '.edit-field', function () {
         const row = $(this).closest('tr');
         currentEditID = row.data('id');
@@ -96,6 +98,7 @@ $(document).ready(function () {
         });
     });
 
+    // Delete Field
     $(document).on('click', '.delete-field', function () {
         const fieldCode = $(this).closest('tr').data('id');
 
@@ -127,11 +130,14 @@ $(document).ready(function () {
         });
     });
 
+    // Add Field Button Click
     $('#addFieldBtn').on('click', function () {
         currentEditID = null;
         $('#fieldForm')[0].reset();
         $('#fieldModal').modal('show');
     });
 
+    // Load fields when the page loads
     loadFields();
 });
+firl
