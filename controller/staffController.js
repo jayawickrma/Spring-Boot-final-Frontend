@@ -2,7 +2,7 @@ $(document).ready(function () {
     const API_URL = 'http://localhost:8080/springFinal/api/v1/staff';
     let currentStaffId = null;
 
-    // Load all staff members
+    // Load all staff members (READ)
     function loadStaff() {
         $.ajax({
             url: API_URL,
@@ -31,9 +31,9 @@ $(document).ready(function () {
                             <td>${staff.contactNo}</td>
                             <td>${staff.email}</td>
                             <td>${staff.role}</td>
-                            <td>${staff.vehicleList?.join(', ') || ''}</td>
-                            <td>${staff.fieldList?.join(', ') || ''}</td>
-                            <td>${staff.logList?.join(', ') || ''}</td>
+                            <td>${staff.vehicleList? staff.vehicleList.join(', ') :'N/A'}</td>
+                            <td>${staff.fieldList? staff.fieldList.join(', '):'N/A'}</td>
+                            <td>${staff.logList? staff.logList.join(', '):'N/A'}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm edit-staff">Edit</button>
                                 <button class="btn btn-danger btn-sm delete-staff">Delete</button>
@@ -43,13 +43,13 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr) {
-                console.error('Failed to load staff data:', xhr.responseText);
+                console.error('Error loading staff:', xhr.responseText);
                 Swal.fire('Error', 'Failed to load staff data', 'error');
             }
         });
     }
 
-    // Save or update staff
+    // Create or Update staff (CREATE/UPDATE)
     $('#staffForm').on('submit', function (e) {
         e.preventDefault();
 
@@ -71,8 +71,7 @@ $(document).ready(function () {
             role: $('#role').val(),
             vehicleList: $('#vehicle').val()?.split(',').map(item => item.trim()),
             fieldList: $('#field').val()?.split(',').map(item => item.trim()),
-            logList: $('#log').val()?.split(',').map(item => item.trim()),
-            staffEquipmentDetailsList: [] // Update based on your specific requirements
+            logList: $('#log').val()?.split(',').map(item => item.trim())
         };
 
         const method = currentStaffId ? 'PUT' : 'POST';
@@ -89,18 +88,18 @@ $(document).ready(function () {
             success: function () {
                 $('#staffModal').modal('hide');
                 loadStaff();
-                Swal.fire('Success', 'Staff saved successfully', 'success');
+                Swal.fire('Success', `Staff ${currentStaffId ? 'updated' : 'created'} successfully`, 'success');
                 currentStaffId = null;
                 $('#staffForm')[0].reset();
             },
             error: function (xhr) {
-                console.error('Failed to save staff:', xhr.responseText);
+                console.error('Error saving staff:', xhr.responseText);
                 Swal.fire('Error', `Failed to save staff: ${xhr.responseText || xhr.statusText}`, 'error');
             }
         });
     });
 
-    // Edit staff
+    // Load specific staff for editing (READ ONE)
     $(document).on('click', '.edit-staff', function () {
         const staffId = $(this).closest('tr').data('id');
         currentStaffId = staffId;
@@ -132,19 +131,19 @@ $(document).ready(function () {
                 $('#staffModal').modal('show');
             },
             error: function (xhr) {
-                console.error('Failed to load staff details:', xhr.responseText);
+                console.error('Error loading staff details:', xhr.responseText);
                 Swal.fire('Error', 'Failed to load staff details', 'error');
             }
         });
     });
 
-    // Delete staff
+    // Delete staff (DELETE)
     $(document).on('click', '.delete-staff', function () {
         const staffId = $(this).closest('tr').data('id');
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            text: 'This action cannot be undone!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!'
@@ -158,15 +157,22 @@ $(document).ready(function () {
                     },
                     success: function () {
                         loadStaff();
-                        Swal.fire('Deleted!', 'Staff has been deleted.', 'success');
+                        Swal.fire('Deleted!', 'The staff record has been deleted.', 'success');
                     },
                     error: function (xhr) {
-                        console.error('Failed to delete staff:', xhr.responseText);
+                        console.error('Error deleting staff:', xhr.responseText);
                         Swal.fire('Error', 'Failed to delete staff', 'error');
                     }
                 });
             }
         });
+    });
+
+    // Clear form and reset for new staff (Helper)
+    $('#addStaffButton').on('click', function () {
+        currentStaffId = null;
+        $('#staffForm')[0].reset();
+        $('#staffModal').modal('show');
     });
 
     // Initialize staff table
