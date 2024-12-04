@@ -110,21 +110,26 @@ $(document).ready(function () {
         $('.edit-btn').on('click', function () {
             const cropCode = $(this).data('id');
             $.ajax({
-                url: `${apiUrl}/${cropCode}`,
+                url: apiUrl,
                 type: 'GET',
+                dataType: 'json',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                 },
-                success: function (crop) {
-                    $('#cropName').val(crop.cropName);
-                    $('#category').val(crop.category);
-                    $('#Season').val(crop.season);
-                    $('#ScientificName').val(crop.scientificName);
-                    $('#field').val(crop.fieldList ? crop.fieldList.join(', ') : '');
-                    editCropId = crop.cropCode;
+                success: function (response) {
+                    response.forEach((crop) =>{
+                        if (crop.cropCode === cropCode) {
+                            $('#cropName').val(crop.cropName);
+                            $('#category').val(crop.category);
+                            $('#Season').val(crop.season);
+                            $('#ScientificName').val(crop.scientificName);
+                            $('#field').val(crop.fieldList? crop.fieldList.join(', ') : '');
+                            editCropId = crop.cropCode;
 
-                    $('#cropModalLabel').text('Edit Crop');
-                    $('#cropModal').modal('show');
+                            $('#cropModalLabel').text('Edit Crop');
+                            $('#cropModal').modal('show');
+                        }
+                    })
                 },
                 error: function () {
                     Swal.fire({
