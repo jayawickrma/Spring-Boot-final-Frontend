@@ -16,23 +16,24 @@ $(document).ready(function () {
                 data.forEach(staff => {
                     staffTableBody.append(`
                         <tr data-id="${staff.memberCode}">
+                            <td>${staff.memberCode}</td>
                             <td>${staff.firstName}</td>
                             <td>${staff.lastName}</td>
                             <td>${staff.joinedDate}</td>
                             <td>${staff.dateOfBirth}</td>
                             <td>${staff.gender}</td>
                             <td>${staff.designation}</td>
-                            <td>${staff.addressLine1}</td>
-                            <td>${staff.addressLine2}</td>
-                            <td>${staff.addressLine3}</td>
-                            <td>${staff.addressLine4}</td>
-                            <td>${staff.addressLine5}</td>
+                            <td>${staff.addressLine1 || ''}</td>
+                            <td>${staff.addressLine2 || ''}</td>
+                            <td>${staff.addressLine3 || ''}</td>
+                            <td>${staff.addressLine4 || ''}</td>
+                            <td>${staff.addressLine5 || ''}</td>
                             <td>${staff.contactNo}</td>
                             <td>${staff.email}</td>
                             <td>${staff.role}</td>
-                            <td>${staff.vehicleList.join(', ')}</td>
-                            <td>${staff.fieldList.join(', ')}</td>
-                            <td>${staff.logList.join(', ')}</td>
+                            <td>${staff.vehicleList?.join(', ') || ''}</td>
+                            <td>${staff.fieldList?.join(', ') || ''}</td>
+                            <td>${staff.logList?.join(', ') || ''}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm edit-staff">Edit</button>
                                 <button class="btn btn-danger btn-sm delete-staff">Delete</button>
@@ -41,7 +42,8 @@ $(document).ready(function () {
                     `);
                 });
             },
-            error: function () {
+            error: function (xhr) {
+                console.error('Failed to load staff data:', xhr.responseText);
                 Swal.fire('Error', 'Failed to load staff data', 'error');
             }
         });
@@ -52,6 +54,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         const staffData = {
+            memberCode: currentStaffId || null,
             firstName: $('#firstName').val(),
             lastName: $('#lastName').val(),
             joinedDate: $('#joinedDate').val(),
@@ -66,9 +69,10 @@ $(document).ready(function () {
             contactNo: $('#contactNo').val(),
             email: $('#email').val(),
             role: $('#role').val(),
-            vehicleList: $('#vehicle').val().split(','),
-            fieldList: $('#field').val().split(','),
-            logList: $('#log').val().split(',')
+            vehicleList: $('#vehicle').val()?.split(',').map(item => item.trim()),
+            fieldList: $('#field').val()?.split(',').map(item => item.trim()),
+            logList: $('#log').val()?.split(',').map(item => item.trim()),
+            staffEquipmentDetailsList: [] // Update based on your specific requirements
         };
 
         const method = currentStaffId ? 'PUT' : 'POST';
@@ -86,9 +90,12 @@ $(document).ready(function () {
                 $('#staffModal').modal('hide');
                 loadStaff();
                 Swal.fire('Success', 'Staff saved successfully', 'success');
+                currentStaffId = null;
+                $('#staffForm')[0].reset();
             },
-            error: function () {
-                Swal.fire('Error', 'Failed to save staff', 'error');
+            error: function (xhr) {
+                console.error('Failed to save staff:', xhr.responseText);
+                Swal.fire('Error', `Failed to save staff: ${xhr.responseText || xhr.statusText}`, 'error');
             }
         });
     });
@@ -119,12 +126,13 @@ $(document).ready(function () {
                 $('#contactNo').val(staff.contactNo);
                 $('#email').val(staff.email);
                 $('#role').val(staff.role);
-                $('#vehicle').val(staff.vehicleList.join(','));
-                $('#field').val(staff.fieldList.join(','));
-                $('#log').val(staff.logList.join(','));
+                $('#vehicle').val(staff.vehicleList?.join(', ') || '');
+                $('#field').val(staff.fieldList?.join(', ') || '');
+                $('#log').val(staff.logList?.join(', ') || '');
                 $('#staffModal').modal('show');
             },
-            error: function () {
+            error: function (xhr) {
+                console.error('Failed to load staff details:', xhr.responseText);
                 Swal.fire('Error', 'Failed to load staff details', 'error');
             }
         });
@@ -152,7 +160,8 @@ $(document).ready(function () {
                         loadStaff();
                         Swal.fire('Deleted!', 'Staff has been deleted.', 'success');
                     },
-                    error: function () {
+                    error: function (xhr) {
+                        console.error('Failed to delete staff:', xhr.responseText);
                         Swal.fire('Error', 'Failed to delete staff', 'error');
                     }
                 });
@@ -160,13 +169,6 @@ $(document).ready(function () {
         });
     });
 
-    // Add staff button click
-    $('#addStaffBtn').on('click', function () {
-        currentStaffId = null;
-        $('#staffForm')[0].reset();
-        $('#staffModal').modal('show');
-    });
-
-    // Initial load
+    // Initialize staff table
     loadStaff();
 });
