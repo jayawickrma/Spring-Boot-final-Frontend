@@ -90,19 +90,27 @@ $(document).ready(function () {
 
     // Edit Field
     $(document).on('click', '.edit-field', function () {
-        const row = $(this).closest('tr');
-        currentEditID = row.data('id');
+      const fieldid = $(this).data('id')
 
         $.ajax({
             url: `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`,
             method: 'GET',
-            success: function (field) {
-                $('#fieldName').val(field.name);
-                $('#location').val(field.location);
-                $('#extentSize').val(field.extentSize);
-                $('#staffList').val(field.staffList.join(', '));
-                $('#cropsList').val(field.cropsList.join(', '));
-                $('#fieldModal').modal('show');
+            dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer'+ localStorage.getItem('jwtToken')
+            },
+            success: function (response) {
+                response.forEach((field)=> {
+                    if (field.fieldCode===fieldid){
+                    $('#fieldName').val(field.name);
+                    $('#location').val(field.location);
+                    $('#extentSize').val(field.extentSize);
+                    $('#staffList').val(field.staffList.join(', ') );
+                    $('#cropsList').val(field.cropsList.join(', '));
+                    $('#fieldModal').modal('show');
+
+                }
+                })
             },
             error: function () {
                 Swal.fire('Error', 'Failed to load field details.', 'error');
