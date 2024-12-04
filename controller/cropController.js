@@ -25,7 +25,7 @@ $(document).ready(function () {
                             <td>
                                 <img src="data:image/jpeg;base64,${crop.cropImage}" 
                                      alt="Crop Image" class="crop-image" 
-                                     style="width: 50px; cursor: pointer;">
+                                     style="width: 50px; cursor: pointer;" onclick="showImagePopup('${crop.cropImage}')">
                             </td>
                             <td>${crop.fieldList ? crop.fieldList.join(', ') : 'N/A'}</td>
                             <td>
@@ -47,6 +47,18 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Function to show image in popup
+    window.showImagePopup = function (base64Image) {
+        Swal.fire({
+            title: 'Crop Image',
+            imageUrl: 'data:image/jpeg;base64,' + base64Image,
+            imageAlt: 'Crop Image',
+            width: '400px',
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+    };
 
     // Save or Update Crop
     $('#cropForm').on('submit', function (e) {
