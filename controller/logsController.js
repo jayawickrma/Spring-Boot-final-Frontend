@@ -19,7 +19,7 @@ $(document).ready(function () {
                             <td>${log.logCode}</td>
                             <td>${log.logDate}</td>
                             <td>${log.logDetails}</td>
-                            <td><img src="data:image/jpeg;base64,${log.observedImage}" style="width: 50px; cursor: pointer;" alt="Log Image" /></td>
+                            <td><img src="data:image/jpeg;base64,${log.observedImage}" style="width: 50px; cursor: pointer;" alt="Log Image" onclick="showImagePopup('${log.observedImage}')"></td>
                             <td>${log.staffList.join(', ')}</td>
                             <td>${log.cropList.join(', ')}</td>
                             <td>${log.fieldList.join(', ')}</td>
@@ -36,6 +36,18 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Function to show image in popup
+    window.showImagePopup = function (base64Image) {
+        Swal.fire({
+            title: 'Log Image',
+            imageUrl: 'data:image/jpeg;base64,' + base64Image,
+            imageAlt: 'Log Image',
+            width: '400px',
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+    };
 
     // Save or update log
     $('#logForm').on('submit', function (e) {
@@ -135,5 +147,6 @@ $(document).ready(function () {
         $('#logModal').modal('show');
     });
 
+    // Initialize logs list
     loadLogs();
 });
