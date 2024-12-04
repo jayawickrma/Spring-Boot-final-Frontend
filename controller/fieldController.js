@@ -25,8 +25,8 @@ $(document).ready(function () {
                             <td>${field.staffList.join(', ')}</td>
                             <td>${field.cropsList.join(', ')}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-field">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-field">Delete</button>
+                                <button class="btn btn-warning btn-sm edit-field" data-id="${field.fieldCode}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-field" data-id="${field.fieldCode}">Delete</button>
                             </td>
                         </tr>
                     `);
@@ -112,7 +112,8 @@ $(document).ready(function () {
 
     // Delete Field
     $(document).on('click', '.delete-field', function () {
-        const fieldCode = $(this).closest('tr').data('id');
+        const fieldCode = $(this).data('id');
+        console.log(fieldCode)
 
         Swal.fire({
             title: 'Are you sure?',
