@@ -20,8 +20,8 @@ $(document).ready(function () {
                             <td>${field.name}</td>
                             <td>${field.location}</td>
                             <td>${field.extentSize}</td>
-                            <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1"></td>
-                            <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2"></td>
+                            <td><img src="data:image/jpeg;base64,${field.fieldImage1}" style="width: 50px; cursor: pointer;" alt="Image1" onclick="showImagePopup('${field.fieldImage1}')"></td>
+                            <td><img src="data:image/jpeg;base64,${field.fieldImage2}" style="width: 50px; cursor: pointer;" alt="Image2" onclick="showImagePopup('${field.fieldImage2}')"></td>
                             <td>${field.staffList.join(', ')}</td>
                             <td>${field.cropsList.join(', ')}</td>
                             <td>
@@ -37,6 +37,18 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Function to show image in popup
+    window.showImagePopup = function (base64Image) {
+        Swal.fire({
+            title: 'Field Image',
+            imageUrl: 'data:image/jpeg;base64,' + base64Image,
+            imageAlt: 'Field Image',
+            width: '400px',
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+    };
 
     // Handle Add/Edit Form Submission
     $('#fieldForm').on('submit', function (e) {
@@ -140,4 +152,3 @@ $(document).ready(function () {
     // Load fields when the page loads
     loadFields();
 });
-firl
