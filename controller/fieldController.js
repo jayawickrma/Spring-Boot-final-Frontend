@@ -95,7 +95,7 @@ $(document).ready(function () {
         $.ajax({
             url: `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`,
             method: 'GET',
-            dataType: 'json',
+            contentType: 'application/json',
             headers: {
                 'Authorization': 'Bearer'+ localStorage.getItem('jwtToken')
             },
@@ -109,7 +109,7 @@ $(document).ready(function () {
                     $('#cropsList').val(field.cropsList.join(', '));
                     $('#fieldModal').modal('show');
 
-                }
+                    currentEditID = field.fieldCode;}
                 })
             },
             error: function () {
