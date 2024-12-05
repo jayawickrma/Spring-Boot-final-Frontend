@@ -186,6 +186,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: `http://localhost:8080/springFinal/api/v1/vehicles/${vehicleCode}`, // API endpoint with vehicleCode
                     method: "DELETE",
+                    contentType: 'application/json',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'), // Attach JWT token for authentication
                     },

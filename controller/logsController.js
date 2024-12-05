@@ -126,6 +126,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: `${API_URL}/${logId}`,
                     method: 'DELETE',
+                    contentType: 'application/json',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
                     },
