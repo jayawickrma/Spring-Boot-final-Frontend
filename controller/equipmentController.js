@@ -93,22 +93,26 @@ $(document).ready(function () {
         $('.edit-equipment-btn').on('click', function () {
             const equipmentCode = $(this).data('id');
             $.ajax({
-                url: `${equipmentApiUrl}/${equipmentCode}`,
+                url: `${equipmentApiUrl}`,
                 type: 'GET',
                 dataType: 'json',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                 },
-                success: function (equipment) {
-                    $('#equipmentName').val(equipment.name);
-                    $('#equipmentType').val(equipment.type);
-                    $('#equipmentStatus').val(equipment.status);
-                    $('#availableCount').val(equipment.availableCount);
-                    $('#efield').val(equipment.fieldList.join(', '));
-                    editEquipmentId = equipment.equipmentCode;
+                success: function (response) {
+                    response.forEach((equipment)=>{
+                        if (equipment.equipmentCode===equipmentCode) {
+                            $('#equipmentName').val(equipment.name);
+                            $('#equipmentType').val(equipment.type);
+                            $('#equipmentStatus').val(equipment.status);
+                            $('#availableCount').val(equipment.availableCount);
+                            $('#efield').val(equipment.fieldList.join(', '));
+                            editEquipmentId = equipment.equipmentCode;
 
-                    $('#equipmentModalLabel').text('Edit Equipment');
-                    $('#equipmentModal').modal('show');
+                            $('#equipmentModalLabel').text('Edit Equipment');
+                            $('#equipmentModal').modal('show');
+                        }
+                    })
                 },
                 error: function () {
                     Swal.fire({
