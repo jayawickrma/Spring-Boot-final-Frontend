@@ -96,3 +96,42 @@ new Chart(ctx, {
         responsive: true
     }
 });
+document.getElementById('navLogOut').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    // Show SweetAlert confirmation for logout
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to log out of your account.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745', // Green color for confirmation
+        cancelButtonColor: '#dc3545',  // Red color for cancellation
+        confirmButtonText: 'Yes, log out!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show a 'Logging out' message with animation
+            Swal.fire({
+                title: 'Logging out...',
+                text: 'Please wait while we log you out.',
+                icon: 'info',
+                showConfirmButton: false,
+                timer: 2000, // Display for 2 seconds
+                willClose: () => {
+                    // Clear session or local storage (optional)
+                    sessionStorage.clear();  // Clears session storage
+                    localStorage.clear();    // Clears local storage
+
+                    // Close all windows/tabs (if possible)
+                    if (window.close) {
+                        window.close();  // This will only work if the window was opened by JavaScript
+                    }
+
+                    // Redirect to the Sign-In page after 2 seconds
+                    window.location.href = 'SignIn.html'; // Redirect to Sign-In page
+                }
+            });
+        }
+    });
+});

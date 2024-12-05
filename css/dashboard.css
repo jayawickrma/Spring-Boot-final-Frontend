@@ -1,19 +1,20 @@
+
 #sidebar-wrapper {
     width: 250px;
-    height: 100vh;
+    height: 500vh;
     position: fixed;
     overflow-y: auto;
 }
 
 .sidebar-heading {
-    background-color: #e3f9e5;
+    background-color: #3f95;
 }
 
 .menu-icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    border-radius: 50%;
+    width: 50px;
+    height:50px;
+    margin-right: 50px;
+    border-radius: 70%;
 }
 
 .list-group-item {
@@ -27,8 +28,8 @@
 }
 
 .list-group-item:hover {
-    background-color: #d1f5d3;
-    color: #1e7c4e;
+    background-color: lightblue;
+    color: black    ;
 }
 
 #page-content-wrapper {
@@ -39,6 +40,7 @@
 
 }
 
+
 .content-section {
     display: none;
 }
@@ -46,6 +48,32 @@
 .content-section.active {
     display: block;
 }
+/* Logout Button Styling */
+#navLogOut {
+    background-color: #e74c3c; /* Red */
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+#navLogOut:hover {
+    background-color: #c0392b; /* Darker red */
+    color: white;
+    transform: scale(1.05); /* Slight zoom */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensures Sidebar Consistency */
+#navLogOut img {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -58,3 +86,4 @@
         margin-left: 0;
     }
 }
+
