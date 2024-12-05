@@ -136,6 +136,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: `http://localhost:8080/springFinal/api/v1/fields/${fieldCode}`,
                     method: 'DELETE',
+                    contentType: 'application/json',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                     },
