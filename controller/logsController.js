@@ -90,18 +90,22 @@ $(document).ready(function () {
         currentLogId = logId;
 
         $.ajax({
-            url: `${API_URL}/${logId}`,
+            url: `${API_URL}`,
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
             },
-            success: function (log) {
-                $('#logDate').val(log.logDate);
-                $('#logDetails').val(log.logDetails);
-                $('#logStaff').val(log.staffList.join(', '));
-                $('#logCrop').val(log.cropList.join(', '));
-                $('#logField').val(log.fieldList.join(', '));
-                $('#logModal').modal('show');
+            success: function (response) {
+                response.forEach((log)=> {
+                    if (log.logCode===logId) {
+                        $('#logDate').val(log.logDate);
+                        $('#logDetails').val(log.logDetails);
+                        $('#logStaff').val(log.staffList.join(', '));
+                        $('#logCrop').val(log.cropList.join(', '));
+                        $('#logField').val(log.fieldList.join(', '));
+                        $('#logModal').modal('show');
+                    }
+                });
             },
             error: function () {
                 Swal.fire('Error', 'Failed to load log details.', 'error');

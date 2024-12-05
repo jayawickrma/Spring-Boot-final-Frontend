@@ -143,19 +143,23 @@ $(document).ready(function () {
         editIndex = id;
 
         $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/vehicles/${id}`,
+            url: `http://localhost:8080/springFinal/api/v1/vehicles`,
             method: "GET",
-            success: function (vehicle) {
-                $('#licensePlate').val(vehicle.licensePlateNumber);
-                $('#vehicleName').val(vehicle.name);
-                $('#vehicleCategory').val(vehicle.category);
-                $('#fuelType').val(vehicle.fuelType);
-                $('#remark').val(vehicle.remark);
-                $('#status').val(vehicle.status);
-                $('#staffId').val(vehicle.memberCode);
+            success: function (response) {
+                response.forEach((vehicle) => {
+                    if (vehicle.vehicleCode===id) {
+                        $('#licensePlate').val(vehicle.licensePlateNumber);
+                        $('#vehicleName').val(vehicle.name);
+                        $('#vehicleCategory').val(vehicle.category);
+                        $('#fuelType').val(vehicle.fuelType);
+                        $('#remark').val(vehicle.remark);
+                        $('#status').val(vehicle.status);
+                        $('#staffId').val(vehicle.memberCode);
 
-                $('#vehicleModalLabel').text('Edit Vehicle');
-                $('#vehicleModal').modal('show');
+                        $('#vehicleModalLabel').text('Edit Vehicle');
+                        $('#vehicleModal').modal('show');
+                    }
+                });
             },
             error: function () {
                 Swal.fire({
