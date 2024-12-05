@@ -34,8 +34,8 @@ $(document).ready(function () {
                             <td>${staff.fieldList.join(", ")}</td>
                             <td>${staff.logList.join(", ")}</td>
                             <td>
-                                <button class="btn btn-warning editBtn" data-memberCode="${staff.memberCode}">Edit</button>
-                                <button class="btn btn-danger deleteBtn" data-memberCode="${staff.memberCode}">Delete</button>
+                                <button class="btn btn-warning editBtn" data-id="${staff.memberCode}">Edit</button>
+                                <button class="btn btn-danger deleteBtn" data-id="${staff.memberCode}">Delete</button>
                             </td>
                         </tr>`);
                 });
@@ -106,8 +106,7 @@ $(document).ready(function () {
 
     // Populate form for editing staff
     $(document).on('click', '.editBtn', function () {
-        console.log('edit button clicked')
-        const memberCode = $(this).data('memberCode');
+        const memberCode = $(this).data('id');
         $.ajax({
             url: `http://localhost:8080/springFinal/api/v1/staff`,
             method: 'GET',
@@ -118,7 +117,6 @@ $(document).ready(function () {
             success: function (response) {
                 response.forEach((staff) => {
                     if (staff.memberCode === memberCode) {
-                        console.log(staff.memberCode)
                         $('#firstName').val(staff.firstName);
                         $('#lastName').val(staff.lastName);
                         $('#joinedDate').val(staff.joinedDate);
@@ -137,7 +135,6 @@ $(document).ready(function () {
                         $('#field').val(staff.fieldList.join(", "));
                         $('#log').val(staff.logList.join(", "));
 
-                        editMemberCode=staff.memberCode;
 
                         $('#staffModalLabel').text('Edit Staff');
                         $('#staffModal').modal('show');
@@ -156,7 +153,8 @@ $(document).ready(function () {
 
     // Delete staff
     $(document).on('click', '.deleteBtn', function () {
-        const memberCode = $(this).data('memberCode');
+        const staffCode = $(this).data('id');
+        console.log(staffCode)
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -167,7 +165,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:8080/springFinal/api/v1/staff/${memberCode}`,
+                    url: `http://localhost:8080/springFinal/api/v1/staff/${staffCode}`,
                     method: 'DELETE',
                     contentType: 'application/json',
                     headers: {
