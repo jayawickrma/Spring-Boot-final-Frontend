@@ -135,6 +135,7 @@ $(document).ready(function () {
                     $.ajax({
                         url: `${equipmentApiUrl}/${equipmentCode}`,
                         type: 'DELETE',
+                        contentType: 'application/json',
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                         },
