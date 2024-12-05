@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let editMemberCode=null
     // Fetch and populate staff table
     function getAllStaff() {
         $.ajax({
@@ -51,8 +52,6 @@ $(document).ready(function () {
 
     // Add or update staff
     $('#staffForm').on('submit', function (event) {
-        event.preventDefault();
-        const memberCode = $(this).data('memberCode');
         const staffData = {
             firstName: $('#firstName').val(),
             lastName: $('#lastName').val(),
@@ -73,15 +72,18 @@ $(document).ready(function () {
             logList: [$('#log').val()],
         };
 
-        const method = memberCode ? 'PUT' : 'POST';
-        const url = memberCode
-            ? `http://localhost:8080/springFinal/api/v1/staff/${memberCode}`
+        const method = editMemberCode ? 'PUT' : 'POST';
+        const url = editMemberCode
+            ? `http://localhost:8080/springFinal/api/v1/staff/${editMemberCode}`
             : 'http://localhost:8080/springFinal/api/v1/staff';
 
         $.ajax({
             url: url,
             method: method,
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            },
             data: JSON.stringify(staffData),
             success: function () {
                 $('#staffModal').modal('hide');
@@ -105,16 +107,18 @@ $(document).ready(function () {
     // Populate form for editing staff
     $(document).on('click', '.editBtn', function () {
         console.log('edit button clicked')
-        const memberCode = $(this).data('id');
+        const memberCode = $(this).data('memberCode');
         $.ajax({
             url: `http://localhost:8080/springFinal/api/v1/staff`,
             method: 'GET',
+            dataType: 'json',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
             success: function (response) {
                 response.forEach((staff) => {
                     if (staff.memberCode === memberCode) {
+                        console.log(staff.memberCode)
                         $('#firstName').val(staff.firstName);
                         $('#lastName').val(staff.lastName);
                         $('#joinedDate').val(staff.joinedDate);
@@ -132,7 +136,10 @@ $(document).ready(function () {
                         $('#vehicle').val(staff.vehicleList.join(", "));
                         $('#field').val(staff.fieldList.join(", "));
                         $('#log').val(staff.logList.join(", "));
-                        $('#staffForm').data('memberCode', memberCode);
+
+                        editMemberCode=staff.memberCode;
+
+                        $('#staffModalLabel').text('Edit Staff');
                         $('#staffModal').modal('show');
                     }
                 });
@@ -149,7 +156,7 @@ $(document).ready(function () {
 
     // Delete staff
     $(document).on('click', '.deleteBtn', function () {
-        const memberCode = $(this).data('id');
+        const memberCode = $(this).data('memberCode');
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -162,6 +169,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: `http://localhost:8080/springFinal/api/v1/staff/${memberCode}`,
                     method: 'DELETE',
+                    contentType: 'application/json',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                     },
