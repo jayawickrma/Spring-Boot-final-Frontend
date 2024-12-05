@@ -89,27 +89,31 @@ $(document).ready(function () {
     });
 
     // Edit Field
+    // Edit Field
     $(document).on('click', '.edit-field', function () {
-      const fieldid = $(this).data('id')
+        const fieldid = $(this).data('id'); // Get the fieldCode from the clicked button
 
         $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/fields/${currentEditID}`,
+            url: `http://localhost:8080/springFinal/api/v1/fields/${fieldid}`, // Use the correct fieldid here
             method: 'GET',
-            contentType: 'application/json',
+            dataType: 'json',
             headers: {
-                'Authorization': 'Bearer'+ localStorage.getItem('jwtToken')
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
             success: function (response) {
                 response.forEach((field)=> {
-                    if (field.fieldCode===fieldid){
-                    $('#fieldName').val(field.name);
-                    $('#location').val(field.location);
-                    $('#extentSize').val(field.extentSize);
-                    $('#staffList').val(field.staffList.join(', ') );
-                    $('#cropsList').val(field.cropsList.join(', '));
-                    $('#fieldModal').modal('show');
+                    if (field.fieldCode===fieldid) {
+                        // Populate the modal with field details
+                        $('#fieldName').val(field.name);
+                        $('#location').val(field.location);
+                        $('#extentSize').val(field.extentSize);
+                        $('#staffList').val(field.staffList.join(', '));
+                        $('#cropsList').val(field.cropsList.join(', '));
 
-                    currentEditID = field.fieldCode;}
+                        currentEditID = field.fieldCode; // Update currentEditID with the fieldCode
+                        $('#fieldModalLabel').text('Edit Field');
+                        $('#fieldModal').modal('show'); // Open the modal
+                    }
                 })
             },
             error: function () {
