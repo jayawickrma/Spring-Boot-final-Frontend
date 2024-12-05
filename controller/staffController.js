@@ -52,6 +52,7 @@ $(document).ready(function () {
 
     // Add or update staff
     $('#staffForm').on('submit', function (event) {
+
         const staffData = {
             firstName: $('#firstName').val(),
             lastName: $('#lastName').val(),
@@ -71,7 +72,7 @@ $(document).ready(function () {
             fieldList: [$('#field').val()],
             logList: [$('#log').val()],
         };
-
+        console.log(staffData)
         const method = editMemberCode ? 'PUT' : 'POST';
         const url = editMemberCode
             ? `http://localhost:8080/springFinal/api/v1/staff/${editMemberCode}`
@@ -79,7 +80,7 @@ $(document).ready(function () {
 
         $.ajax({
             url: url,
-            method: method,
+            method: 'POST',
             contentType: 'application/json',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')

@@ -48,9 +48,9 @@
       <a href="#vehiclesSection" class="list-group-item list-group-item-action" id="navVehicles">
         <img src="Asserts/icons8-vehicles-64.png" alt="Vehicles" class="menu-icon"> Vehicles
       </a>
-<!--      <a href="#userSection" class="list-group-item list-group-item-action" id="navUser">-->
-<!--        <img src="Asserts/icons8-user-50.png" alt="User" class="menu-icon"> User-->
-<!--      </a>-->
+      <!--      <a href="#userSection" class="list-group-item list-group-item-action" id="navUser">-->
+      <!--        <img src="Asserts/icons8-user-50.png" alt="User" class="menu-icon"> User-->
+      <!--      </a>-->
       <br> <br> <br>
       <br><br><br> <br>
       <a href="SignIn.html" class="list-group-item list-group-item-action" id="navLogOut">
@@ -114,85 +114,85 @@
           <h5 class="card-title text-center">Monthly Crops of seasons</h5>
           <canvas id="myChart"></canvas>
         </div>
-        </div>
+      </div>
     </div>
 
 
 
-  <div id="cropsSection" class="content-section">
-    <div class="section">
-      <h2 class="text-center my-4">Manage Crops</h2>
-      <!-- Crop Save Button -->
-      <div class="d-flex justify-content-center mb-4">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cropModal" id="cropSaveBtn">Add Crop</button>
-      </div>
-      <!-- Crop Table -->
-      <table class="table table-bordered" id="cropTable">
-        <thead class="table-success">
-        <tr>
-          <th>CROP Code</th>
-          <th>Crop Name</th>
-          <th>Category</th>
-          <th>Season</th>
-          <th>Scientific Name</th>
-          <th>Image</th>
-          <th>Field</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Rows will be added dynamically -->
-        </tbody>
-      </table>
+    <div id="cropsSection" class="content-section">
+      <div class="section">
+        <h2 class="text-center my-4">Manage Crops</h2>
+        <!-- Crop Save Button -->
+        <div class="d-flex justify-content-center mb-4">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cropModal" id="cropSaveBtn">Add Crop</button>
+        </div>
+        <!-- Crop Table -->
+        <table class="table table-bordered" id="cropTable">
+          <thead class="table-success">
+          <tr>
+            <th>CROP Code</th>
+            <th>Crop Name</th>
+            <th>Category</th>
+            <th>Season</th>
+            <th>Scientific Name</th>
+            <th>Image</th>
+            <th>Field</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Rows will be added dynamically -->
+          </tbody>
+        </table>
 
-      <!-- Popup Modal for Crop Details -->
-      <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="cropModalLabel">Add Crop</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="cropForm">
-                <div class="mb-3">
-                  <label for="cropName" class="form-label">Crop Name</label>
-                  <input type="text" class="form-control" id="cropName" required>
-                </div>
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
-                  <input type="text" class="form-control" id="category" required>
-                </div>
-                <div class="mb-3">
-                  <label for="Season" class="form-label">Season</label>
-                  <input type="text" class="form-control" id="Season" required>
-                </div>
-                <div class="mb-3">
-                  <label for="ScientificName" class="form-label">Scientific Name</label>
-                  <input type="text" class="form-control" id="ScientificName" required>
-                </div>
-                <div class="mb-3">
-                  <label for="CropImage" class="form-label">Image</label>
-                  <input type="file" class="form-control" id="CropImage" accept="image/*" required>
-                </div>
-                <div class="mb-3">
-                  <label for="field" class="form-label">Field</label>
-                  <input type="text" class="form-control" id="field" required>
-                </div>
-                <button  type="submit" class="btn btn-primary">Save Crop</button>
-              </form>
+        <!-- Popup Modal for Crop Details -->
+        <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="cropModalLabel">Add Crop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="cropForm">
+                  <div class="mb-3">
+                    <label for="cropName" class="form-label">Crop Name</label>
+                    <input type="text" class="form-control" id="cropName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Season" class="form-label">Season</label>
+                    <input type="text" class="form-control" id="Season" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="ScientificName" class="form-label">Scientific Name</label>
+                    <input type="text" class="form-control" id="ScientificName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="CropImage" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="CropImage" accept="image/*" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="field" class="form-label">Field</label>
+                    <input type="text" class="form-control" id="field" required>
+                  </div>
+                  <button  type="submit" class="btn btn-primary">Save Crop</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Image Popup -->
-      <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0;bottom: 0;right: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 999;">
-        <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer;">×</span>
-        <img id="popupImage" src="" alt="Popup Image" style="max-width: 50%; max-height: 50%;">
+        <!-- Image Popup -->
+        <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0;bottom: 0;right: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 999;">
+          <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer;">×</span>
+          <img id="popupImage" src="" alt="Popup Image" style="max-width: 50%; max-height: 50%;">
+        </div>
       </div>
     </div>
-  </div>
 
 
     <div id="fieldsSection" class="content-section">
@@ -274,371 +274,370 @@
   </div>
 
 
-<div id="logsSection" class="content-section">
-  <div class="section">
-    <h2 class="text-center my-4">Log Management</h2>
+  <div id="logsSection" class="content-section">
+    <div class="section">
+      <h2 class="text-center my-4">Log Management</h2>
 
-    <!-- Add Log Button -->
-    <div class="d-flex justify-content-center mb-4">
-      <button class="btn btn-success" id="addLogBtn">Add Log</button>
-    </div>
-
-    <!-- Log Table -->
-    <table class="table table-bordered" id="logTable">
-      <thead class="table-success">
-      <tr>
-        <th>Log Code</th>
-        <th>Date</th>
-        <th>Details</th>
-        <th>Image</th>
-        <th>Staff</th>
-        <th>Crop</th>
-        <th>Field</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Rows will be dynamically loaded here -->
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="logModalLabel">Add/Edit Log</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <!-- Add Log Button -->
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-success" id="addLogBtn">Add Log</button>
       </div>
-      <div class="modal-body">
-        <form id="logForm">
-          <input type="hidden" id="logCode" />
-          <div class="mb-3">
-            <label for="logDate" class="form-label">Date</label>
-            <input type="date" class="form-control" id="logDate" required />
-          </div>
-          <div class="mb-3">
-            <label for="logDetails" class="form-label">Details</label>
-            <textarea class="form-control" id="logDetails" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="logImage" class="form-label">Image</label>
-            <input type="file" class="form-control" id="logImage" />
-          </div>
-          <div class="mb-3">
-            <label for="logStaff" class="form-label">Staff</label>
-            <input type="text" class="form-control" id="logStaff" required />
-          </div>
-          <div class="mb-3">
-            <label for="logCrop" class="form-label">Crop</label>
-            <input type="text" class="form-control" id="logCrop" required />
-          </div>
-          <div class="mb-3">
-            <label for="logField" class="form-label">Field</label>
-            <input type="text" class="form-control" id="logField" required />
-          </div>
-          <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
+
+      <!-- Log Table -->
+      <table class="table table-bordered" id="logTable">
+        <thead class="table-success">
+        <tr>
+          <th>Log Code</th>
+          <th>Date</th>
+          <th>Details</th>
+          <th>Image</th>
+          <th>Staff</th>
+          <th>Crop</th>
+          <th>Field</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be dynamically loaded here -->
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
 
-<div id="equipmentSection" class="content-section">
-  <!-- Modal for adding/editing equipment -->
-  <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  <!-- Modal -->
+  <div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="equipmentModalLabel">Add Equipment</h5>
+          <h5 class="modal-title" id="logModalLabel">Add/Edit Log</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="equipmentForm">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="equipmentName" class="form-label">Equipment Name</label>
-                <input type="text" class="form-control" id="equipmentName" required>
-              </div>
-              <div class="col-md-6">
-                <label for="equipmentType" class="form-label">Equipment Type</label>
-                <input type="text" class="form-control" id="equipmentType" required>
-              </div>
-              <div class="col-md-6">
-                <label for="equipmentStatus" class="form-label">Status</label>
-                <select class="form-select" id="equipmentStatus" required>
-                  <option value="">Select Status</option>
-                  <option value="Available">Available</option>
-                  <option value="Unavailable">Unavailable</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="availableCount" class="form-label">Available Count</label>
-                <input type="number" class="form-control" id="availableCount" required>
-              </div>
-              <div class="col-md-6">
-                <label for="field" class="form-label">Field</label>
-                <input type="text" class="form-control" id="efield" required>
-              </div>
+          <form id="logForm">
+            <input type="hidden" id="logCode" />
+            <div class="mb-3">
+              <label for="logDate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="logDate" required />
             </div>
-            <button type="submit" class="btn btn-primary mt-3" id="saveBtn">Save Equipment</button>
+            <div class="mb-3">
+              <label for="logDetails" class="form-label">Details</label>
+              <textarea class="form-control" id="logDetails" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="logImage" class="form-label">Image</label>
+              <input type="file" class="form-control" id="logImage" />
+            </div>
+            <div class="mb-3">
+              <label for="logStaff" class="form-label">Staff</label>
+              <input type="text" class="form-control" id="logStaff" required />
+            </div>
+            <div class="mb-3">
+              <label for="logCrop" class="form-label">Crop</label>
+              <input type="text" class="form-control" id="logCrop" required />
+            </div>
+            <div class="mb-3">
+              <label for="logField" class="form-label">Field</label>
+              <input type="text" class="form-control" id="logField" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Button to trigger modal -->
-  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#equipmentModal" id="addEquipmentBtn">Add New Equipment</button>
-
-  <!-- Equipment Table -->
-  <div class="container mt-5">
-    <h3>Equipment List</h3>
-    <table class="table" id="equipmentTable">
-      <thead>
-      <tr>
-        <th>Equipment ID</th>
-        <th>Equipment Name</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Available Count</th>
-        <th>Field</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Equipment data will be appended here -->
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-
-<!-- Staff Management Section -->
-<div id="staffSection" class="content-section">
-  <div class="d-flex justify-content-between mb-4">
-    <h2>Staff Management</h2>
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staffModal">Add Staff</button>
-  </div>
-
-  <div id="staffTableContainer">
-    <table class="table table-bordered" id="staffTable">
-      <thead class="table-success">
-      <tr>
-        <th>Member Code</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Joined Date</th>
-        <th>Date of Birth</th>
-        <th>Gender</th>
-        <th>Designation</th>
-        <th>Address 1</th>
-        <th>Address 2</th>
-        <th>Address 3</th>
-        <th>Address 4</th>
-        <th>Address 5</th>
-        <th>Contact No</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Vehicle</th>
-        <th>Field</th>
-        <th>Log</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Rows will be dynamically added here -->
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Staff Modal -->
-  <div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staffModalLabel">Add Staff</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="staffForm">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" required>
-              </div>
-              <div class="col-md-6">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" required>
-              </div>
-              <div class="col-md-6">
-                <label for="joinedDate" class="form-label">Joined Date</label>
-                <input type="date" class="form-control" id="joinedDate" required>
-              </div>
-              <div class="col-md-6">
-                <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                <input type="date" class="form-control" id="dateOfBirth" required>
-              </div>
-              <div class="col-md-6">
-                <label for="gender" class="form-label">Gender</label>
-                <select class="form-select" id="gender" required>
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="designation" class="form-label">Designation</label>
-                <input type="text" class="form-control" id="designation" required>
-              </div>
-              <div class="col-md-12">
-                <label for="address" class="form-label">Address 1</label>
-                <textarea class="form-control" id="address" rows="2" required></textarea>
-              </div>
-              <div class="col-md-12">
-                <label for="address2" class="form-label">Address 2</label>
-                <textarea class="form-control" id="address2" rows="2" required></textarea>
-              </div>
-              <div class="col-md-12">
-                <label for="address3" class="form-label">Address 3</label>
-                <textarea class="form-control" id="address3" rows="2" required></textarea>
-              </div>
-              <div class="col-md-12">
-                <label for="address4" class="form-label">Address 4</label>
-                <textarea class="form-control" id="address4" rows="2" required></textarea>
-              </div>
-              <div class="col-md-12">
-                <label for="address5" class="form-label">Address 5</label>
-                <textarea class="form-control" id="address5" rows="2" required></textarea>
-              </div>
-              <div class="col-md-6">
-                <label for="contactNo" class="form-label">Contact No</label>
-                <input type="text" class="form-control" id="contactNo" required>
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              <div class="col-md-6">
-                <label for="role" class="form-label">Role</label>
-                <input type="text" class="form-control" id="role" required>
-              </div>
-              <div class="col-md-6">
-                <label for="vehicle" class="form-label">Vehicle</label>
-                <input type="text" class="form-control" id="vehicle">
-              </div>
-              <div class="col-md-6">
-                <label for="field" class="form-label">Field</label>
-                <input type="text" class="form-control" id="field">
-              </div>
-              <div class="col-md-6">
-                <label for="log" class="form-label">Log</label>
-                <input type="text" class="form-control" id="log">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Save Staff</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div id="vehiclesSection" class="content-section">
-  <div class="section">
-    <h2 class="text-center my-4">Vehicle Management</h2>
-
-    <!-- Add Vehicle Button -->
-    <div class="d-flex justify-content-center mb-4">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#vehicleModal">Add Vehicle</button>
-    </div>
-
-    <!-- Vehicle Table -->
-    <table class="table table-bordered" id="vehicleTable">
-      <thead class="table-success">
-      <tr>
-        <th>Vehicle Code</th>
-        <th>License Plate</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Fuel Type</th>
-        <th>Remark</th>
-        <th>Status</th>
-        <th>Staff</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Rows will be added dynamically -->
-      </tbody>
-    </table>
-
-    <!-- Popup Modal for Adding/Editing Vehicles -->
-    <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+  <div id="equipmentSection" class="content-section">
+    <!-- Modal for adding/editing equipment -->
+    <div class="modal fade" id="equipmentModal" tabindex="-1" aria-labelledby="equipmentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="vehicleModalLabel">Add Vehicle</h5>
+            <h5 class="modal-title" id="equipmentModalLabel">Add Equipment</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="vehicleForm">
-              <div class="mb-3">
-                <label for="licensePlate" class="form-label">License Plate</label>
-                <input type="text" class="form-control" id="licensePlate" required>
+            <form id="equipmentForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="equipmentName" class="form-label">Equipment Name</label>
+                  <input type="text" class="form-control" id="equipmentName" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="equipmentType" class="form-label">Equipment Type</label>
+                  <input type="text" class="form-control" id="equipmentType" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="equipmentStatus" class="form-label">Status</label>
+                  <select class="form-select" id="equipmentStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="Available">Available</option>
+                    <option value="Unavailable">Unavailable</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="availableCount" class="form-label">Available Count</label>
+                  <input type="number" class="form-control" id="availableCount" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="field" class="form-label">Field</label>
+                  <input type="text" class="form-control" id="efield" required>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="vehicleName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="vehicleName" required>
+              <button type="submit" class="btn btn-primary mt-3" id="saveBtn">Save Equipment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button to trigger modal -->
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#equipmentModal" id="addEquipmentBtn">Add New Equipment</button>
+
+    <!-- Equipment Table -->
+    <div class="container mt-5">
+      <h3>Equipment List</h3>
+      <table class="table" id="equipmentTable">
+        <thead>
+        <tr>
+          <th>Equipment ID</th>
+          <th>Equipment Name</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Available Count</th>
+          <th>Field</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Equipment data will be appended here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <!-- Staff Management Section -->
+  <div id="staffSection" class="content-section">
+    <div class="d-flex justify-content-between mb-4">
+      <h2>Staff Management</h2>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staffModal">Add Staff</button>
+    </div>
+
+    <div id="staffTableContainer">
+      <table class="table table-bordered" id="staffTable">
+        <thead class="table-success">
+        <tr>
+          <th>Member Code</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Joined Date</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Designation</th>
+          <th>Address 1</th>
+          <th>Address 2</th>
+          <th>Address 3</th>
+          <th>Address 4</th>
+          <th>Address 5</th>
+          <th>Contact No</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Vehicle</th>
+          <th>Field</th>
+          <th>Log</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Staff Modal -->
+    <div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="staffModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staffModalLabel">Add Staff</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="staffForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="firstName" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="joinedDate" class="form-label">Joined Date</label>
+                  <input type="date" class="form-control" id="joinedDate" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                  <input type="date" class="form-control" id="dateOfBirth" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select class="form-select" id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="designation" class="form-label">Designation</label>
+                  <input type="text" class="form-control" id="designation" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="address" class="form-label">Address 1</label>
+                  <textarea class="form-control" id="address" rows="2" required></textarea>
+                </div>
+                <div class="col-md-12">
+                  <label for="address2" class="form-label">Address 2</label>
+                  <textarea class="form-control" id="address2" rows="2" required></textarea>
+                </div>
+                <div class="col-md-12">
+                  <label for="address3" class="form-label">Address 3</label>
+                  <textarea class="form-control" id="address3" rows="2" required></textarea>
+                </div>
+                <div class="col-md-12">
+                  <label for="address4" class="form-label">Address 4</label>
+                  <textarea class="form-control" id="address4" rows="2" required></textarea>
+                </div>
+                <div class="col-md-12">
+                  <label for="address5" class="form-label">Address 5</label>
+                  <textarea class="form-control" id="address5" rows="2" required></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="contactNo" class="form-label">Contact No</label>
+                  <input type="text" class="form-control" id="contactNo" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="role" class="form-label">Role</label>
+                  <input type="text" class="form-control" id="role" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="vehicle" class="form-label">Vehicle</label>
+                  <input type="text" class="form-control" id="vehicle">
+                </div>
+                <div class="col-md-6">
+                  <label for="field" class="form-label">Field</label>
+                  <input type="text" class="form-control" id="field">
+                </div>
+                <div class="col-md-6">
+                  <label for="log" class="form-label">Log</label>
+                  <input type="text" class="form-control" id="log">
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="vehicleCategory" class="form-label">Category</label>
-                <input type="text" class="form-control" id="vehicleCategory" required>
-              </div>
-              <div class="mb-3">
-                <label for="fuelType" class="form-label">Fuel Type</label>
-                <input type="text" class="form-control" id="fuelType" required>
-              </div>
-              <div class="mb-3">
-                <label for="remark" class="form-label">Remark</label>
-                <textarea class="form-control" id="remark" required></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <input type="text" class="form-control" id="status" required>
-              </div>
-              <div class="mb-3">
-                <label for="staffId" class="form-label">Staff</label>
-                <input type="text" class="form-control" id="staffId" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Save Vehicle</button>
+              <button type="submit" class="btn btn-primary mt-3">Save Staff</button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+
+  <div id="vehiclesSection" class="content-section">
+    <div class="section">
+      <h2 class="text-center my-4">Vehicle Management</h2>
+
+      <!-- Add Vehicle Button -->
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#vehicleModal">Add Vehicle</button>
+      </div>
+
+      <!-- Vehicle Table -->
+      <table class="table table-bordered" id="vehicleTable">
+        <thead class="table-success">
+        <tr>
+          <th>Vehicle Code</th>
+          <th>License Plate</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Fuel Type</th>
+          <th>Remark</th>
+          <th>Status</th>
+          <th>Staff</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be added dynamically -->
+        </tbody>
+      </table>
+
+      <!-- Popup Modal for Adding/Editing Vehicles -->
+      <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="vehicleModalLabel">Add Vehicle</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="vehicleForm">
+                <div class="mb-3">
+                  <label for="licensePlate" class="form-label">License Plate</label>
+                  <input type="text" class="form-control" id="licensePlate" required>
+                </div>
+                <div class="mb-3">
+                  <label for="vehicleName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="vehicleName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="vehicleCategory" class="form-label">Category</label>
+                  <input type="text" class="form-control" id="vehicleCategory" required>
+                </div>
+                <div class="mb-3">
+                  <label for="fuelType" class="form-label">Fuel Type</label>
+                  <input type="text" class="form-control" id="fuelType" required>
+                </div>
+                <div class="mb-3">
+                  <label for="remark" class="form-label">Remark</label>
+                  <textarea class="form-control" id="remark" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <input type="text" class="form-control" id="status" required>
+                </div>
+                <div class="mb-3">
+                  <label for="staffId" class="form-label">Staff</label>
+                  <input type="text" class="form-control" id="staffId" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Vehicle</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
-    <div id="userSection" class="content-section">User Settings</div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="js/lib/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="controller/dashboardController.js"></script>
-<script type="module" src="controller/cropController.js"></script>
-<script type="module" src="controller/fieldController.js"></script>
-<script type="module" src="controller/logsController.js"></script>
-<script type="module" src="controller/equipmentController.js"></script>
-<script type="module" src="controller/staffController.js"></script>
-<script type="module" src="controller/vehicleControlller.js"></script>
+  <div id="userSection" class="content-section">User Settings</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/lib/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="controller/dashboardController.js"></script>
+  <script type="module" src="controller/cropController.js"></script>
+  <script type="module" src="controller/fieldController.js"></script>
+  <script type="module" src="controller/logsController.js"></script>
+  <script type="module" src="controller/equipmentController.js"></script>
+  <script type="module" src="controller/staffController.js"></script>
+  <script type="module" src="controller/vehicleControlller.js"></script>
 
 </body>
 </html>
-
