@@ -4,7 +4,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'http://localhost:8080/springFinal/api/v1/staff',
             method: 'GET',
-            dataType:'json',
+            dataType: 'json',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
@@ -36,12 +36,15 @@ $(document).ready(function () {
                                 <button class="btn btn-warning editBtn" data-memberCode="${staff.memberCode}">Edit</button>
                                 <button class="btn btn-danger deleteBtn" data-memberCode="${staff.memberCode}">Delete</button>
                             </td>
-                        </tr>`)
-
+                        </tr>`);
                 });
             },
             error: function () {
-                alert("Failed to load staff data.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to load staff data!',
+                });
             },
         });
     }
@@ -72,8 +75,8 @@ $(document).ready(function () {
 
         const method = memberCode ? 'PUT' : 'POST';
         const url = memberCode
-            ? `http://localhost:8080/api/v1/staff/${memberCode}`
-            : 'http://localhost:8080/api/v1/staff';
+            ? `http://localhost:8080/springFinal/api/v1/staff/${memberCode}`
+            : 'http://localhost:8080/springFinal/api/v1/staff';
 
         $.ajax({
             url: url,
@@ -82,62 +85,104 @@ $(document).ready(function () {
             data: JSON.stringify(staffData),
             success: function () {
                 $('#staffModal').modal('hide');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Staff data saved successfully!',
+                });
                 getAllStaff();
             },
             error: function () {
-                alert("Error while saving staff.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Error while saving staff data.',
+                });
             },
         });
     });
 
     // Populate form for editing staff
     $(document).on('click', '.editBtn', function () {
-        const memberCode = $(this).data('memberCode');
+        console.log('edit button clicked')
+        const memberCode = $(this).data('id');
         $.ajax({
-            url: `http://localhost:8080/api/v1/staff/${memberCode}`,
+            url: `http://localhost:8080/springFinal/api/v1/staff`,
             method: 'GET',
-            success: function (staff) {
-                $('#firstName').val(staff.firstName);
-                $('#lastName').val(staff.lastName);
-                $('#joinedDate').val(staff.joinedDate);
-                $('#dateOfBirth').val(staff.dateOfBirth);
-                $('#gender').val(staff.gender);
-                $('#designation').val(staff.designation);
-                $('#address').val(staff.addressLine1);
-                $('#address2').val(staff.addressLine2);
-                $('#address3').val(staff.addressLine3);
-                $('#address4').val(staff.addressLine4);
-                $('#address5').val(staff.addressLine5);
-                $('#contactNo').val(staff.contactNo);
-                $('#email').val(staff.email);
-                $('#role').val(staff.role);
-                $('#vehicle').val(staff.vehicleList.join(", "));
-                $('#field').val(staff.fieldList.join(", "));
-                $('#log').val(staff.logList.join(", "));
-                $('#staffForm').data('memberCode', memberCode);
-                $('#staffModal').modal('show');
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            },
+            success: function (response) {
+                response.forEach((staff) => {
+                    if (staff.memberCode === memberCode) {
+                        $('#firstName').val(staff.firstName);
+                        $('#lastName').val(staff.lastName);
+                        $('#joinedDate').val(staff.joinedDate);
+                        $('#dateOfBirth').val(staff.dateOfBirth);
+                        $('#gender').val(staff.gender);
+                        $('#designation').val(staff.designation);
+                        $('#address').val(staff.addressLine1);
+                        $('#address2').val(staff.addressLine2);
+                        $('#address3').val(staff.addressLine3);
+                        $('#address4').val(staff.addressLine4);
+                        $('#address5').val(staff.addressLine5);
+                        $('#contactNo').val(staff.contactNo);
+                        $('#email').val(staff.email);
+                        $('#role').val(staff.role);
+                        $('#vehicle').val(staff.vehicleList.join(", "));
+                        $('#field').val(staff.fieldList.join(", "));
+                        $('#log').val(staff.logList.join(", "));
+                        $('#staffForm').data('memberCode', memberCode);
+                        $('#staffModal').modal('show');
+                    }
+                });
             },
             error: function () {
-                alert("Error while fetching staff details.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Error while fetching staff details.',
+                });
             },
         });
     });
 
     // Delete staff
     $(document).on('click', '.deleteBtn', function () {
-        const memberCode = $(this).data('memberCode');
-        if (confirm("Are you sure you want to delete this staff member?")) {
-            $.ajax({
-                url: `http://localhost:8080/api/v1/staff/${memberCode}`,
-                method: 'DELETE',
-                success: function () {
-                    getAllStaff();
-                },
-                error: function () {
-                    alert("Error while deleting staff.");
-                },
-            });
-        }
+        const memberCode = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `http://localhost:8080/springFinal/api/v1/staff/${memberCode}`,
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'Staff member has been deleted.',
+                        });
+                        getAllStaff();
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Error while deleting staff.',
+                        });
+                    },
+                });
+            }
+        });
     });
 
     // Load staff data on page load

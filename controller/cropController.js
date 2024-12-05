@@ -20,6 +20,7 @@ $(document).ready(function () {
                             <td>${crop.cropCode}</td>
                             <td>${crop.cropName}</td>
                             <td>${crop.category}</td>
+                            
                             <td>${crop.season}</td>
                             <td>${crop.scientificName}</td>
                             <td>
@@ -35,7 +36,6 @@ $(document).ready(function () {
                         </tr>
                     `);
                 });
-
                 attachHandlers();
             },
             error: function () {
