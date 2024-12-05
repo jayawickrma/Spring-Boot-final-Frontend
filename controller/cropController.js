@@ -156,6 +156,7 @@ $(document).ready(function () {
                     $.ajax({
                         url: `${apiUrl}/${cropCode}`,
                         type: 'DELETE',
+                        contentType: 'application/json',
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
                         },
