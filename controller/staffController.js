@@ -1,14 +1,20 @@
-// Get all staff and populate table
-function getAllStaff() {
-    $.ajax({
-        url: 'http://localhost:8080/springFinal/api/v1/staff', // Endpoint for getting all staff
-        method: 'GET',
-        success: function(response) {
-            const tableBody = $('#staffTable tbody');
-            tableBody.empty(); // Clear existing table rows
-            response.forEach(staff => {
-                const row = `
+$(document).ready(function () {
+    // Fetch and populate staff table
+    function getAllStaff() {
+        $.ajax({
+            url: 'http://localhost:8080/springFinal/api/v1/staff',
+            method: 'GET',
+            dataType:'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            },
+            success: function (response) {
+                const tableBody = $('#staffTable tbody');
+                tableBody.empty(); // Clear existing rows
+                response.forEach((staff) => {
+                    tableBody.append(`
                         <tr data-memberCode="${staff.memberCode}">
+                            <td>${staff.memberCode}</td>
                             <td>${staff.firstName}</td>
                             <td>${staff.lastName}</td>
                             <td>${staff.joinedDate}</td>
@@ -30,151 +36,110 @@ function getAllStaff() {
                                 <button class="btn btn-warning editBtn" data-memberCode="${staff.memberCode}">Edit</button>
                                 <button class="btn btn-danger deleteBtn" data-memberCode="${staff.memberCode}">Delete</button>
                             </td>
-                        </tr>
-                    `;
-                tableBody.append(row);
-            });
-        },
-        error: function() {
-            alert("Error fetching staff data.");
-        }
-    });
-}
+                        </tr>`)
 
-// Save staff
-$('#staffForm').submit(function(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const staffData = {
-        firstName: $('#firstName').val(),
-        lastName: $('#lastName').val(),
-        joinedDate: $('#joinedDate').val(),
-        dateOfBirth: $('#dateOfBirth').val(),
-        gender: $('#gender').val(),
-        designation: $('#designation').val(),
-        addressLine1: $('#address').val(),
-        addressLine2: $('#address2').val(),
-        addressLine3: $('#address3').val(),
-        addressLine4: $('#address4').val(),
-        addressLine5: $('#address5').val(),
-        contactNo: $('#contactNo').val(),
-        email: $('#email').val(),
-        role: $('#role').val(),
-        vehicleList: [$('#vehicle').val()],
-        fieldList: [$('#field').val()],
-        logList: [$('#log').val()]
-    };
-
-    $.ajax({
-        url: '/api/v1/staff',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(staffData),
-        success: function() {
-            $('#staffModal').modal('hide'); // Close modal
-            getAllStaff(); // Refresh staff list
-        },
-        error: function() {
-            alert("Error saving staff.");
-        }
-    });
-});
-
-// Edit staff
-$(document).on('click', '.editBtn', function() {
-    const memberCode = $(this).data('memberCode');
-
-    $.ajax({
-        url: `/api/v1/staff/${memberCode}`,
-        method: 'GET',
-        success: function(staff) {
-            $('#firstName').val(staff.firstName);
-            $('#lastName').val(staff.lastName);
-            $('#joinedDate').val(staff.joinedDate);
-            $('#dateOfBirth').val(staff.dateOfBirth);
-            $('#gender').val(staff.gender);
-            $('#designation').val(staff.designation);
-            $('#address').val(staff.addressLine1);
-            $('#address2').val(staff.addressLine2);
-            $('#address3').val(staff.addressLine3);
-            $('#address4').val(staff.addressLine4);
-            $('#address5').val(staff.addressLine5);
-            $('#contactNo').val(staff.contactNo);
-            $('#email').val(staff.email);
-            $('#role').val(staff.role);
-            $('#vehicle').val(staff.vehicleList.join(", "));
-            $('#field').val(staff.fieldList.join(", "));
-            $('#log').val(staff.logList.join(", "));
-            $('#staffForm').data('action', 'update');
-            $('#staffForm').data('memberCode', memberCode);
-            $('#staffModal').modal('show');
-        },
-        error: function() {
-            alert("Error fetching staff details.");
-        }
-    });
-});
-
-// Update staff
-$('#staffForm').submit(function(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const staffData = {
-        firstName: $('#firstName').val(),
-        lastName: $('#lastName').val(),
-        joinedDate: $('#joinedDate').val(),
-        dateOfBirth: $('#dateOfBirth').val(),
-        gender: $('#gender').val(),
-        designation: $('#designation').val(),
-        addressLine1: $('#address').val(),
-        addressLine2: $('#address2').val(),
-        addressLine3: $('#address3').val(),
-        addressLine4: $('#address4').val(),
-        addressLine5: $('#address5').val(),
-        contactNo: $('#contactNo').val(),
-        email: $('#email').val(),
-        role: $('#role').val(),
-        vehicleList: [$('#vehicle').val()],
-        fieldList: [$('#field').val()],
-        logList: [$('#log').val()]
-    };
-
-    const memberCode = $('#staffForm').data('memberCode');
-
-    $.ajax({
-        url: `/api/v1/staff/${memberCode}`,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(staffData),
-        success: function() {
-            $('#staffModal').modal('hide'); // Close modal
-            getAllStaff(); // Refresh staff list
-        },
-        error: function() {
-            alert("Error updating staff.");
-        }
-    });
-});
-
-// Delete staff
-$(document).on('click', '.deleteBtn', function() {
-    const memberCode = $(this).data('memberCode');
-
-    if (confirm('Are you sure you want to delete this staff member?')) {
-        $.ajax({
-            url: `/api/v1/staff/${memberCode}`,
-            method: 'DELETE',
-            success: function() {
-                getAllStaff(); // Refresh staff list
+                });
             },
-            error: function() {
-                alert("Error deleting staff.");
-            }
+            error: function () {
+                alert("Failed to load staff data.");
+            },
         });
     }
-});
 
-// Call getAllStaff on page load
-$(document).ready(function() {
+    // Add or update staff
+    $('#staffForm').on('submit', function (event) {
+        event.preventDefault();
+        const memberCode = $(this).data('memberCode');
+        const staffData = {
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            joinedDate: $('#joinedDate').val(),
+            dateOfBirth: $('#dateOfBirth').val(),
+            gender: $('#gender').val(),
+            designation: $('#designation').val(),
+            addressLine1: $('#address').val(),
+            addressLine2: $('#address2').val(),
+            addressLine3: $('#address3').val(),
+            addressLine4: $('#address4').val(),
+            addressLine5: $('#address5').val(),
+            contactNo: $('#contactNo').val(),
+            email: $('#email').val(),
+            role: $('#role').val(),
+            vehicleList: [$('#vehicle').val()],
+            fieldList: [$('#field').val()],
+            logList: [$('#log').val()],
+        };
+
+        const method = memberCode ? 'PUT' : 'POST';
+        const url = memberCode
+            ? `http://localhost:8080/api/v1/staff/${memberCode}`
+            : 'http://localhost:8080/api/v1/staff';
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(staffData),
+            success: function () {
+                $('#staffModal').modal('hide');
+                getAllStaff();
+            },
+            error: function () {
+                alert("Error while saving staff.");
+            },
+        });
+    });
+
+    // Populate form for editing staff
+    $(document).on('click', '.editBtn', function () {
+        const memberCode = $(this).data('memberCode');
+        $.ajax({
+            url: `http://localhost:8080/api/v1/staff/${memberCode}`,
+            method: 'GET',
+            success: function (staff) {
+                $('#firstName').val(staff.firstName);
+                $('#lastName').val(staff.lastName);
+                $('#joinedDate').val(staff.joinedDate);
+                $('#dateOfBirth').val(staff.dateOfBirth);
+                $('#gender').val(staff.gender);
+                $('#designation').val(staff.designation);
+                $('#address').val(staff.addressLine1);
+                $('#address2').val(staff.addressLine2);
+                $('#address3').val(staff.addressLine3);
+                $('#address4').val(staff.addressLine4);
+                $('#address5').val(staff.addressLine5);
+                $('#contactNo').val(staff.contactNo);
+                $('#email').val(staff.email);
+                $('#role').val(staff.role);
+                $('#vehicle').val(staff.vehicleList.join(", "));
+                $('#field').val(staff.fieldList.join(", "));
+                $('#log').val(staff.logList.join(", "));
+                $('#staffForm').data('memberCode', memberCode);
+                $('#staffModal').modal('show');
+            },
+            error: function () {
+                alert("Error while fetching staff details.");
+            },
+        });
+    });
+
+    // Delete staff
+    $(document).on('click', '.deleteBtn', function () {
+        const memberCode = $(this).data('memberCode');
+        if (confirm("Are you sure you want to delete this staff member?")) {
+            $.ajax({
+                url: `http://localhost:8080/api/v1/staff/${memberCode}`,
+                method: 'DELETE',
+                success: function () {
+                    getAllStaff();
+                },
+                error: function () {
+                    alert("Error while deleting staff.");
+                },
+            });
+        }
+    });
+
+    // Load staff data on page load
     getAllStaff();
 });

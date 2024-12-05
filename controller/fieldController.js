@@ -92,9 +92,9 @@ $(document).ready(function () {
     // Edit Field
     $(document).on('click', '.edit-field', function () {
         const fieldid = $(this).data('id'); // Get the fieldCode from the clicked button
-
+        console.log("FIELD ON EDIT")
         $.ajax({
-            url: `http://localhost:8080/springFinal/api/v1/fields/${fieldid}`, // Use the correct fieldid here
+            url: `http://localhost:8080/springFinal/api/v1/fields`, // Use the correct fieldid here
             method: 'GET',
             dataType: 'json',
             headers: {
