@@ -145,6 +145,10 @@ $(document).ready(function () {
         $.ajax({
             url: `http://localhost:8080/springFinal/api/v1/vehicles`,
             method: "GET",
+            dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            },
             success: function (response) {
                 response.forEach((vehicle) => {
                     if (vehicle.vehicleCode===id) {
