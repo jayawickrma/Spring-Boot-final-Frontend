@@ -10,6 +10,32 @@
     z-index: 1000;
 }
 
+/*date and time*/
+.date-time-container {
+    text-align: center;
+    background: #9EDF9C;
+    width: 300px;
+    height: 140px;
+    position: absolute;
+    right: 4%;
+    top: 43%;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#date {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+#time {
+    font-size: 2rem;
+    color: #222;
+    font-weight: bold;
+}
+
 /* Sidebar Heading */
 .sidebar-heading {
     background-color: lightgreen; /* Soft blue */
