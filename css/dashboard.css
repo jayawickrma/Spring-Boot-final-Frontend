@@ -1,5 +1,6 @@
 /* Sidebar Wrapper Styling */
 #sidebar-wrapper {
+
     width: 250px;
     height: 100vh; /* Set to viewport height for proper scaling */
     position: fixed;
@@ -38,7 +39,7 @@
 
 /* Sidebar Heading */
 .sidebar-heading {
-    background-color: lightgreen; /* Soft blue */
+    background-color: #9EDF9C; /* Soft blue */
     color: white;
     border-radius: 10px;
     font-weight: bold;
@@ -65,13 +66,13 @@
 /* List Group Items */
 .list-group-item {
     border-radius: 10px;
-    width: 190px;
+    width: 220px;
     height: 70px;
     display: flex;
-    left: 24px;
+    left: 15px;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: ghostwhite;
     color: #333;
     transition: all 0.3s ease;
     padding: 10px 20px;
@@ -188,4 +189,21 @@
 #navVehicles{
     margin-top: 5px;
     box-shadow: 10px 10px 10px;
+}
+#piechart{
+    width: 300px;
+    height: 230px;
+    position: absolute;
+    right: 4%;
+    top: 65%;
+
+}
+#imagepie{
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    box-shadow: 10px 10px 10px;
+    border-radius: 30px;
 }
