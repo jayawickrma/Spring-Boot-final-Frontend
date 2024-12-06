@@ -1,80 +1,25 @@
-#cropsSection{
-        width: 70%;
+/* General Styling for Crops Section */
+#cropsSection {
+    width: 80%;
     height: 100%;
-    align-content: center;
-    top: -15%;
-    right: 0%;
-    left: 20%;
-    bottom: 0;
     position: absolute;
-
-}
-#cropTable{
-    width: 100%;
-  position: absolute;
-
-}
-/* Style for the crops section */
-.content-section {
+    top: 0;
+    right: 0;
+    left: 18%;
     padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Modal Styling */
-#imagePopup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+/* Crop Table Styling */
+#cropTable {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    /*display: flex; !* Ensures flexbox centering *!*/
+    border-collapse: collapse;
+    margin-top: 20px;
+    position: relative;
 }
 
-#imagePopup img {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 50%;
-    max-width: 600px;
-    border: 5px solid white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    object-fit: contain;
-}
-
-#imagePopup .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-#imagePopup img {
-    width: 50%;
-    max-width: 600px;
-    border: 5px solid white;
-}
-#imagePopup .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-}
-.modal-content {
-    border-radius: 10px;
-}
-
-/* Table Styling */
 .table-bordered {
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -82,32 +27,30 @@
 
 .table-success {
     background-color: #d4edda;
+    text-align: center;
 }
 
 .table th, .table td {
     text-align: center;
     vertical-align: middle;
+    padding: 10px;
+    font-size: 0.95rem;
+    border: 1px solid #ddd;
 }
 
-/* Button Styling */
-.btn-success {
+.table th {
     background-color: #28a745;
-    color: white;
+    color: #ffffff;
+    font-weight: bold;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    color: white;
+/* Hover Effects for Table Rows */
+.table tr:hover {
+    background-color: #e9f5e9;
+    cursor: pointer;
 }
 
-.btn-close {
-    font-size: 1.5rem;
-}
-
-/* Add some spacing between form elements */
-.mb-3 {
-    margin-bottom: 15px;
-}
+/* Styling for the Image Popup Modal */
 #imagePopup {
     display: none; /* Initially hidden */
     position: fixed;
@@ -118,27 +61,102 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    justify-content: center; /* Horizontally center the image */
-    align-items: center; /* Vertically center the image */
-    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure the popup is on top */
 }
 
 #popupImage {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-width: 50%; /* Adjust image size for responsiveness */
+    max-width: 50%;
     max-height: 50%;
-    border: 2px solid white; /* Optional border for better visibility */
+    border: 5px solid #fff;
+    border-radius: 5px;
+    object-fit: contain;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
 }
 
 #imagePopup .close {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 20px;
-    font-size: 30px;
+    font-size: 2rem;
     color: white;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
+/* Modal Content Styling */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Styling */
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-close {
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+/* Form Element Spacing */
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #cropsSection {
+        width: 100%;
+        left: 0;
+        padding: 15px;
+    }
+
+    #cropTable th,
+    #cropTable td {
+        font-size: 0.85rem;
+    }
+
+    #popupImage {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    #imagePopup .close {
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+    }
+}

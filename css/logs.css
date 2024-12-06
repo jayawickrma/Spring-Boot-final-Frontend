@@ -1,29 +1,75 @@
+/* Logs Section Styling */
 #logsSection {
-    width: 70%;
+    width: 80%;
     height: 100%;
-    align-content: center;
-    top: -15%;
-    right: 0%;
-    left: 20%;
-    bottom: 0;
     position: absolute;
+    top: 0;
+    left: 18%;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for readability */
+    border-radius: 10px; /* Rounded corners for modern aesthetics */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    overflow-y: auto; /* Enable scrolling for overflow content */
+}
 
-    .content-section {
-        padding: 20px;
+/* General Section Padding */
+.content-section {
+    padding: 20px;
+}
+
+/* Table Styling */
+.table-bordered {
+    border: 1px solid #ddd; /* Standard border */
+    border-radius: 5px; /* Rounded corners for table */
+    margin-top: 15px; /* Space above the table */
+    overflow: hidden; /* Ensure content fits within the container */
+}
+
+.table-success {
+    background-color: #d4edda; /* Light green header */
+    font-weight: bold; /* Emphasize header text */
+    text-transform: uppercase; /* Capitalize header text for emphasis */
+}
+
+.table th,
+.table td {
+    text-align: center; /* Center text alignment */
+    vertical-align: middle; /* Vertical alignment for better visuals */
+    padding: 10px; /* Add padding for spacing */
+}
+
+/* Alternate Row Colors for Readability */
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+}
+
+/* Responsive Table Adjustments */
+@media (max-width: 768px) {
+    #logsSection {
+        width: 100%;
+        left: 0;
+        padding: 15px;
     }
 
-    .table-bordered {
-        border: 1px solid #ddd;
-        border-radius: 5px;
+    .table th, .table td {
+        font-size: 14px; /* Smaller font size for compact screens */
     }
+}
 
-    .table-success {
-        background-color: #d4edda;
-    }
+/* Scrollbar Styling for Logs Section */
+#logsSection::-webkit-scrollbar {
+    width: 10px;
+}
 
-    .table th,
-    .table td {
-        text-align: center;
-        vertical-align: middle;
-    }
+#logsSection::-webkit-scrollbar-thumb {
+    background: #007bff; /* Blue scrollbar */
+    border-radius: 5px;
+}
+
+#logsSection::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Darker blue on hover */
 }
