@@ -160,35 +160,35 @@
 
 #navDashboard{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navLogOut{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navCrops{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navFields{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navEquipment{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navLogs{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navStaff{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #navVehicles{
     margin-top: 5px;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 2px 2px 2px;
 }
 #piechart{
     width: 300px;
@@ -204,6 +204,6 @@
     position: absolute;
     right: 0%;
     top: 0%;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 10px 10px 10px 10px;
     border-radius: 30px;
 }
