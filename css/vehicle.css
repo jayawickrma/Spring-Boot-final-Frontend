@@ -1,10 +1,10 @@
 /* Vehicles Section Styling */
 #vehiclesSection {
-    width: 80%;
+    width: 84%;
     height: 100%;
     position: absolute;
     top: 0;
-    left: 18%;
+    left: 16%;
     padding: 20px;
     background-color: #f9f9f9; /* Light background for readability */
     border-radius: 10px; /* Rounded corners for a modern look */

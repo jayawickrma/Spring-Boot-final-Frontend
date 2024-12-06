@@ -1,57 +1,97 @@
-body {
-    background-color: #f9f9f9;
-}
+    /* General Body Styling */
+    body {
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif; /* Improved font for better readability */
+    }
 
-.card {
-    border: 1px solid #e3f9e5;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Sidebar Styling */
+    #sidebar {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px; /* Set a width for sidebar */
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        background-color: #ffffff; /* Sidebar background color */
+        padding-top: 20px; /* Space for content at the top */
+    }
 
-.card-title {
-    font-size: 1.2rem;
-}
+    /* Section Padding */
+    .section {
+        padding: 20px;
+    }
 
-.btn-success {
-    font-weight: bold;
-}
+    /* Home Section Visibility */
+    #homeSection {
+        display: block; /* Home section visible by default */
+    }
 
-#liveUserCount,
-#memberCount {
-    font-size: 2.5rem;
-    color: #1e7c4e;
-}
-body {
-    margin: 0;
-    padding: 0;
-}
+    /* Card Styling */
+    .card {
+        border: 1px solid #e3f9e5;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for card */
+        background-color: #ffffff; /* Card background color */
+        border-radius: 8px; /* Slightly rounded corners */
+        margin-bottom: 20px; /* Space between cards */
+    }
 
-#sidebar {
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow-y: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    /* Card Title Styling */
+    .card-title {
+        font-size: 1.2rem;
+        color: #333; /* Dark text color for better readability */
+        font-weight: 600; /* Slightly bolder text */
+        margin-bottom: 15px; /* Space below the title */
+    }
 
-.section {
-    padding: 20px;
-}
+    /* Button Success Styling */
+    .btn-success {
+        font-weight: bold;
+        background-color: #28a745; /* Green background */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-#homeSection {
-    display: block; /* Home is visible by default */
-}
+    .btn-success:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
 
-.card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Live User and Member Count Styling */
+    #liveUserCount,
+    #memberCount {
+        font-size: 2.5rem;
+        color: #1e7c4e; /* Green color */
+        font-weight: 600; /* Bold text for emphasis */
+    }
 
-.card-title {
-    font-size: 1.2rem;
-}
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        #sidebar {
+            width: 100%; /* Full width on smaller screens */
+            height: auto; /* Adjust height */
+            position: relative; /* Make sidebar part of flow */
+        }
 
-#liveUserCount,
-#memberCount {
-    font-size: 2.5rem;
-    color: #1e7c4e;
-}
+        .section {
+            padding: 15px; /* Reduced padding for smaller screens */
+        }
+
+        #homeSection {
+            padding-top: 20px; /* Add some padding on mobile */
+        }
+
+        .card-title {
+            font-size: 1rem; /* Smaller font for mobile view */
+        }
+
+        #liveUserCount,
+        #memberCount {
+            font-size: 2rem; /* Slightly smaller on mobile */
+        }
+    }

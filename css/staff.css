@@ -1,11 +1,11 @@
 /* Sidebar dashboard section styling */
 #staffSection {
-    width: 80%;
+    width: 84%;
     height: 100%;
     position: absolute;
     top: 0;
     right: 0;
-    left: 18%;
+    left: 16%;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
