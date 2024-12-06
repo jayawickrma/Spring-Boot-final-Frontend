@@ -76,6 +76,7 @@
 
 /* Logout Button Styling */
 #navLogOut {
+    width:50%;
     background-color: #e74c3c; /* Vibrant red */
     color: white;
     font-weight: bold;
