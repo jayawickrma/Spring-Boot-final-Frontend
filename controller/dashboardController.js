@@ -158,7 +158,8 @@ function updateTimeAndDate() {
     });
 
     // Display the day name and date
-    dateElement.textContent = `${dayName}, ${date}`;
+    dateElement.textContent=`${date}`;
+    dateElement.textContent = `${dayName}`;
     timeElement.textContent = time;
 }
 
