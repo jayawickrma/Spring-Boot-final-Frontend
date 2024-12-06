@@ -34,29 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     };
 
-    // Function to initialize the bar chart
-    function initializeChart() {
-        const ctx = document.getElementById('cropChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: cropData,
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-
-    // Initialize the stats and chart when the page loads
-    window.onload = function() {
-        updateStats(); // Update live user count and member count
-        initializeChart(); // Initialize the bar chart
-    };
-
     // Event listener for navigation clicks
     links.forEach(link => {
         link.addEventListener("click", function (e) {

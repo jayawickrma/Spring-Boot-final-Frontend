@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    let editMemberCode=null
+    let editMemberCode = null;
+
     // Fetch and populate staff table
     function getAllStaff() {
         $.ajax({
@@ -52,6 +53,7 @@ $(document).ready(function () {
 
     // Add or update staff
     $('#staffForm').on('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
 
         const staffData = {
             firstName: $('#firstName').val(),
@@ -72,7 +74,7 @@ $(document).ready(function () {
             fieldList: [$('#field').val()],
             logList: [$('#log').val()],
         };
-        console.log(staffData)
+
         const method = editMemberCode ? 'PUT' : 'POST';
         const url = editMemberCode
             ? `http://localhost:8080/springFinal/api/v1/staff/${editMemberCode}`
@@ -80,7 +82,7 @@ $(document).ready(function () {
 
         $.ajax({
             url: url,
-            method: 'POST',
+            method: method,
             contentType: 'application/json',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -116,30 +118,30 @@ $(document).ready(function () {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             },
             success: function (response) {
-                response.forEach((staff) => {
-                    if (staff.memberCode === memberCode) {
-                        $('#firstName').val(staff.firstName);
-                        $('#lastName').val(staff.lastName);
-                        $('#joinedDate').val(staff.joinedDate);
-                        $('#dateOfBirth').val(staff.dateOfBirth);
-                        $('#gender').val(staff.gender);
-                        $('#designation').val(staff.designation);
-                        $('#address').val(staff.addressLine1);
-                        $('#address2').val(staff.addressLine2);
-                        $('#address3').val(staff.addressLine3);
-                        $('#address4').val(staff.addressLine4);
-                        $('#address5').val(staff.addressLine5);
-                        $('#contactNo').val(staff.contactNo);
-                        $('#email').val(staff.email);
-                        $('#role').val(staff.role);
-                        $('#vehicle').val(staff.vehicleList.join(", "));
-                        $('#field').val(staff.fieldList.join(", "));
-                        $('#log').val(staff.logList.join(", "));
+                response.forEach((staff)=> {
+                    if (staff.memberCode===memberCode){
+                    $('#firstName').val(staff.firstName);
+                    $('#lastName').val(staff.lastName);
+                    $('#joinedDate').val(staff.joinedDate);
+                    $('#dateOfBirth').val(staff.dateOfBirth);
+                    $('#gender').val(staff.gender);
+                    $('#designation').val(staff.designation);
+                    $('#address').val(staff.addressLine1);
+                    $('#address2').val(staff.addressLine2);
+                    $('#address3').val(staff.addressLine3);
+                    $('#address4').val(staff.addressLine4);
+                    $('#address5').val(staff.addressLine5);
+                    $('#contactNo').val(staff.contactNo);
+                    $('#email').val(staff.email);
+                    $('#role').val(staff.role);
+                    $('#vehicle').val(staff.vehicleList.join(", "));
+                    $('#field').val(staff.fieldList.join(", "));
+                    $('#log').val(staff.logList.join(", "));
 
-
-                        $('#staffModalLabel').text('Edit Staff');
-                        $('#staffModal').modal('show');
-                    }
+                    $('#staffModalLabel').text('Edit Staff');
+                    $('#staffModal').modal('show');
+                    editMemberCode = staff.memberCode; // Set the memberCode for update
+                }
                 });
             },
             error: function () {
@@ -155,7 +157,6 @@ $(document).ready(function () {
     // Delete staff
     $(document).on('click', '.deleteBtn', function () {
         const staffCode = $(this).data('id');
-        console.log(staffCode)
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
