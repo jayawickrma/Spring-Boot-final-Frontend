@@ -40,6 +40,7 @@
 .sidebar-heading {
     background-color: lightgreen; /* Soft blue */
     color: white;
+    border-radius: 10px;
     font-weight: bold;
     text-align: center;
     padding: 15px;
@@ -63,17 +64,21 @@
 
 /* List Group Items */
 .list-group-item {
+    border-radius: 10px;
+    width: 190px;
+    height: 70px;
     display: flex;
+    left: 24px;
     align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
+    background-color: white;
     color: #333;
     transition: all 0.3s ease;
     padding: 10px 20px;
     border: #6c757d;
     font-size: 1.2rem;
-    font-weight: 500;
-    text-decoration: none;
+    font-weight: 600;
+    text-decoration: #6c757d;
 }
 
 .list-group-item:hover {
@@ -102,11 +107,14 @@
 
 /* Logout Button Styling */
 #navLogOut {
+
     width:50%;
+    height: 60px;
     background-color: #e74c3c; /* Vibrant red */
     color: white;
+    left: 0px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 12px 20px;
     text-align: center;
     margin: 15px auto; /* Centered with margin */
@@ -147,4 +155,37 @@
         font-size: 0.9rem; /* Smaller font for compact view */
         padding: 10px 15px;
     }
+}
+
+#navDashboard{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navLogOut{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navCrops{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navFields{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navEquipment{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navLogs{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navStaff{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
+}
+#navVehicles{
+    margin-top: 5px;
+    box-shadow: 10px 10px 10px;
 }
